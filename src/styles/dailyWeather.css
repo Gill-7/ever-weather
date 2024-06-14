@@ -1,0 +1,115 @@
+.forecast-daily-container {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1rem;
+  margin-top: 1.2rem;
+}
+
+.forecast-daily-day {
+  font-size: 1.05rem;
+  letter-spacing: 0.2px;
+  font-weight: 400;
+  margin-top: 0;
+}
+
+.forecast-daily-temp-max {
+  font-size: 1.5rem;
+  margin: 0.6rem 0 0 0;
+  font-weight: 500;
+}
+
+.forecast-daily-temp-min {
+  font-size: 1rem;
+  margin-top: 0.1rem;
+  margin-left: 2px;
+  margin-bottom: 0.6rem;
+}
+
+.weather-daily-icon {
+  width: 42px;
+}
+
+@media only screen and (max-width: 670px) {
+  .forecast-daily-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+    margin-top: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+  .forecast-daily {
+    max-width: 450px;
+    display: grid;
+    grid-template-columns:
+      1fr minmax(100px, 1fr) 1fr minmax(100px, 1fr)
+      1fr 1fr;
+    align-items: center;
+    justify-self: center;
+    grid-template-areas: ". left . center right .";
+  }
+
+  .forecast-daily-day {
+    font-size: 0.95rem;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+    justify-items: left;
+    grid-area: left;
+  }
+
+  .forecast-daily-temp {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    grid-area: center;
+  }
+  .forecast-daily-temp-max {
+    font-size: 1.1rem;
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .forecast-daily-temp-min {
+    font-size: 0.8rem;
+    margin-left: 10px;
+    font-weight: 400;
+    margin-top: 11px;
+  }
+
+  .weather-daily-icon {
+    width: 34px;
+    grid-area: right;
+    margin-left: 1rem;
+  }
+}
+
+@media only screen and (max-width: 460px) {
+  .forecast-daily-container {
+    gap: 0.4rem;
+  }
+
+  .forecast-daily-day {
+    font-size: 0.95rem;
+    letter-spacing: 0.1px;
+  }
+
+  .forecast-daily-temp {
+    font-weight: 500;
+  }
+
+  .forecast-daily-temp-max {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .forecast-daily-temp-min {
+    font-size: 0.8rem;
+    margin-left: 7px;
+    margin-top: 11px;
+  }
+
+  .weather-daily-icon {
+    width: 35px;
+    margin-left: 0.2rem;
+  }
+}

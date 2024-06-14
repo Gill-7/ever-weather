@@ -1,0 +1,95 @@
+.forecast-hourly-main-container {
+  display: none;
+  margin-top: 1.2rem;
+}
+
+.forecast-hourly-container {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 1rem;
+  margin-top: 1.2rem;
+}
+
+.forecast-hourly {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.forecast-hourly-time {
+  font-size: 1.05rem;
+  font-weight: 400;
+}
+
+.forecast-hourly-temp {
+  font-size: 1.5rem;
+  margin-top: 0.7rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.forecast-hourly-icon {
+  width: 40px;
+}
+
+@media only screen and (max-width: 670px) {
+  .forecast-hourly-main-container {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .forecast-hourly-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .forecast-hourly {
+    display: grid;
+    max-width: 450px;
+    grid-template-columns:
+      1fr minmax(100px, 1fr) 1fr minmax(100px, 1fr)
+      1fr 1fr;
+    align-items: center;
+    justify-self: center;
+    grid-template-areas: ". left . center right .";
+  }
+
+  .forecast-hourly-time {
+    font-size: 0.9rem;
+    font-weight: 400;
+    grid-area: left;
+  }
+
+  .forecast-hourly-temp {
+    font-size: 1.1rem;
+    margin: 0;
+    font-weight: 600;
+    grid-area: center;
+  }
+
+  .forecast-hourly-icon {
+    width: 35px;
+    grid-area: right;
+    margin-left: 1rem;
+  }
+}
+
+@media only screen and (max-width: 460px) {
+  .forecast-hourly-container {
+    gap: 0.65rem;
+  }
+
+  .forecast-hourly-time {
+    font-size: 0.95rem;
+  }
+
+  .forecast-hourly-temp {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .forecast-hourly-icon {
+    width: 35px;
+    margin-left: 0;
+  }
+}

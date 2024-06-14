@@ -17,7 +17,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: "EverWeather",
       template: path.resolve(__dirname, "./src/template.html"),
-      // template: "./src/template.html",
     }),
     new HtmlWebpackInlineSVGPlugin({
       runPreEmit: true,
