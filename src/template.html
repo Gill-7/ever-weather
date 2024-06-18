@@ -18,7 +18,7 @@
             placeholder="Search Location..."
             required
           />
-          <!-- <button class="search-btn" type="submit">
+          <button class="search-btn" type="submit">
             <img
               inline
               src="src/svg/search.svg"
@@ -26,23 +26,378 @@
               id="searchSvg"
               alt="search"
             />
-          </button> -->
+          </button>
         </form>
         <div style="display: none" class="error-msg">
           Location not found <br />Please type again.
         </div>
       </div>
       <div class="theme">Theme</div>
-      <div class="details">Details</div>
-      <div class="hourly">Hourly</div>
-      <div class="sun-set-timing">Sunset Sunrise</div>
-      <div class="daily">Daily</div>
-      <div class="feels-like">Feels Like</div>
-      <div class="humidity">Humidity</div>
-      <div class="wind-speed">Wind Speed</div>
-      <div class="precip">Precipitation</div>
-      <div class="chart">Chart</div>
 
+      <div class="current">
+        <div class="left-container">
+          <div class="date-time">
+            <div class="date"></div>
+            <div class="time"></div>
+          </div>
+          <div class="city"></div>
+        </div>
+        <div class="right-container">
+          <div class="temperature-container">
+            <div class="temperature"></div>
+            <!-- <span style="display: none" class="degree">°</span>
+          <span style="display: none" class="celcius">c</span> -->
+            <span class="degree">°</span>
+          </div>
+          <div class="icon-desc-container">
+            <img inline class="icon" />
+            <div class="description"></div>
+          </div>
+        </div>
+      </div>
+      <!--############################################# -->
+      <div class="hourly">
+        <h3>Hourly</h3>
+        <div class="hourly-container">
+          <div class="forecast-hourly" id="hourly-time-1">
+            <div class="forecast-hourly-time"></div>
+            <img class="forecast-hourly-icon" />
+            <div class="forecast-hourly-temp"></div>
+            <div class="forecast-hourly-desc"></div>
+          </div>
+
+          <div class="forecast-hourly" id="hourly-time-2">
+            <div class="forecast-hourly-time"></div>
+            <img class="forecast-hourly-icon" />
+            <div class="forecast-hourly-temp"></div>
+            <div class="forecast-hourly-desc"></div>
+          </div>
+
+          <div class="forecast-hourly" id="hourly-time-3">
+            <div class="forecast-hourly-time"></div>
+            <img class="forecast-hourly-icon" />
+            <div class="forecast-hourly-temp"></div>
+            <div class="forecast-hourly-desc"></div>
+          </div>
+
+          <div class="forecast-hourly" id="hourly-time-4">
+            <div class="forecast-hourly-time"></div>
+            <img class="forecast-hourly-icon" />
+            <div class="forecast-hourly-temp"></div>
+            <div class="forecast-hourly-desc"></div>
+          </div>
+
+          <div class="forecast-hourly" id="hourly-time-5">
+            <div class="forecast-hourly-time"></div>
+            <img class="forecast-hourly-icon" />
+            <div class="forecast-hourly-temp"></div>
+            <div class="forecast-hourly-desc"></div>
+          </div>
+
+          <div class="forecast-hourly" id="hourly-time-6">
+            <div class="forecast-hourly-time"></div>
+            <img class="forecast-hourly-icon" />
+            <div class="forecast-hourly-temp"></div>
+            <div class="forecast-hourly-desc"></div>
+          </div>
+
+          <div class="forecast-hourly" id="hourly-time-7">
+            <div class="forecast-hourly-time"></div>
+            <img class="forecast-hourly-icon" />
+            <div class="forecast-hourly-temp"></div>
+            <div class="forecast-hourly-desc"></div>
+          </div>
+
+          <div class="forecast-hourly" id="hourly-time-8">
+            <div class="forecast-hourly-time"></div>
+            <img class="forecast-hourly-icon" />
+            <div class="forecast-hourly-temp"></div>
+            <div class="forecast-hourly-desc"></div>
+          </div>
+
+          <div class="forecast-hourly" id="hourly-time-9">
+            <div class="forecast-hourly-time"></div>
+            <img class="forecast-hourly-icon" />
+            <div class="forecast-hourly-temp"></div>
+            <div class="forecast-hourly-desc"></div>
+          </div>
+
+          <div class="forecast-hourly" id="hourly-time-10">
+            <div class="forecast-hourly-time"></div>
+            <img class="forecast-hourly-icon" />
+            <div class="forecast-hourly-temp"></div>
+            <div class="forecast-hourly-desc"></div>
+          </div>
+
+          <div class="forecast-hourly" id="hourly-time-11">
+            <div class="forecast-hourly-time"></div>
+            <img class="forecast-hourly-icon" />
+            <div class="forecast-hourly-temp"></div>
+            <div class="forecast-hourly-desc"></div>
+          </div>
+
+          <div class="forecast-hourly" id="hourly-time-12">
+            <div class="forecast-hourly-time"></div>
+            <img class="forecast-hourly-icon" />
+            <div class="forecast-hourly-temp"></div>
+            <div class="forecast-hourly-desc"></div>
+          </div>
+
+          <div class="forecast-hourly" id="hourly-time-13">
+            <div class="forecast-hourly-time"></div>
+            <img class="forecast-hourly-icon" />
+            <div class="forecast-hourly-temp"></div>
+            <div class="forecast-hourly-desc"></div>
+          </div>
+
+          <div class="forecast-hourly" id="hourly-time-14">
+            <div class="forecast-hourly-time"></div>
+            <img class="forecast-hourly-icon" />
+            <div class="forecast-hourly-temp"></div>
+            <div class="forecast-hourly-desc"></div>
+          </div>
+
+          <div class="forecast-hourly" id="hourly-time-15">
+            <div class="forecast-hourly-time"></div>
+            <img class="forecast-hourly-icon" />
+            <div class="forecast-hourly-temp"></div>
+            <div class="forecast-hourly-desc"></div>
+          </div>
+
+          <div class="forecast-hourly" id="hourly-time-16">
+            <div class="forecast-hourly-time"></div>
+            <img class="forecast-hourly-icon" />
+            <div class="forecast-hourly-temp"></div>
+            <div class="forecast-hourly-desc"></div>
+          </div>
+
+          <div class="forecast-hourly" id="hourly-time-17">
+            <div class="forecast-hourly-time"></div>
+            <img class="forecast-hourly-icon" />
+            <div class="forecast-hourly-temp"></div>
+            <div class="forecast-hourly-desc"></div>
+          </div>
+
+          <div class="forecast-hourly" id="hourly-time-18">
+            <div class="forecast-hourly-time"></div>
+            <img class="forecast-hourly-icon" />
+            <div class="forecast-hourly-temp"></div>
+            <div class="forecast-hourly-desc"></div>
+          </div>
+
+          <div class="forecast-hourly" id="hourly-time-19">
+            <div class="forecast-hourly-time"></div>
+            <img class="forecast-hourly-icon" />
+            <div class="forecast-hourly-temp"></div>
+            <div class="forecast-hourly-desc"></div>
+          </div>
+
+          <div class="forecast-hourly" id="hourly-time-20">
+            <div class="forecast-hourly-time"></div>
+            <img class="forecast-hourly-icon" />
+            <div class="forecast-hourly-temp"></div>
+            <div class="forecast-hourly-desc"></div>
+          </div>
+
+          <div class="forecast-hourly" id="hourly-time-21">
+            <div class="forecast-hourly-time"></div>
+            <img class="forecast-hourly-icon" />
+            <div class="forecast-hourly-temp"></div>
+            <div class="forecast-hourly-desc"></div>
+          </div>
+
+          <div class="forecast-hourly" id="hourly-time-22">
+            <div class="forecast-hourly-time"></div>
+            <img class="forecast-hourly-icon" />
+            <div class="forecast-hourly-temp"></div>
+            <div class="forecast-hourly-desc"></div>
+          </div>
+
+          <div class="forecast-hourly" id="hourly-time-23">
+            <div class="forecast-hourly-time"></div>
+            <img class="forecast-hourly-icon" />
+            <div class="forecast-hourly-temp"></div>
+            <div class="forecast-hourly-desc"></div>
+          </div>
+
+          <div class="forecast-hourly" id="hourly-time-24">
+            <div class="forecast-hourly-time"></div>
+            <img class="forecast-hourly-icon" />
+            <div class="forecast-hourly-temp"></div>
+            <div class="forecast-hourly-desc"></div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="sun-set-timing">Sunset Sunrise</div> -->
+      <div class="daily">
+        <h3>This week</h3>
+        <div class="forecast-daily" id="first-container">
+          <div class="forecast-daily-day-container">
+            <div class="forecast-daily-day"></div>
+          </div>
+          <img class="weather-daily-icon" />
+          <div class="forecast-daily-temp">
+            <div class="temp-max-container">
+              <span>max</span>
+              <div class="forecast-daily-temp-max"></div>
+            </div>
+            <div class="temp-min-container">
+              <span>min</span>
+              <div class="forecast-daily-temp-min"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="forecast-daily" id="second-container">
+          <div class="forecast-daily-day-container">
+            <div class="forecast-daily-date"></div>
+            <div class="forecast-daily-day"></div>
+          </div>
+          <img class="weather-daily-icon" />
+          <div class="forecast-daily-temp">
+            <div class="temp-max-container">
+              <span>max</span>
+              <div class="forecast-daily-temp-max"></div>
+            </div>
+            <div class="temp-min-container">
+              <span>min</span>
+              <div class="forecast-daily-temp-min"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="forecast-daily" id="third-container">
+          <div class="forecast-daily-day-container">
+            <div class="forecast-daily-date"></div>
+            <div class="forecast-daily-day"></div>
+          </div>
+          <img class="weather-daily-icon" />
+          <div class="forecast-daily-temp">
+            <div class="temp-max-container">
+              <span>max</span>
+              <div class="forecast-daily-temp-max"></div>
+            </div>
+            <div class="temp-min-container">
+              <span>min</span>
+              <div class="forecast-daily-temp-min"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="forecast-daily" id="fourth-container">
+          <div class="forecast-daily-day-container">
+            <div class="forecast-daily-date"></div>
+            <div class="forecast-daily-day"></div>
+          </div>
+          <img class="weather-daily-icon" />
+          <div class="forecast-daily-temp">
+            <div class="temp-max-container">
+              <span>max</span>
+              <div class="forecast-daily-temp-max"></div>
+            </div>
+            <div class="temp-min-container">
+              <span>min</span>
+              <div class="forecast-daily-temp-min"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="forecast-daily" id="fifth-container">
+          <div class="forecast-daily-day-container">
+            <div class="forecast-daily-date"></div>
+            <div class="forecast-daily-day"></div>
+          </div>
+          <img class="weather-daily-icon" />
+          <div class="forecast-daily-temp">
+            <div class="temp-max-container">
+              <span>max</span>
+              <div class="forecast-daily-temp-max"></div>
+            </div>
+            <div class="temp-min-container">
+              <span>min</span>
+              <div class="forecast-daily-temp-min"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="forecast-daily" id="sixth-container">
+          <div class="forecast-daily-day-container">
+            <div class="forecast-daily-date"></div>
+            <div class="forecast-daily-day"></div>
+          </div>
+          <img class="weather-daily-icon" />
+          <div class="forecast-daily-temp">
+            <div class="temp-max-container">
+              <span>max</span>
+              <div class="forecast-daily-temp-max"></div>
+            </div>
+            <div class="temp-min-container">
+              <span>min</span>
+              <div class="forecast-daily-temp-min"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="forecast-daily" id="seventh-container">
+          <div class="forecast-daily-day-container">
+            <div class="forecast-daily-date"></div>
+            <div class="forecast-daily-day"></div>
+          </div>
+          <img class="weather-daily-icon" />
+          <div class="forecast-daily-temp">
+            <div class="temp-max-container">
+              <span>max</span>
+              <div class="forecast-daily-temp-max"></div>
+            </div>
+            <div class="temp-min-container">
+              <span>min</span>
+              <div class="forecast-daily-temp-min"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="weather-details weather-details-temp" style="display: none"></div> -->
+      <div class="feels-like weather-detail">
+        <h3>Feels Like</h3>
+        <img
+          src="src/svg/currentIcon/temperature.svg"
+          alt="feels like temperature"
+          class="img2Svg"
+          id="tempSvg"
+        />
+        <h4 class="feels-like-data"></h4>
+      </div>
+      <div class="humidity weather-detail">
+        <h3>Humidity</h3>
+        <img
+          src="src/svg/currentIcon/humidity.svg"
+          class="img2Svg"
+          id="humiSvg"
+          alt="humidity"
+        />
+        <h4 class="humidity-data"></h4>
+      </div>
+      <div class="wind-speed weather-detail">
+        <h3>Wind Speed</h3>
+        <img
+          src="src/svg/currentIcon/wind.svg"
+          alt="wind speed"
+          id="windSvg"
+          class="img2Svg"
+        />
+        <h4 class="wind-speed-data"></h4>
+      </div>
+      <div class="precipitation weather-detail">
+        <h3>Chance of Rain</h3>
+        <img
+          src="src/svg/currentIcon/rainChance.svg"
+          alt="chance of rain"
+          class="img2Svg"
+          id="rainSvg"
+        />
+        <h4 class="precipitation-data"></h4>
+      </div>
+      <div class="chart">Chart</div>
       <!-- <main>
         <div class="weather-info">
           <div class="weather-info-left">
@@ -86,7 +441,6 @@
           </div>
         </div>
       </main> -->
-
       <!-- <section>
         <div class="weather-details weather-details-temp" style="display: none">
           <img
@@ -150,6 +504,7 @@
           </div>
         </div>
       </section> -->
+
       <!-- <div class="forecast">
         <div class="change-forecast" style="display: none">
           <p class="daily-btn forecast-selected">Daily</p>

@@ -13,25 +13,25 @@ function weekDay(str) {
   let day;
   switch (str) {
     case "Sun":
-      day = "Sunday";
+      day = "Sun";
       break;
     case "Mon":
-      day = "Monday";
+      day = "Mon";
       break;
     case "Tue":
-      day = "Tuesday";
+      day = "Tue";
       break;
     case "Wed":
-      day = "Wednesday";
+      day = "Wed";
       break;
     case "Thu":
-      day = "Thrusday";
+      day = "Thu";
       break;
     case "Fri":
-      day = "Friday";
+      day = "Fri";
       break;
     case "Sat":
-      day = "Saturday";
+      day = "Sat";
       break;
     default:
       day = "This is not a week day";
@@ -116,7 +116,7 @@ function formatTime(unix, offset, timeFormat = "full") {
   return `${hour}:${minute}${time}`;
 }
 
-function formatDate(unix, offset, dateFormat = "full") {
+function formatDate(unix, offset, dateFormat = "weekDay") {
   const date = fromUnixTime(unix + offset).toUTCString();
 
   let dayOfWeek = date.slice(0, 3);
@@ -142,9 +142,13 @@ function formatDate(unix, offset, dateFormat = "full") {
     suffix = "th";
   }
 
-  if (dateFormat === "full") {
+  if (dateFormat === "weekDay") {
     dayOfWeek = weekDay(dayOfWeek);
     return dayOfWeek;
+  }
+
+  if (dateFormat === "date") {
+    return `${dayOfMonth} ${month}`;
   }
 
   const formatDate = `${dayOfWeek}, ${dayOfMonth}${suffix} ${month},`;
@@ -181,4 +185,4 @@ function renderWeatherIcon(code) {
   }
 }
 
-export { capitalize, formatDate, formatTime, renderWeatherIcon };
+export { capitalize, formatDate, formatTime, renderWeatherIcon, getMonth };

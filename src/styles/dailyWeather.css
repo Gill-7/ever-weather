@@ -1,42 +1,75 @@
-.forecast-daily-container {
+.daily {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 1rem;
-  margin-top: 1.2rem;
+  grid-template-columns: 1fr;
+  gap: 0.6rem;
+  justify-content: center;
 }
+
+.daily h3 {
+  font-weight: 300;
+  color: var(--daily-secondary-color);
+}
+
+.forecast-daily {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--background-container);
+  /* border: 1px solid var(--daily-secondary-color); */
+  border-radius: 4px;
+  height: 72px;
+  padding: 0 0.7rem;
+}
+/* .forecast-daily-day-container {
+  text-transform: uppercase;
+} */
 
 .forecast-daily-day {
-  font-size: 1.05rem;
-  letter-spacing: 0.2px;
   font-weight: 400;
-  margin-top: 0;
+  font-size: 0.95rem;
+  text-transform: uppercase;
 }
-
-.forecast-daily-temp-max {
-  font-size: 1.5rem;
-  margin: 0.6rem 0 0 0;
-  font-weight: 500;
-}
-
-.forecast-daily-temp-min {
-  font-size: 1rem;
-  margin-top: 0.1rem;
-  margin-left: 2px;
-  margin-bottom: 0.6rem;
+.forecast-daily-date {
+  font-weight: 300;
+  font-size: 0.8rem;
+  letter-spacing: 0.3px;
+  color: var(--text-light-color);
 }
 
 .weather-daily-icon {
-  width: 42px;
+  width: 62px;
+  position: relative;
+}
+
+.forecast-daily-temp {
+  display: flex;
+  flex-direction: row;
+  column-gap: 0.5rem;
+}
+.temp-max-container,
+.temp-min-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.temp-max-container span,
+.temp-min-container span {
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: var(--text-light-color);
+}
+
+.forecast-daily-temp-max,
+.forecast-daily-temp-min {
+  font-size: 1.1rem;
 }
 
 @media only screen and (max-width: 670px) {
-  .forecast-daily-container {
+  .daily {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.8rem;
-    margin-top: 1rem;
-    justify-content: center;
-    margin-bottom: 2rem;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1rem;
+    margin-top: 1.2rem;
   }
   .forecast-daily {
     max-width: 450px;
@@ -84,7 +117,7 @@
 }
 
 @media only screen and (max-width: 460px) {
-  .forecast-daily-container {
+  .daily {
     gap: 0.4rem;
   }
 
