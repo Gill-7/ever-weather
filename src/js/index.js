@@ -11,7 +11,6 @@ import {
   renderWeatherInfo,
   displayDailyForecast,
   displayHourlyForecast,
-  // changeHoursPage,
 } from "./apiDOM.js";
 
 //   // var image = document.images[0];
@@ -22,22 +21,9 @@ import {
 
 //   // downImg.src = "../svg/weather.jpg";
 
-const searchBtn = document.querySelector(".search-btn");
+//const searchBtn = document.querySelector(".search-btn");
+const form = document.querySelector(".form");
 const input = document.querySelector(".search-input");
-
-//   const dailyBtn = document.querySelector(".daily-btn");
-//   const hourlyBtn = document.querySelector(".hourly-btn");
-
-//   const changeHoursLeft = document.querySelector(".change-hours__left");
-//   const changeHoursRight = document.querySelector(".change-hours__right");
-
-//   const dots = document.querySelectorAll(".dot");
-
-//   let hoursPage = 1;
-
-//   document.querySelector("body").style.visibility = "hidden";
-
-//   document.querySelector("#loader").style.visibility = "visible";
 
 function getPosition() {
   return new Promise((resolve) => {
@@ -80,19 +66,10 @@ const getWeatherData = async (initialLoad = false) => {
     const data = await weatherData.json();
     document.querySelector(".error-msg").style.visibility = "hidden";
     renderWeatherInfo(data, cityName);
-
     //       document.querySelector("body").style.visibility = "visible";
 
     //       document.querySelector("#loader").style.visibility = "hidden";
-
-    // document.querySelector(".degree").style.display = "show";
-    // document.querySelector(".celcius").style.display = "block";
-    document.querySelector(".form").style.display = "block";
-    //       document.querySelector(".weather-details-temp").style.display = "flex";
-    //       document.querySelector(".weather-details-humidity").style.display = "flex";
-    //       document.querySelector(".weather-details-speed").style.display = "flex";
-    //       document.querySelector(".weather-details-chance").style.display = "flex";
-    //       document.querySelector(".change-forecast").style.display = "flex";
+    // document.querySelector(".form").style.display = "block";
   } catch (err) {
     document.querySelector(".error-msg").style.visibility = "visible";
   }
@@ -101,32 +78,12 @@ const getWeatherData = async (initialLoad = false) => {
 
 getWeatherData(true);
 
-searchBtn.addEventListener("click", (e) => {
+// searchBtn.addEventListener("click", (e) => {
+//   e.preventDefault();
+//   getWeatherData();
+// });
+
+form.addEventListener("submit", (e) => {
   e.preventDefault();
   getWeatherData();
 });
-
-//   dailyBtn.addEventListener("click", displayDailyForecast);
-//   hourlyBtn.addEventListener("click", displayHourlyForecast);
-
-//   changeHoursLeft.addEventListener("click", () => {
-//     if (hoursPage > 1) {
-//       hoursPage--;
-//       changeHoursPage(hoursPage);
-//     }
-//   });
-
-//   changeHoursRight.addEventListener("click", () => {
-//     if (hoursPage < 3) {
-//       hoursPage++;
-//       changeHoursPage(hoursPage);
-//     }
-//   });
-
-//   dots.forEach((dot) => {
-//     dot.addEventListener("click", (e) => {
-//       // hoursPage =
-//       hoursPage = parseInt(e.target.dataset.dot, 10);
-//       changeHoursPage(hoursPage);
-//     });
-//   });

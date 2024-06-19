@@ -10,11 +10,11 @@
     <!-- <div id="loader" class="center"></div> -->
     <div class="container">
       <div class="search">
-        <!-- <form class="form" style="display: none"> -->
         <form class="form">
           <input
             class="search-input"
-            type="text"
+            type="search"
+            autocomplete="address-level2"
             placeholder="Search Location..."
             required
           />
@@ -28,8 +28,8 @@
             />
           </button>
         </form>
-        <div style="display: none" class="error-msg">
-          Location not found <br />Please type again.
+        <div class="error-msg">
+          <p>Location not found.<br />Please try again.</p>
         </div>
       </div>
       <div class="theme">Theme</div>
@@ -55,7 +55,6 @@
           </div>
         </div>
       </div>
-      <!--############################################# -->
       <div class="hourly">
         <h3>Hourly</h3>
         <div class="hourly-container">
@@ -360,27 +359,28 @@
       <div class="feels-like weather-detail">
         <h3>Feels Like</h3>
         <img
-          src="src/svg/currentIcon/temperature.svg"
-          alt="feels like temperature"
+          src="assets/temperature.svg"
+          alt="feels like"
           class="img2Svg"
           id="tempSvg"
         />
+
         <h4 class="feels-like-data"></h4>
       </div>
       <div class="humidity weather-detail">
         <h3>Humidity</h3>
         <img
-          src="src/svg/currentIcon/humidity.svg"
-          class="img2Svg"
+          src="assets/humidity.svg"
           id="humiSvg"
           alt="humidity"
+          class="img2Svg"
         />
         <h4 class="humidity-data"></h4>
       </div>
       <div class="wind-speed weather-detail">
         <h3>Wind Speed</h3>
         <img
-          src="src/svg/currentIcon/wind.svg"
+          src="assets/wind.svg"
           alt="wind speed"
           id="windSvg"
           class="img2Svg"
@@ -390,12 +390,17 @@
       <div class="precipitation weather-detail">
         <h3>Chance of Rain</h3>
         <img
-          src="src/svg/currentIcon/rainChance.svg"
-          alt="chance of rain"
-          class="img2Svg"
+          src="assets/rainChance.svg"
+          alt="rain chance"
           id="rainSvg"
+          class="img2Svg"
         />
         <h4 class="precipitation-data"></h4>
+      </div>
+      <div class="uv weather-detail">
+        <h3>UV Index</h3>
+        <img src="assets/uv.svg" alt="uv index" id="uvSvg" class="img2Svg" />
+        <h4 class="uv-data"></h4>
       </div>
       <div class="chart">Chart</div>
       <!-- <main>

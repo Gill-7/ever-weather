@@ -36,9 +36,9 @@ body {
   display: none;
 }
 
-img {
+/* img {
   width: 40px;
-}
+} */
 
 .container {
   max-width: 1190px;
@@ -51,12 +51,12 @@ img {
   grid-template-columns:
     minmax(150px, 170px) minmax(150px, 170px) minmax(150px, 170px)
     minmax(150px, 170px) minmax(150px, 170px) minmax(150px, 170px) minmax(150px, 170px);
-  grid-template-rows: 40px 210px 170px auto;
+  grid-template-rows: 50px 210px 170px auto;
   grid-gap: 14px 14px;
   grid-template-areas:
     ". . . sh sh sh te"
     "cu cu cu hy hy hy hy"
-    "dy dy fe hu wd pp ."
+    "dy dy fe hu wd pp uv"
     "dy dy ct ct ct ct ct";
 }
 
@@ -86,6 +86,7 @@ img {
 .humidity,
 .wind-speed,
 .precipitation,
+.uv,
 .chart {
   border: 1px solid var(--borders);
   border-radius: 7px;
@@ -121,6 +122,9 @@ img {
 .precipitation {
   grid-area: pp;
 }
+.uv {
+  grid-area: uv;
+}
 .chart {
   grid-area: ct;
 }
@@ -136,15 +140,15 @@ img {
   text-align: right;
 } */
 
-.none {
+/* .none {
   display: none;
-}
+} */
+
+@import url("./weatherDetails.css");
 
 @import url("./weatherCurrent.css");
 
 @import url("./searchLocation.css");
-
-@import url("./weatherDetails.css");
 
 @import url("./dailyWeather.css");
 

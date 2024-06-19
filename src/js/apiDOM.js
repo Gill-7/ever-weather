@@ -3,62 +3,7 @@ import {
   formatDate,
   formatTime,
   renderWeatherIcon,
-} from "./untils.js";
-
-// function changeHoursPage(hoursPage) {
-//   const hoursForecasts = document.querySelectorAll(".forecast-hourly");
-//   const dots = document.querySelectorAll(".dot");
-//   const dot1 = document.querySelector(".dot1");
-//   const dot2 = document.querySelector(".dot2");
-//   const dot3 = document.querySelector(".dot3");
-
-//   hoursForecasts.forEach((forecast) => {
-//     forecast.style.display = "none";
-//   });
-
-//   dots.forEach((dot) => {
-//     dot.classList.remove("dot-selected");
-//   });
-
-//   if (hoursPage === 1) {
-//     document.querySelector("#hourly-time-1").style.display = "grid";
-//     document.querySelector("#hourly-time-2").style.display = "grid";
-//     document.querySelector("#hourly-time-3").style.display = "grid";
-//     document.querySelector("#hourly-time-4").style.display = "grid";
-//     document.querySelector("#hourly-time-5").style.display = "grid";
-//     document.querySelector("#hourly-time-6").style.display = "grid";
-//     document.querySelector("#hourly-time-7").style.display = "grid";
-//     document.querySelector("#hourly-time-8").style.display = "grid";
-
-//     dot1.classList.add("dot-selected");
-//   }
-
-//   if (hoursPage === 2) {
-//     document.querySelector("#hourly-time-9").style.display = "grid";
-//     document.querySelector("#hourly-time-10").style.display = "grid";
-//     document.querySelector("#hourly-time-11").style.display = "grid";
-//     document.querySelector("#hourly-time-12").style.display = "grid";
-//     document.querySelector("#hourly-time-13").style.display = "grid";
-//     document.querySelector("#hourly-time-14").style.display = "grid";
-//     document.querySelector("#hourly-time-15").style.display = "grid";
-//     document.querySelector("#hourly-time-16").style.display = "grid";
-
-//     dot2.classList.add("dot-selected");
-//   }
-
-//   if (hoursPage === 3) {
-//     document.querySelector("#hourly-time-17").style.display = "grid";
-//     document.querySelector("#hourly-time-18").style.display = "grid";
-//     document.querySelector("#hourly-time-19").style.display = "grid";
-//     document.querySelector("#hourly-time-20").style.display = "grid";
-//     document.querySelector("#hourly-time-21").style.display = "grid";
-//     document.querySelector("#hourly-time-22").style.display = "grid";
-//     document.querySelector("#hourly-time-23").style.display = "grid";
-//     document.querySelector("#hourly-time-24").style.display = "grid";
-
-//     dot3.classList.add("dot-selected");
-//   }
-// }
+} from "./utils.js";
 
 function renderWeatherData(data, CityName) {
   // update the weather description
@@ -100,6 +45,9 @@ function renderWeatherData(data, CityName) {
 
   const precipitation = document.querySelector(".precipitation-data");
   precipitation.textContent = `${Math.round(data.daily[0].pop * 100)}%`;
+
+  const uv = document.querySelector(".uv-data");
+  uv.textContent = data.current.uvi;
 }
 
 function displayDailyForecast() {
@@ -783,122 +731,122 @@ function renderHourlyForecast(data) {
   const hourlyDesc1 = document.querySelector(
     "#hourly-time-1 .forecast-hourly-desc"
   );
-  hourlyDesc1.textContent = data.hourly[0].weather[0].description;
+  hourlyDesc1.textContent = data.hourly[0].weather[0].main;
 
   const hourlyDesc2 = document.querySelector(
     "#hourly-time-2 .forecast-hourly-desc"
   );
-  hourlyDesc2.textContent = data.hourly[1].weather[0].description;
+  hourlyDesc2.textContent = data.hourly[1].weather[0].main;
 
   const hourlyDesc3 = document.querySelector(
     "#hourly-time-3 .forecast-hourly-desc"
   );
-  hourlyDesc3.textContent = data.hourly[2].weather[0].description;
+  hourlyDesc3.textContent = data.hourly[2].weather[0].main;
 
   const hourlyDesc4 = document.querySelector(
     "#hourly-time-4 .forecast-hourly-desc"
   );
-  hourlyDesc4.textContent = data.hourly[3].weather[0].description;
+  hourlyDesc4.textContent = data.hourly[3].weather[0].main;
 
   const hourlyDesc5 = document.querySelector(
     "#hourly-time-5 .forecast-hourly-desc"
   );
-  hourlyDesc5.textContent = data.hourly[4].weather[0].description;
+  hourlyDesc5.textContent = data.hourly[4].weather[0].main;
 
   const hourlyDesc6 = document.querySelector(
     "#hourly-time-6 .forecast-hourly-desc"
   );
-  hourlyDesc6.textContent = data.hourly[5].weather[0].description;
+  hourlyDesc6.textContent = data.hourly[5].weather[0].main;
 
   const hourlyDesc7 = document.querySelector(
     "#hourly-time-7 .forecast-hourly-desc"
   );
-  hourlyDesc7.textContent = data.hourly[6].weather[0].description;
+  hourlyDesc7.textContent = data.hourly[6].weather[0].main;
 
   const hourlyDesc8 = document.querySelector(
     "#hourly-time-8 .forecast-hourly-desc"
   );
-  hourlyDesc8.textContent = data.hourly[7].weather[0].description;
+  hourlyDesc8.textContent = data.hourly[7].weather[0].main;
 
   const hourlyDesc9 = document.querySelector(
     "#hourly-time-9 .forecast-hourly-desc"
   );
-  hourlyDesc9.textContent = data.hourly[8].weather[0].description;
+  hourlyDesc9.textContent = data.hourly[8].weather[0].main;
 
   const hourlyDesc10 = document.querySelector(
     "#hourly-time-10 .forecast-hourly-desc"
   );
-  hourlyDesc10.textContent = data.hourly[9].weather[0].description;
+  hourlyDesc10.textContent = data.hourly[9].weather[0].main;
 
   const hourlyDesc11 = document.querySelector(
     "#hourly-time-11 .forecast-hourly-desc"
   );
-  hourlyDesc11.textContent = data.hourly[10].weather[0].description;
+  hourlyDesc11.textContent = data.hourly[10].weather[0].main;
 
   const hourlyDesc12 = document.querySelector(
     "#hourly-time-12 .forecast-hourly-desc"
   );
-  hourlyDesc12.textContent = data.hourly[11].weather[0].description;
+  hourlyDesc12.textContent = data.hourly[11].weather[0].main;
 
   const hourlyDesc13 = document.querySelector(
     "#hourly-time-13 .forecast-hourly-desc"
   );
-  hourlyDesc13.textContent = data.hourly[12].weather[0].description;
+  hourlyDesc13.textContent = data.hourly[12].weather[0].main;
 
   const hourlyDesc14 = document.querySelector(
     "#hourly-time-14 .forecast-hourly-desc"
   );
-  hourlyDesc14.textContent = data.hourly[13].weather[0].description;
+  hourlyDesc14.textContent = data.hourly[13].weather[0].main;
 
   const hourlyDesc15 = document.querySelector(
     "#hourly-time-15 .forecast-hourly-desc"
   );
-  hourlyDesc15.textContent = data.hourly[14].weather[0].description;
+  hourlyDesc15.textContent = data.hourly[14].weather[0].main;
 
   const hourlyDesc16 = document.querySelector(
     "#hourly-time-16 .forecast-hourly-desc"
   );
-  hourlyDesc16.textContent = data.hourly[15].weather[0].description;
+  hourlyDesc16.textContent = data.hourly[15].weather[0].main;
 
   const hourlyDesc17 = document.querySelector(
     "#hourly-time-17 .forecast-hourly-desc"
   );
-  hourlyDesc17.textContent = data.hourly[16].weather[0].description;
+  hourlyDesc17.textContent = data.hourly[16].weather[0].main;
 
   const hourlyDesc18 = document.querySelector(
     "#hourly-time-18 .forecast-hourly-desc"
   );
-  hourlyDesc18.textContent = data.hourly[17].weather[0].description;
+  hourlyDesc18.textContent = data.hourly[17].weather[0].main;
 
   const hourlyDesc19 = document.querySelector(
     "#hourly-time-19 .forecast-hourly-desc"
   );
-  hourlyDesc19.textContent = data.hourly[18].weather[0].description;
+  hourlyDesc19.textContent = data.hourly[18].weather[0].main;
 
   const hourlyDesc20 = document.querySelector(
     "#hourly-time-20 .forecast-hourly-desc"
   );
-  hourlyDesc20.textContent = data.hourly[19].weather[0].description;
+  hourlyDesc20.textContent = data.hourly[19].weather[0].main;
 
   const hourlyDesc21 = document.querySelector(
     "#hourly-time-21 .forecast-hourly-desc"
   );
-  hourlyDesc21.textContent = data.hourly[20].weather[0].description;
+  hourlyDesc21.textContent = data.hourly[20].weather[0].main;
 
   const hourlyDesc22 = document.querySelector(
     "#hourly-time-22 .forecast-hourly-desc"
   );
-  hourlyDesc22.textContent = data.hourly[21].weather[0].description;
+  hourlyDesc22.textContent = data.hourly[21].weather[0].main;
 
   const hourlyDesc23 = document.querySelector(
     "#hourly-time-23 .forecast-hourly-desc"
   );
-  hourlyDesc23.textContent = data.hourly[22].weather[0].description;
+  hourlyDesc23.textContent = data.hourly[22].weather[0].main;
 
   const hourlyDesc24 = document.querySelector(
     "#hourly-time-24 .forecast-hourly-desc"
   );
-  hourlyDesc24.textContent = data.hourly[23].weather[0].description;
+  hourlyDesc24.textContent = data.hourly[23].weather[0].main;
 }
 
 function renderWeatherInfo(data, CityName) {
