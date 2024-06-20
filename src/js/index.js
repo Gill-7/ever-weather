@@ -21,10 +21,6 @@ import {
 
 //   // downImg.src = "../svg/weather.jpg";
 
-//const searchBtn = document.querySelector(".search-btn");
-const form = document.querySelector(".form");
-const input = document.querySelector(".search-input");
-
 function getPosition() {
   return new Promise((resolve) => {
     if (navigator.geolocation) {
@@ -78,10 +74,24 @@ const getWeatherData = async (initialLoad = false) => {
 
 getWeatherData(true);
 
-// searchBtn.addEventListener("click", (e) => {
-//   e.preventDefault();
-//   getWeatherData();
-// });
+const form = document.querySelector(".form");
+const input = document.querySelector(".search-input");
+
+let lightThemeBtn = document.querySelector(".lightTheme-button");
+let darkThemeBtn = document.querySelector(".darkTheme-button");
+const setTheme = (theme) => (document.documentElement.className = theme);
+
+lightThemeBtn.addEventListener("click", () => {
+  setTheme("light");
+  darkThemeBtn.classList.remove("hidden");
+  lightThemeBtn.classList.add("hidden");
+});
+
+darkThemeBtn.addEventListener("click", () => {
+  setTheme("dark");
+  darkThemeBtn.classList.add("hidden");
+  lightThemeBtn.classList.remove("hidden");
+});
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();

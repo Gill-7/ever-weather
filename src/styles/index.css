@@ -1,4 +1,5 @@
-:root {
+:root,
+:root.dark {
   --background: #1d2024;
   --background-container: #202730;
   --borders: #f19657;
@@ -6,6 +7,16 @@
   --text-light-color: #f8c5a1;
   --icon-color: #f19657;
   --daily-secondary-color: #a5a5a5;
+}
+:root.light {
+  --background: #fff;
+  --background-container: #e6e8e8;
+  /* --borders: #242425; */
+  --borders: #e6e8e8;
+  --text-color: #2e3535;
+  --text-light-color: #384646;
+  --icon-color: #777676;
+  --daily-secondary-color: #6d6c6c;
 }
 
 * {
@@ -36,10 +47,6 @@ body {
   display: none;
 }
 
-/* img {
-  width: 40px;
-} */
-
 .container {
   max-width: 1190px;
   height: 100%;
@@ -58,6 +65,18 @@ body {
     "cu cu cu hy hy hy hy"
     "dy dy fe hu wd pp uv"
     "dy dy ct ct ct ct ct";
+}
+
+.lightTheme-button,
+.darkTheme-button {
+  background: var(--background);
+  outline: none;
+  border: none;
+}
+
+.fa-moon,
+.fa-sun {
+  font-size: 22px;
 }
 
 @media only screen and (max-width: 1120px) {

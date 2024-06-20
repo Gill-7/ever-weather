@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" app-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/4d04ed9927.js"
+      crossorigin="anonymous"
+    ></script>
+
     <title>weather</title>
   </head>
   <body>
@@ -32,7 +37,22 @@
           <p>Location not found.<br />Please try again.</p>
         </div>
       </div>
-      <div class="theme">Theme</div>
+      <div class="theme">
+        <button
+          type="button"
+          aria-label="Change to light theme"
+          class="lightTheme-button"
+        >
+          <i class="fa-solid fa-sun"></i>
+        </button>
+        <button
+          type="button"
+          aria-label="Change to dark theme"
+          class="darkTheme-button hidden"
+        >
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
 
       <div class="current">
         <div class="left-container">

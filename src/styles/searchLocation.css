@@ -27,6 +27,15 @@ form input::placeholder {
   border: none;
 }
 
+.theme {
+  text-align: center;
+  color: var(--text-color);
+}
+
+.theme-button i {
+  font-size: 1.5rem;
+}
+
 .imgSvg {
   width: 40px;
 }
