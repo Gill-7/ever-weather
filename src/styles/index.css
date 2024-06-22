@@ -14,7 +14,7 @@
   /* --borders: #242425; */
   --borders: #e6e8e8;
   --text-color: #2e3535;
-  --text-light-color: #384646;
+  --text-light-color: #676868;
   --icon-color: #777676;
   --daily-secondary-color: #6d6c6c;
 }
@@ -64,7 +64,11 @@ body {
     ". . . sh sh sh te"
     "cu cu cu hy hy hy hy"
     "dy dy fe hu wd pp uv"
-    "dy dy ct ct ct ct ct";
+    "dy dy mp mp mp mp mp";
+}
+
+button {
+  cursor: pointer;
 }
 
 .lightTheme-button,
@@ -99,14 +103,13 @@ body {
 .search,
 .current,
 .hourly,
-/* .sun-set-timing, */
 .daily,
 .feels-like,
 .humidity,
 .wind-speed,
 .precipitation,
 .uv,
-.chart {
+.map {
   border: 1px solid var(--borders);
   border-radius: 7px;
   padding: 0.85rem;
@@ -126,9 +129,6 @@ body {
 .hourly {
   grid-area: hy;
 }
-/* .sun-set-timing {
-  grid-area: sg;
-} */
 .feels-like {
   grid-area: fe;
 }
@@ -144,24 +144,9 @@ body {
 .uv {
   grid-area: uv;
 }
-.chart {
-  grid-area: ct;
+.map {
+  grid-area: mp;
 }
-
-/* MAIN */
-
-/* .weather-info {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-} */
-
-/* .weather-info-right {
-  text-align: right;
-} */
-
-/* .none {
-  display: none;
-} */
 
 @import url("./weatherDetails.css");
 
@@ -173,189 +158,17 @@ body {
 
 @import url("./hourlyWeather.css");
 
-/* WEATHER FORECAST */
-
-.change-forecast {
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-
-.daily-btn,
-.hourly-btn {
-  font-size: 0.85rem;
-  font-weight: 600;
-  padding: 0.25rem 0.7rem 0.35rem 0.7rem;
-  cursor: pointer;
-}
-
-.forecast-selected {
-  border: 1.5px solid #000;
-  border-radius: 4px;
-}
-
-/* CHANGE FORECAST HOURLY BUTTONS */
-
-.change-hours {
-  display: none;
-  align-items: center;
-  gap: 0.3rem;
-  position: relative;
-}
-
-.dot {
-  border: 1px solid #000;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  cursor: pointer;
-  position: absolute;
-  top: -0.26rem;
-}
-
-.change-hours__left,
-.change-hours__right {
-  font-size: 2.3rem;
-  cursor: pointer;
-  position: absolute;
-  top: -1.55rem;
-}
-
-.change-hours__left {
-  left: 0.6rem;
-}
-
-.dot1 {
-  left: 1.5rem;
-}
-
-.dot2 {
-  left: 2.3rem;
-}
-
-.dot3 {
-  left: 3.1rem;
-}
-
-.change-hours__right {
-  left: 3.9rem;
-}
-
-.dot-selected {
-  background: #000;
-  margin: 0;
-}
+@import url("./map.css");
 
 @media only screen and (max-width: 670px) {
   .container {
     width: 95%;
-  }
-
-  .change-forecast {
-    justify-content: center;
-    margin-right: 2rem;
-  }
-
-  .daily-btn,
-  .hourly-btn {
-    font-size: 0.8rem;
-  }
-
-  .change-hours__left,
-  .change-hours__right {
-    font-size: 2.2rem;
-    top: -1.6rem;
-  }
-
-  .change-hours__left {
-    left: 0.5rem;
-  }
-
-  .dot1 {
-    left: 1.4rem;
-  }
-
-  .dot2 {
-    left: 2.2rem;
-  }
-
-  .dot3 {
-    left: 3rem;
-  }
-
-  .change-hours__right {
-    left: 3.8rem;
-  }
-
-  .error-msg {
-    margin-top: 0.2rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-  }
-
-  .forecast-selected {
-    border: 1.5px solid #000;
-    border-radius: 4px;
   }
 }
 
 @media only screen and (max-width: 460px) {
   .container {
     width: 90%;
-  }
-
-  .change-forecast {
-    justify-content: center;
-    margin-right: 3rem;
-  }
-
-  .daily-btn,
-  .hourly-btn {
-    font-size: 0.85rem;
-    padding: 0.18rem 0.6rem 0.24rem 0.6rem;
-  }
-
-  .change-hours__left,
-  .change-hours__right {
-    font-size: 2rem;
-    top: -1.37rem;
-  }
-
-  .dot {
-    border: 0.8px solid #000;
-    width: 8.5px;
-    height: 8.5px;
-    top: -0.2rem;
-  }
-
-  .change-hours__left {
-    left: 0.5rem;
-  }
-
-  .dot1 {
-    left: 1.2rem;
-  }
-
-  .dot2 {
-    left: 1.9rem;
-  }
-
-  .dot3 {
-    left: 2.6rem;
-  }
-
-  .change-hours__right {
-    left: 3.2rem;
-  }
-
-  .error-msg {
-    font-size: 0.85rem;
-    font-weight: 400;
-  }
-
-  .forecast-selected {
-    border: 0.7px solid #000;
-    border-radius: 3px;
   }
 }
 

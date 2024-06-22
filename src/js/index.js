@@ -79,16 +79,43 @@ const input = document.querySelector(".search-input");
 
 let lightThemeBtn = document.querySelector(".lightTheme-button");
 let darkThemeBtn = document.querySelector(".darkTheme-button");
-const setTheme = (theme) => (document.documentElement.className = theme);
+let theme = localStorage.getItem("theme");
+
+const themeLoad = () => {
+  if (theme !== null) {
+    if (theme === "dark") {
+      darkThemeBtn.classList.add("hidden"); //remove moon
+      lightThemeBtn.classList.remove("hidden"); //show sun
+    } else {
+      darkThemeBtn.classList.remove("hidden");
+      lightThemeBtn.classList.add("hidden");
+    }
+    return theme;
+  }
+  return "dark";
+};
+
+const setTheme = (theme) => {
+  document.documentElement.className = theme;
+};
+
+const themeLocalStorage = themeLoad();
+setTheme(themeLocalStorage);
 
 lightThemeBtn.addEventListener("click", () => {
-  setTheme("light");
+  localStorage.setItem("theme", "light");
+  let themeFromStorage = localStorage.getItem("theme");
+  setTheme(themeFromStorage);
+
   darkThemeBtn.classList.remove("hidden");
   lightThemeBtn.classList.add("hidden");
 });
 
 darkThemeBtn.addEventListener("click", () => {
-  setTheme("dark");
+  localStorage.setItem("theme", "dark");
+  let themeFromStorage = localStorage.getItem("theme");
+  setTheme(themeFromStorage);
+
   darkThemeBtn.classList.add("hidden");
   lightThemeBtn.classList.remove("hidden");
 });

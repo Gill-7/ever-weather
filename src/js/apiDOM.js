@@ -6,6 +6,7 @@ import {
 } from "./utils.js";
 
 function renderWeatherData(data, CityName) {
+  console.log(data);
   // update the weather description
   const currentDescription = document.querySelector(".description");
   currentDescription.textContent = capitalize(
@@ -26,6 +27,18 @@ function renderWeatherData(data, CityName) {
     data.timezone_offset,
     "full"
   );
+
+  const highestTemp = document.querySelector(".high");
+  highestTemp.textContent = `${Math.round(data.daily[0].temp.max)}°`;
+
+  const lowestTemp = document.querySelector(".low");
+  lowestTemp.textContent = `${Math.round(data.daily[0].temp.min)}°`;
+
+  const sunrise = document.querySelector(".sunrise-time");
+  sunrise.textContent = formatTime(data.current.sunrise, data.timezone_offset);
+
+  const sunset = document.querySelector(".sunset-time");
+  sunset.textContent = formatTime(data.current.sunset, data.timezone_offset);
 
   const currentTime = document.querySelector(".time");
   currentTime.textContent = formatTime(data.current.dt, data.timezone_offset);
@@ -79,8 +92,6 @@ function displayHourlyForecast() {
 }
 
 function renderDailyForecast(data) {
-  console.log(data);
-
   // RENDER DAILY DATE
   const secondDate = document.querySelector(
     "#second-container .forecast-daily-date"

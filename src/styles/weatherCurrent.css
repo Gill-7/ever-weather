@@ -1,7 +1,10 @@
 .current {
   display: flex;
   justify-content: space-between;
+  border: 1px solid blue;
 }
+
+/* ============ LEFT CONTAINER ============ */
 
 .left-container {
   display: flex;
@@ -17,14 +20,88 @@
 }
 
 .current .date-time {
-  font-size: 1rem;
+  font-size: 0.95rem;
   display: inline-flex;
-  font-weight: 200;
+  font-weight: 300;
+}
+
+.current .date,
+.current .time {
+  color: var(--text-light-color);
 }
 
 .current .time {
   margin-left: 0.25rem;
 }
+
+.sun-day-container {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.day-temp {
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+  position: relative;
+  top: -0.6rem;
+}
+
+.day-temp > div {
+  color: var(--text-light-color);
+  font-weight: 300;
+  font-size: 0.95rem;
+}
+
+.day-temp > div > span {
+  color: var(--text-color);
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+.sun-timing {
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+}
+
+.sunrise,
+.sunset {
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+}
+
+.sunrise img,
+.sunset img {
+  width: 60px;
+  position: relative;
+  top: 0.7rem;
+}
+
+.sunrise div,
+.sunset div {
+  position: relative;
+}
+
+.sunrise h4,
+.sunset h4 {
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--text-light-color);
+  top: 0.2rem;
+}
+
+.sunrise-time,
+.sunset-time {
+  font-size: 1.05rem;
+  margin: 0;
+  position: relative;
+  top: -0.1rem;
+}
+
+/* ============ RIGHT CONTAINER ============ */
 
 .right-container {
   display: flex;
@@ -68,9 +145,9 @@
 }
 
 .current .degree {
-  font-size: 2.5rem;
+  font-size: 2rem;
   position: relative;
-  top: 0.1rem;
+  top: 0.2rem;
 }
 
 @media only screen and (max-width: 670px) {
