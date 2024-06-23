@@ -67,20 +67,33 @@ body {
     "dy dy mp mp mp mp mp";
 }
 
-button {
-  cursor: pointer;
-}
-
 .lightTheme-button,
 .darkTheme-button {
   background: var(--background);
   outline: none;
   border: none;
+  cursor: pointer;
 }
 
 .fa-moon,
 .fa-sun {
   font-size: 22px;
+}
+
+/* MAP CENTERED LOCATION BUTTON */
+
+.centeredButton {
+  background: none;
+  outline: none;
+  border: none;
+}
+
+.fa-location-crosshairs {
+  font-size: 20px;
+  margin-bottom: 0.8rem;
+  color: #303030;
+  margin-right: 1rem;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 1120px) {

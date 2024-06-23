@@ -13,6 +13,8 @@ import {
   displayHourlyForecast,
 } from "./apiDOM.js";
 
+import { Loader } from "@googlemaps/js-api-loader";
+
 //   // var image = document.images[0];
 //   // var downImg = new Image();
 //   // downImg.onload = function () {
@@ -31,6 +33,48 @@ function getPosition() {
   });
 }
 
+function createCenterControl(map, latitude, longitude) {
+  const controlButton = document.createElement("button");
+  controlButton.className = "centeredButton";
+  controlButton.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i>';
+
+  let currentLocation = { lat: latitude, lng: longitude };
+  controlButton.addEventListener("click", () => {
+    map.setCenter(currentLocation);
+  });
+
+  return controlButton;
+}
+
+const loadMap = async (latitude, longitude) => {
+  let map;
+  const loader = new Loader({
+    apiKey: "AIzaSyAypl2SGejMVaKR05ABZSfx6bgkrb9WR3Y",
+    version: "weekly",
+    // ...additionalOptions,
+  });
+
+  let { Map } = await loader.importLibrary("maps");
+  map = new Map(document.querySelector(".map"), {
+    center: { lat: latitude, lng: longitude },
+    zoom: 7,
+    gestureHandling: "greedy",
+    disableDefaultUI: true,
+    mapTypeControl: true,
+    fullscreenControl: true,
+    mapTypeControlOptions: {
+      style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+      mapTypeIds: ["roadmap", "satellite", "terrain"],
+    },
+  });
+
+  const centerControlDiv = document.createElement("div");
+  const centerControl = createCenterControl(map, latitude, longitude);
+  centerControlDiv.appendChild(centerControl);
+
+  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(centerControlDiv);
+};
+
 const getWeatherData = async (initialLoad = false) => {
   try {
     let cityName;
@@ -42,7 +86,7 @@ const getWeatherData = async (initialLoad = false) => {
       latitude = coords.latitude;
       longitude = coords.longitude;
       const cityCoords = await fetch(getCityName(latitude, longitude));
-
+      loadMap(latitude, longitude);
       const cityData = await cityCoords.json();
       cityName = cityData[0].name;
     } else {
@@ -51,6 +95,7 @@ const getWeatherData = async (initialLoad = false) => {
       const cityLatlon = await cityCoords.json();
       latitude = cityLatlon[0].lat;
       longitude = cityLatlon[0].lon;
+      loadMap(latitude, longitude);
     }
     if (!cityName) {
       return;
