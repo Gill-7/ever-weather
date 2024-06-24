@@ -34,7 +34,12 @@
           </button>
         </form>
         <div class="error-msg">
-          <p>Location not found.<br />Please try again.</p>
+          <div class="err-container">
+            <span class="close">&times;</span>
+            <p>
+              Location not found.<br />Please check location name and try again.
+            </p>
+          </div>
         </div>
       </div>
       <div class="theme">
@@ -441,9 +446,7 @@
         <img src="assets/uv.svg" alt="uv index" id="uvSvg" class="img2Svg" />
         <h4 class="uv-data"></h4>
       </div>
-      <div class="map">
-        <!-- <div class="centeredButton"></div> -->
-      </div>
+      <div class="map"></div>
     </div>
     <!-- <script type="module" src="../src/js/index.js"></script> -->
     <!-- <script src="main.js"></script> -->

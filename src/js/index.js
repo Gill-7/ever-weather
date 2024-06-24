@@ -35,7 +35,7 @@ function getPosition() {
 
 function createCenterControl(map, latitude, longitude) {
   const controlButton = document.createElement("button");
-  controlButton.className = "centeredButton";
+  controlButton.className = "centered-location";
   controlButton.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i>';
 
   let currentLocation = { lat: latitude, lng: longitude };
@@ -46,8 +46,106 @@ function createCenterControl(map, latitude, longitude) {
   return controlButton;
 }
 
+const styles = {
+  map: [],
+  night: [
+    { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
+    { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
+    { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
+    {
+      featureType: "administrative.locality",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#d59563" }],
+    },
+    {
+      featureType: "poi",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#d59563" }],
+    },
+    {
+      featureType: "poi.park",
+      elementType: "geometry",
+      stylers: [{ color: "#263c3f" }],
+    },
+    {
+      featureType: "poi.park",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#6b9a76" }],
+    },
+    {
+      featureType: "road",
+      elementType: "geometry",
+      // stylers: [{ color: "#38414e" }],
+      stylers: [{ color: "#38414e" }],
+    },
+    {
+      featureType: "road",
+      elementType: "geometry.stroke",
+      stylers: [{ color: "#212a37" }],
+    },
+    {
+      featureType: "road",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#f19657" }],
+    },
+    {
+      featureType: "road.highway",
+      elementType: "geometry",
+      stylers: [{ color: "#746855" }],
+      // stylers: [{ color: "#f19657" }],
+    },
+    {
+      featureType: "road.highway",
+      elementType: "geometry.stroke",
+      stylers: [{ color: "#1f2835" }],
+    },
+    {
+      featureType: "road.highway",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#f3d19c" }],
+    },
+    {
+      featureType: "transit",
+      elementType: "geometry",
+      stylers: [{ color: "#2f3948" }],
+    },
+    {
+      featureType: "transit.station",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#d59563" }],
+    },
+    {
+      featureType: "water",
+      elementType: "geometry",
+      // stylers: [{ color: "#17263c" }],
+      stylers: [{ color: "#1d2024" }],
+    },
+    {
+      featureType: "water",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#515c6d" }],
+    },
+    {
+      featureType: "water",
+      elementType: "labels.text.stroke",
+      // stylers: [{ color: "#17263c" }],
+      stylers: [{ color: "#1d2024" }],
+    },
+  ],
+};
+
+let map;
+
+const changeMapWithThemeHandler = () => {
+  let theme = localStorage.getItem("theme");
+  if (theme === "dark") {
+    map.setOptions({ styles: styles["night"] });
+  } else {
+    map.setOptions({ styles: styles["map"] });
+  }
+};
+
 const loadMap = async (latitude, longitude) => {
-  let map;
   const loader = new Loader({
     apiKey: "AIzaSyAypl2SGejMVaKR05ABZSfx6bgkrb9WR3Y",
     version: "weekly",
@@ -60,13 +158,15 @@ const loadMap = async (latitude, longitude) => {
     zoom: 7,
     gestureHandling: "greedy",
     disableDefaultUI: true,
-    mapTypeControl: true,
+    mapTypeControl: false,
     fullscreenControl: true,
-    mapTypeControlOptions: {
-      style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
-      mapTypeIds: ["roadmap", "satellite", "terrain"],
-    },
   });
+
+  if (theme === "dark") {
+    map.setOptions({ styles: styles["night"] });
+  } else {
+    map.setOptions({ styles: styles["map"] });
+  }
 
   const centerControlDiv = document.createElement("div");
   const centerControl = createCenterControl(map, latitude, longitude);
@@ -152,6 +252,8 @@ lightThemeBtn.addEventListener("click", () => {
   let themeFromStorage = localStorage.getItem("theme");
   setTheme(themeFromStorage);
 
+  changeMapWithThemeHandler();
+
   darkThemeBtn.classList.remove("hidden");
   lightThemeBtn.classList.add("hidden");
 });
@@ -160,6 +262,8 @@ darkThemeBtn.addEventListener("click", () => {
   localStorage.setItem("theme", "dark");
   let themeFromStorage = localStorage.getItem("theme");
   setTheme(themeFromStorage);
+
+  changeMapWithThemeHandler();
 
   darkThemeBtn.classList.add("hidden");
   lightThemeBtn.classList.remove("hidden");

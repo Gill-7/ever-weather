@@ -46,9 +46,38 @@ form input::placeholder {
   padding: 0;
 }
 
+/******* ERROR WITH LOCATION SEARCH ********/
+
 .error-msg {
   font-size: 0.9rem;
   visibility: hidden;
+  position: relative;
+  right: 14rem;
+  bottom: 3rem;
+  background: rgb(242, 242, 242);
+  border: 1px solid grey;
+  color: #000;
+  border-radius: 3px;
+  width: 200px;
+  /* height: 80px; */
+  z-index: 2;
+  padding: 0.4rem 0.6rem;
+}
+
+.close {
+  color: #aaaaae;
+  font-weight: bold;
+  float: right;
+  font-size: 20px;
+  position: relative;
+  bottom: 0.4rem;
+}
+
+.close:hover,
+.close:focus {
+  text-decoration: none;
+  color: #000;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 670px) {
