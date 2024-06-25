@@ -173,21 +173,41 @@ const loadMap = async (latitude, longitude) => {
   centerControlDiv.appendChild(centerControl);
 
   map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(centerControlDiv);
+
+  // GET COORDINATES ON MAP CLICK
+  map.addListener("click", (e) => {
+    latitude = e.latLng.lat();
+    longitude = e.latLng.lng();
+    console.log("From map click ", latitude, longitude);
+    weatherDataByCoords(latitude, longitude);
+  });
+};
+
+let latitude;
+let longitude;
+let cityName;
+
+const cityNameByCoords = async (latitude, longitude) => {
+  const cityCoords = await fetch(getCityName(latitude, longitude));
+  const cityData = await cityCoords.json();
+  cityName = cityData[0].name;
+  return cityName;
+};
+
+const weatherDataByCoords = async (latitude, longitude) => {
+  const weatherData = await fetch(getWeatherDataByCoords(latitude, longitude));
+  const data = await weatherData.json();
+  const cityData = await cityNameByCoords(latitude, longitude);
+  renderWeatherInfo(data, cityData);
 };
 
 const getWeatherData = async (initialLoad = false) => {
   try {
-    let cityName;
-    let latitude;
-    let longitude;
-
     if (initialLoad) {
       const { coords } = await getPosition();
       latitude = coords.latitude;
       longitude = coords.longitude;
-      const cityCoords = await fetch(getCityName(latitude, longitude));
-      const cityData = await cityCoords.json();
-      cityName = cityData[0].name;
+      await cityNameByCoords(latitude, longitude);
       loadMap(latitude, longitude);
     } else {
       cityName = formData();
@@ -200,17 +220,9 @@ const getWeatherData = async (initialLoad = false) => {
     if (!cityName) {
       return;
     }
+    await weatherDataByCoords(latitude, longitude);
 
-    const weatherData = await fetch(
-      getWeatherDataByCoords(latitude, longitude)
-    );
-    const data = await weatherData.json();
     document.querySelector(".error-msg").style.display = "none";
-    renderWeatherInfo(data, cityName);
-    //       document.querySelector("body").style.visibility = "visible";
-
-    //       document.querySelector("#loader").style.visibility = "hidden";
-    // document.querySelector(".form").style.display = "block";
     input.value = "";
   } catch (err) {
     document.querySelector(".error-msg").style.display = "block";
@@ -274,6 +286,8 @@ form.addEventListener("submit", (e) => {
   e.preventDefault();
   getWeatherData();
 });
+
+// CLOSE ERROR MSG WHEN LOCATION IS INCORRECT
 
 const close = document.querySelector(".close");
 
