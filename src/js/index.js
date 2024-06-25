@@ -155,7 +155,7 @@ const loadMap = async (latitude, longitude) => {
   let { Map } = await loader.importLibrary("maps");
   map = new Map(document.querySelector(".map"), {
     center: { lat: latitude, lng: longitude },
-    zoom: 7,
+    zoom: 7.2,
     gestureHandling: "greedy",
     disableDefaultUI: true,
     mapTypeControl: false,
@@ -186,9 +186,9 @@ const getWeatherData = async (initialLoad = false) => {
       latitude = coords.latitude;
       longitude = coords.longitude;
       const cityCoords = await fetch(getCityName(latitude, longitude));
-      loadMap(latitude, longitude);
       const cityData = await cityCoords.json();
       cityName = cityData[0].name;
+      loadMap(latitude, longitude);
     } else {
       cityName = formData();
       const cityCoords = await fetch(getCityCoords(cityName));
@@ -205,16 +205,17 @@ const getWeatherData = async (initialLoad = false) => {
       getWeatherDataByCoords(latitude, longitude)
     );
     const data = await weatherData.json();
-    document.querySelector(".error-msg").style.visibility = "hidden";
+    document.querySelector(".error-msg").style.display = "none";
     renderWeatherInfo(data, cityName);
     //       document.querySelector("body").style.visibility = "visible";
 
     //       document.querySelector("#loader").style.visibility = "hidden";
     // document.querySelector(".form").style.display = "block";
+    input.value = "";
   } catch (err) {
-    document.querySelector(".error-msg").style.visibility = "visible";
+    document.querySelector(".error-msg").style.display = "block";
   }
-  input.value = "";
+  // input.value = "";
 };
 
 getWeatherData(true);
@@ -272,4 +273,10 @@ darkThemeBtn.addEventListener("click", () => {
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   getWeatherData();
+});
+
+const close = document.querySelector(".close");
+
+close.addEventListener("click", () => {
+  document.querySelector(".error-msg").style.display = "none";
 });
