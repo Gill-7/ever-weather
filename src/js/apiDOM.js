@@ -7,6 +7,7 @@ import {
 
 function renderWeatherData(data, CityName) {
   console.log(data);
+
   // update the weather description
   const currentDescription = document.querySelector(".description");
   currentDescription.textContent = capitalize(

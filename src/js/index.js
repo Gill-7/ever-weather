@@ -23,6 +23,16 @@ import { Loader } from "@googlemaps/js-api-loader";
 
 //   // downImg.src = "../svg/weather.jpg";
 
+let userCityName;
+let userLocation;
+let map;
+let mapNightID = "5142c1d38b016d6a";
+let mapLightID = "8779c20f81c729cb";
+let MAPID;
+let marker;
+// let userLocationMarker;
+let pinStyles;
+
 function getPosition() {
   return new Promise((resolve) => {
     if (navigator.geolocation) {
@@ -33,7 +43,28 @@ function getPosition() {
   });
 }
 
-function createCenterControl(map, latitude, longitude) {
+async function loadMapLibrary() {
+  const loader = new Loader({
+    apiKey: "AIzaSyAypl2SGejMVaKR05ABZSfx6bgkrb9WR3Y",
+    version: "weekly",
+    // libraries: ["places"],
+  });
+
+  let { Map } = await loader.importLibrary("maps");
+  let { AdvancedMarkerElement, PinElement } = await loader.importLibrary(
+    "marker"
+  );
+
+  return { loader, Map, AdvancedMarkerElement, PinElement };
+}
+
+function createCenterControl(
+  map,
+  latitude,
+  longitude
+  // AdvancedMarkerElement,
+  // homePinStyles
+) {
   const controlButton = document.createElement("button");
   controlButton.className = "centered-location";
   controlButton.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i>';
@@ -41,135 +72,85 @@ function createCenterControl(map, latitude, longitude) {
   let currentLocation = { lat: latitude, lng: longitude };
   controlButton.addEventListener("click", () => {
     map.setCenter(currentLocation);
-  });
+    map.setZoom(11);
+    marker.setMap(null);
+    // userLocationMarker = new AdvancedMarkerElement({
+    //   map,
+    //   position: userLocation,
+    //   content: homePinStyles.element,
+    // });
 
+    if (cityName !== userCityName) {
+      weatherDataByCoords(latitude, longitude);
+    }
+  });
   return controlButton;
 }
-
-const styles = {
-  map: [],
-  night: [
-    { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
-    { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
-    { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
-    {
-      featureType: "administrative.locality",
-      elementType: "labels.text.fill",
-      stylers: [{ color: "#d59563" }],
-    },
-    {
-      featureType: "poi",
-      elementType: "labels.text.fill",
-      stylers: [{ color: "#d59563" }],
-    },
-    {
-      featureType: "poi.park",
-      elementType: "geometry",
-      stylers: [{ color: "#263c3f" }],
-    },
-    {
-      featureType: "poi.park",
-      elementType: "labels.text.fill",
-      stylers: [{ color: "#6b9a76" }],
-    },
-    {
-      featureType: "road",
-      elementType: "geometry",
-      // stylers: [{ color: "#38414e" }],
-      stylers: [{ color: "#38414e" }],
-    },
-    {
-      featureType: "road",
-      elementType: "geometry.stroke",
-      stylers: [{ color: "#212a37" }],
-    },
-    {
-      featureType: "road",
-      elementType: "labels.text.fill",
-      stylers: [{ color: "#f19657" }],
-    },
-    {
-      featureType: "road.highway",
-      elementType: "geometry",
-      stylers: [{ color: "#746855" }],
-      // stylers: [{ color: "#f19657" }],
-    },
-    {
-      featureType: "road.highway",
-      elementType: "geometry.stroke",
-      stylers: [{ color: "#1f2835" }],
-    },
-    {
-      featureType: "road.highway",
-      elementType: "labels.text.fill",
-      stylers: [{ color: "#f3d19c" }],
-    },
-    {
-      featureType: "transit",
-      elementType: "geometry",
-      stylers: [{ color: "#2f3948" }],
-    },
-    {
-      featureType: "transit.station",
-      elementType: "labels.text.fill",
-      stylers: [{ color: "#d59563" }],
-    },
-    {
-      featureType: "water",
-      elementType: "geometry",
-      // stylers: [{ color: "#17263c" }],
-      stylers: [{ color: "#1d2024" }],
-    },
-    {
-      featureType: "water",
-      elementType: "labels.text.fill",
-      stylers: [{ color: "#515c6d" }],
-    },
-    {
-      featureType: "water",
-      elementType: "labels.text.stroke",
-      // stylers: [{ color: "#17263c" }],
-      stylers: [{ color: "#1d2024" }],
-    },
-  ],
-};
-
-let map;
 
 const changeMapWithThemeHandler = () => {
   let theme = localStorage.getItem("theme");
   if (theme === "dark") {
-    map.setOptions({ styles: styles["night"] });
+    MAPID = mapNightID;
   } else {
-    map.setOptions({ styles: styles["map"] });
+    MAPID = mapLightID;
   }
 };
 
 const loadMap = async (latitude, longitude) => {
-  const loader = new Loader({
-    apiKey: "AIzaSyAypl2SGejMVaKR05ABZSfx6bgkrb9WR3Y",
-    version: "weekly",
-    // ...additionalOptions,
-  });
+  changeMapWithThemeHandler();
 
-  let { Map } = await loader.importLibrary("maps");
+  const { Map, PinElement, AdvancedMarkerElement } = await loadMapLibrary();
+
   map = new Map(document.querySelector(".map"), {
     center: { lat: latitude, lng: longitude },
-    zoom: 7.2,
+    zoom: 11,
+    minZoom: 2.3,
     gestureHandling: "greedy",
     disableDefaultUI: true,
     mapTypeControl: false,
     fullscreenControl: true,
+    mapId: MAPID,
+  });
+
+  // MARKER FOR FINDING LOCATION WEATHER
+  pinStyles = new PinElement({
+    background: "#FBBC04",
+    scale: 0.6,
+  });
+
+  // A MARKER FOR USER LOCATION
+  const icon = document.createElement("div");
+  icon.innerHTML =
+    '<i class="fa-solid fa-house" style="color:#023e8a;fontSize:20px"></i>';
+
+  const homePinStyles = new PinElement({
+    glyph: icon,
+    glyphColor: "#023e8a",
+    background: "#48cae4",
+    borderColor: "#023e8a",
+  });
+
+  new AdvancedMarkerElement({
+    map,
+    position: { lat: userLocation.lat, lng: userLocation.lng },
+    content: homePinStyles.element,
+    title: "Your location",
   });
 
   if (theme === "dark") {
-    map.setOptions({ styles: styles["night"] });
+    MAPID = mapNightID;
   } else {
-    map.setOptions({ styles: styles["map"] });
+    MAPID = mapLightID;
   }
 
   const centerControlDiv = document.createElement("div");
-  const centerControl = createCenterControl(map, latitude, longitude);
+  const centerControl = createCenterControl(
+    map,
+    userLocation.lat, //latitude
+    userLocation.lng, //longitude
+    AdvancedMarkerElement,
+    homePinStyles
+  );
   centerControlDiv.appendChild(centerControl);
 
   map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(centerControlDiv);
@@ -178,7 +159,11 @@ const loadMap = async (latitude, longitude) => {
   map.addListener("click", (e) => {
     latitude = e.latLng.lat();
     longitude = e.latLng.lng();
-    console.log("From map click ", latitude, longitude);
+    marker = new AdvancedMarkerElement({
+      map,
+      position: { lat: latitude, lng: longitude },
+      content: pinStyles.element,
+    });
     weatherDataByCoords(latitude, longitude);
   });
 };
@@ -207,7 +192,8 @@ const getWeatherData = async (initialLoad = false) => {
       const { coords } = await getPosition();
       latitude = coords.latitude;
       longitude = coords.longitude;
-      await cityNameByCoords(latitude, longitude);
+      userLocation = { lat: latitude, lng: longitude };
+      userCityName = await cityNameByCoords(latitude, longitude);
       loadMap(latitude, longitude);
     } else {
       cityName = formData();
@@ -216,6 +202,12 @@ const getWeatherData = async (initialLoad = false) => {
       latitude = cityLatlon[0].lat;
       longitude = cityLatlon[0].lon;
       loadMap(latitude, longitude);
+      const { AdvancedMarkerElement } = await loadMapLibrary();
+      marker = new AdvancedMarkerElement({
+        map,
+        position: { lat: latitude, lng: longitude },
+        content: pinStyles.element,
+      });
     }
     if (!cityName) {
       return;
@@ -225,6 +217,7 @@ const getWeatherData = async (initialLoad = false) => {
     document.querySelector(".error-msg").style.display = "none";
     input.value = "";
   } catch (err) {
+    console.log(err);
     document.querySelector(".error-msg").style.display = "block";
   }
   // input.value = "";
@@ -233,7 +226,7 @@ const getWeatherData = async (initialLoad = false) => {
 getWeatherData(true);
 
 const form = document.querySelector(".form");
-const input = document.querySelector(".search-input");
+let input = document.querySelector(".search-input");
 
 let lightThemeBtn = document.querySelector(".lightTheme-button");
 let darkThemeBtn = document.querySelector(".darkTheme-button");
@@ -266,6 +259,7 @@ lightThemeBtn.addEventListener("click", () => {
   setTheme(themeFromStorage);
 
   changeMapWithThemeHandler();
+  loadMap(latitude, longitude);
 
   darkThemeBtn.classList.remove("hidden");
   lightThemeBtn.classList.add("hidden");
@@ -277,6 +271,7 @@ darkThemeBtn.addEventListener("click", () => {
   setTheme(themeFromStorage);
 
   changeMapWithThemeHandler();
+  loadMap(latitude, longitude);
 
   darkThemeBtn.classList.add("hidden");
   lightThemeBtn.classList.remove("hidden");

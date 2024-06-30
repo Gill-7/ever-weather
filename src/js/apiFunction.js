@@ -3,7 +3,6 @@ import { api_key } from "../../config";
 function formData() {
   const input = document.querySelector(".search-input");
   const cityName = input.value;
-
   if (cityName) {
     return cityName
       .replace(/(\s+$|^\s+)/g, "")

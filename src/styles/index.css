@@ -84,6 +84,7 @@ body {
 
 .map {
   height: 100%;
+  cursor: pointer;
 }
 
 .centered-location {
