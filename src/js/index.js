@@ -1,18 +1,12 @@
 import {
   formData,
-  getCityName,
+  getUserLocation,
   getCityCoords,
   getWeatherDataByCoords,
 } from "./apiFunction.js";
-
 import "../styles/index.css";
-
-import {
-  renderWeatherInfo,
-  displayDailyForecast,
-  displayHourlyForecast,
-} from "./apiDOM.js";
-
+import renderWeatherInfo from "./apiDOM.js";
+import { googleMap_api_key } from "../../config.js";
 import { Loader } from "@googlemaps/js-api-loader";
 
 //   // var image = document.images[0];
@@ -23,14 +17,19 @@ import { Loader } from "@googlemaps/js-api-loader";
 
 //   // downImg.src = "../svg/weather.jpg";
 
+// APPLICATION STATE VARIABLES
 let userCityName;
-let userLocation;
+let userCoordinates;
+let latitude;
+let longitude;
+let cityLocation = {};
+
+// MAP STATE VARIABLES
 let map;
 let mapNightID = "5142c1d38b016d6a";
 let mapLightID = "8779c20f81c729cb";
 let MAPID;
 let marker;
-// let userLocationMarker;
 let pinStyles;
 
 function getPosition() {
@@ -45,26 +44,17 @@ function getPosition() {
 
 async function loadMapLibrary() {
   const loader = new Loader({
-    apiKey: "AIzaSyAypl2SGejMVaKR05ABZSfx6bgkrb9WR3Y",
+    apiKey: googleMap_api_key,
     version: "weekly",
-    // libraries: ["places"],
   });
-
   let { Map } = await loader.importLibrary("maps");
   let { AdvancedMarkerElement, PinElement } = await loader.importLibrary(
     "marker"
   );
-
   return { loader, Map, AdvancedMarkerElement, PinElement };
 }
 
-function createCenterControl(
-  map,
-  latitude,
-  longitude
-  // AdvancedMarkerElement,
-  // homePinStyles
-) {
+function createCenterControl(map, latitude, longitude) {
   const controlButton = document.createElement("button");
   controlButton.className = "centered-location";
   controlButton.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i>';
@@ -74,13 +64,8 @@ function createCenterControl(
     map.setCenter(currentLocation);
     map.setZoom(11);
     marker.setMap(null);
-    // userLocationMarker = new AdvancedMarkerElement({
-    //   map,
-    //   position: userLocation,
-    //   content: homePinStyles.element,
-    // });
 
-    if (cityName !== userCityName) {
+    if (cityLocation.cityName !== userCityName) {
       weatherDataByCoords(latitude, longitude);
     }
   });
@@ -98,9 +83,7 @@ const changeMapWithThemeHandler = () => {
 
 const loadMap = async (latitude, longitude) => {
   changeMapWithThemeHandler();
-
   const { Map, PinElement, AdvancedMarkerElement } = await loadMapLibrary();
-
   map = new Map(document.querySelector(".map"), {
     center: { lat: latitude, lng: longitude },
     zoom: 11,
@@ -132,7 +115,7 @@ const loadMap = async (latitude, longitude) => {
 
   new AdvancedMarkerElement({
     map,
-    position: { lat: userLocation.lat, lng: userLocation.lng },
+    position: { lat: userCoordinates.lat, lng: userCoordinates.lng },
     content: homePinStyles.element,
     title: "Your location",
   });
@@ -146,8 +129,8 @@ const loadMap = async (latitude, longitude) => {
   const centerControlDiv = document.createElement("div");
   const centerControl = createCenterControl(
     map,
-    userLocation.lat, //latitude
-    userLocation.lng, //longitude
+    userCoordinates.lat, //latitude
+    userCoordinates.lng, //longitude
     AdvancedMarkerElement,
     homePinStyles
   );
@@ -168,22 +151,35 @@ const loadMap = async (latitude, longitude) => {
   });
 };
 
-let latitude;
-let longitude;
-let cityName;
+const getStateData = (address_components) => {
+  let state;
+  address_components.map((data) => {
+    if (data.types[0] === "administrative_area_level_1") {
+      state = data.long_name;
+    }
+  });
+  return state;
+};
 
-const cityNameByCoords = async (latitude, longitude) => {
-  const cityCoords = await fetch(getCityName(latitude, longitude));
-  const cityData = await cityCoords.json();
-  cityName = cityData[0].name;
-  return cityName;
+const handleLocationData = (data) => {
+  let loc;
+  data.map((location) => {
+    if (location.types[0] === "locality") {
+      let city = location.address_components[0].long_name;
+      let state = getStateData(location.address_components);
+      loc = {
+        cityName: city,
+        cityState: state,
+      };
+    }
+  });
+  return loc;
 };
 
 const weatherDataByCoords = async (latitude, longitude) => {
   const weatherData = await fetch(getWeatherDataByCoords(latitude, longitude));
   const data = await weatherData.json();
-  const cityData = await cityNameByCoords(latitude, longitude);
-  renderWeatherInfo(data, cityData);
+  renderWeatherInfo(data, cityLocation);
 };
 
 const getWeatherData = async (initialLoad = false) => {
@@ -192,16 +188,27 @@ const getWeatherData = async (initialLoad = false) => {
       const { coords } = await getPosition();
       latitude = coords.latitude;
       longitude = coords.longitude;
-      userLocation = { lat: latitude, lng: longitude };
-      userCityName = await cityNameByCoords(latitude, longitude);
+      userCoordinates = { lat: latitude, lng: longitude };
+      const data = await fetch(getUserLocation(latitude, longitude));
+      let { results } = await data.json();
+      let { cityName, cityState } = handleLocationData(results);
+      cityLocation.cityName = cityName;
+      cityLocation.cityState = cityState;
       loadMap(latitude, longitude);
     } else {
-      cityName = formData();
-      const cityCoords = await fetch(getCityCoords(cityName));
-      const cityLatlon = await cityCoords.json();
-      latitude = cityLatlon[0].lat;
-      longitude = cityLatlon[0].lon;
+      let searchLocation = formData(); //location name
+      const cityCoords = await fetch(getCityCoords(searchLocation)); // lat lng
+      const cityLatLng = await cityCoords.json();
+
+      const { address_components, geometry } = cityLatLng.results[0];
+      latitude = geometry.location.lat;
+      longitude = geometry.location.lng;
+
+      cityLocation.cityName = address_components[0].long_name;
+      cityLocation.cityState = getStateData(address_components);
+
       loadMap(latitude, longitude);
+
       const { AdvancedMarkerElement } = await loadMapLibrary();
       marker = new AdvancedMarkerElement({
         map,
@@ -209,7 +216,7 @@ const getWeatherData = async (initialLoad = false) => {
         content: pinStyles.element,
       });
     }
-    if (!cityName) {
+    if (!cityLocation.cityName) {
       return;
     }
     await weatherDataByCoords(latitude, longitude);
@@ -220,7 +227,6 @@ const getWeatherData = async (initialLoad = false) => {
     console.log(err);
     document.querySelector(".error-msg").style.display = "block";
   }
-  // input.value = "";
 };
 
 getWeatherData(true);
@@ -253,6 +259,15 @@ const setTheme = (theme) => {
 const themeLocalStorage = themeLoad();
 setTheme(themeLocalStorage);
 
+const markerLoadTheme = async () => {
+  const { AdvancedMarkerElement } = await loadMapLibrary();
+  marker = new AdvancedMarkerElement({
+    map,
+    position: { lat: latitude, lng: longitude },
+    content: pinStyles.element,
+  });
+};
+
 lightThemeBtn.addEventListener("click", () => {
   localStorage.setItem("theme", "light");
   let themeFromStorage = localStorage.getItem("theme");
@@ -260,6 +275,8 @@ lightThemeBtn.addEventListener("click", () => {
 
   changeMapWithThemeHandler();
   loadMap(latitude, longitude);
+
+  markerLoadTheme();
 
   darkThemeBtn.classList.remove("hidden");
   lightThemeBtn.classList.add("hidden");
@@ -272,6 +289,8 @@ darkThemeBtn.addEventListener("click", () => {
 
   changeMapWithThemeHandler();
   loadMap(latitude, longitude);
+
+  markerLoadTheme();
 
   darkThemeBtn.classList.add("hidden");
   lightThemeBtn.classList.remove("hidden");

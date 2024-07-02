@@ -17,12 +17,25 @@
   font-weight: 600;
   position: absolute;
   top: 0.7rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 350px;
+}
+
+.current .state {
+  color: var(--text-light-color);
+  font-weight: 300;
+  font-size: 0.95rem;
+  position: relative;
+  top: 3rem;
 }
 
 .current .date-time {
   font-size: 0.95rem;
   display: inline-flex;
   font-weight: 300;
+  margin-left: 0.1rem;
 }
 
 .current .date,
@@ -46,7 +59,7 @@
   flex-direction: row;
   column-gap: 20px;
   position: relative;
-  top: -0.6rem;
+  top: 0.2rem;
 }
 
 .day-temp > div {
@@ -57,7 +70,7 @@
 
 .day-temp > div > span {
   color: var(--text-color);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 400;
 }
 .sun-timing {

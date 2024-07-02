@@ -5,18 +5,22 @@ import {
   renderWeatherIcon,
 } from "./utils.js";
 
-function renderWeatherData(data, CityName) {
-  console.log(data);
+function renderWeatherData(data, cityLocation) {
+  const { cityName, cityState } = cityLocation;
 
-  // update the weather description
+  // render weather description
   const currentDescription = document.querySelector(".description");
   currentDescription.textContent = capitalize(
     data.current.weather[0].description
   );
 
-  // update the city name based on search input
+  // render city name
   const currentCity = document.querySelector(".city");
-  currentCity.textContent = CityName;
+  currentCity.textContent = cityName;
+
+  // render state name
+  const currentState = document.querySelector(".state");
+  currentState.textContent = cityState;
 
   // show the current temperature
   const currentTemperature = document.querySelector(".temperature");
@@ -62,34 +66,6 @@ function renderWeatherData(data, CityName) {
 
   const uv = document.querySelector(".uv-data");
   uv.textContent = data.current.uvi;
-}
-
-function displayDailyForecast() {
-  document.querySelector(".daily-btn").classList.toggle("forecast-selected");
-  document.querySelector(".hourly-btn").classList.toggle("forecast-selected");
-
-  //hide the change hourly forecast buttons
-  document.querySelector(".change-hours").style.display = "none";
-
-  document.querySelector(".forecast-hourly-main-container").style.display =
-    "none";
-
-  // show the daily forecast data when daily button is clicked
-  document.querySelector(".forecast-daily-container").style.display = "grid";
-}
-
-function displayHourlyForecast() {
-  document.querySelector(".hourly-btn").classList.toggle("forecast-selected");
-  document.querySelector(".daily-btn").classList.toggle("forecast-selected");
-
-  // show the change hourly forecast buttons
-  document.querySelector(".change-hours").style.display = "flex";
-
-  document.querySelector(".forecast-hourly-main-container").style.display =
-    "block";
-
-  // hide the daily forecast data when hourly button is clicked
-  document.querySelector(".forecast-daily-container").style.display = "none";
 }
 
 function renderDailyForecast(data) {
@@ -861,15 +837,10 @@ function renderHourlyForecast(data) {
   hourlyDesc24.textContent = data.hourly[23].weather[0].main;
 }
 
-function renderWeatherInfo(data, CityName) {
-  renderWeatherData(data, CityName);
+function renderWeatherInfo(data, cityLocation) {
+  renderWeatherData(data, cityLocation);
   renderDailyForecast(data);
   renderHourlyForecast(data);
 }
 
-export {
-  renderWeatherInfo,
-  displayDailyForecast,
-  displayHourlyForecast,
-  // changeHoursPage,
-};
+export default renderWeatherInfo;
