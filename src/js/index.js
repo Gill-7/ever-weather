@@ -26,8 +26,8 @@ let cityLocation = {};
 
 // MAP STATE VARIABLES
 let map;
-let mapNightID = "5142c1d38b016d6a";
-let mapLightID = "8779c20f81c729cb";
+let mapNightID = "3998899cbaa99a34";
+let mapLightID = "22a0cf5343257c72";
 let MAPID;
 let marker;
 let pinStyles;
@@ -42,7 +42,7 @@ function getPosition() {
   });
 }
 
-async function loadMapLibrary() {
+const loadMapLibrary = async () => {
   const loader = new Loader({
     apiKey: googleMap_api_key,
     version: "weekly",
@@ -51,10 +51,10 @@ async function loadMapLibrary() {
   let { AdvancedMarkerElement, PinElement } = await loader.importLibrary(
     "marker"
   );
-  return { loader, Map, AdvancedMarkerElement, PinElement };
-}
+  return { Map, AdvancedMarkerElement, PinElement };
+};
 
-function createCenterControl(map, latitude, longitude) {
+const createCenterControl = (map, latitude, longitude) => {
   const controlButton = document.createElement("button");
   controlButton.className = "centered-location";
   controlButton.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i>';
@@ -70,7 +70,7 @@ function createCenterControl(map, latitude, longitude) {
     }
   });
   return controlButton;
-}
+};
 
 const changeMapWithThemeHandler = () => {
   let theme = localStorage.getItem("theme");
@@ -83,7 +83,7 @@ const changeMapWithThemeHandler = () => {
 
 const loadMap = async (latitude, longitude) => {
   changeMapWithThemeHandler();
-  const { Map, PinElement, AdvancedMarkerElement } = await loadMapLibrary();
+  const { Map, AdvancedMarkerElement, PinElement } = await loadMapLibrary();
   map = new Map(document.querySelector(".map"), {
     center: { lat: latitude, lng: longitude },
     zoom: 11,
@@ -112,7 +112,6 @@ const loadMap = async (latitude, longitude) => {
     background: "#48cae4",
     borderColor: "#023e8a",
   });
-
   new AdvancedMarkerElement({
     map,
     position: { lat: userCoordinates.lat, lng: userCoordinates.lng },
@@ -120,11 +119,11 @@ const loadMap = async (latitude, longitude) => {
     title: "Your location",
   });
 
-  if (theme === "dark") {
-    MAPID = mapNightID;
-  } else {
-    MAPID = mapLightID;
-  }
+  // if (theme === "dark") {
+  //   MAPID = mapNightID;
+  // } else {
+  //   MAPID = mapLightID;
+  // }
 
   const centerControlDiv = document.createElement("div");
   const centerControl = createCenterControl(
@@ -139,7 +138,7 @@ const loadMap = async (latitude, longitude) => {
   map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(centerControlDiv);
 
   // GET COORDINATES ON MAP CLICK
-  map.addListener("click", (e) => {
+  map.addListener("click", async (e) => {
     latitude = e.latLng.lat();
     longitude = e.latLng.lng();
     marker = new AdvancedMarkerElement({
@@ -147,7 +146,13 @@ const loadMap = async (latitude, longitude) => {
       position: { lat: latitude, lng: longitude },
       content: pinStyles.element,
     });
-    weatherDataByCoords(latitude, longitude);
+    const { cityName, cityState } = await handleUserLocation(
+      latitude,
+      longitude
+    );
+    cityLocation.cityName = cityName;
+    cityLocation.cityState = cityState;
+    await weatherDataByCoords(latitude, longitude);
   });
 };
 
@@ -163,6 +168,7 @@ const getStateData = (address_components) => {
 
 const handleLocationData = (data) => {
   let loc;
+  let bool = true;
   data.map((location) => {
     if (location.types[0] === "locality") {
       let city = location.address_components[0].long_name;
@@ -171,8 +177,21 @@ const handleLocationData = (data) => {
         cityName: city,
         cityState: state,
       };
+      bool = false;
     }
   });
+  bool &&
+    data.map((location) => {
+      if (location.types[0] === "administrative_area_level_2") {
+        let city = location.address_components[0].long_name;
+        let state = getStateData(location.address_components);
+        loc = {
+          cityName: city,
+          cityState: state,
+        };
+        bool = true;
+      }
+    });
   return loc;
 };
 
@@ -182,6 +201,13 @@ const weatherDataByCoords = async (latitude, longitude) => {
   renderWeatherInfo(data, cityLocation);
 };
 
+const handleUserLocation = async (latitude, longitude) => {
+  const data = await fetch(getUserLocation(latitude, longitude));
+  let { results } = await data.json();
+  let { cityName, cityState } = handleLocationData(results);
+  return { cityName, cityState };
+};
+
 const getWeatherData = async (initialLoad = false) => {
   try {
     if (initialLoad) {
@@ -189,9 +215,10 @@ const getWeatherData = async (initialLoad = false) => {
       latitude = coords.latitude;
       longitude = coords.longitude;
       userCoordinates = { lat: latitude, lng: longitude };
-      const data = await fetch(getUserLocation(latitude, longitude));
-      let { results } = await data.json();
-      let { cityName, cityState } = handleLocationData(results);
+      const { cityName, cityState } = await handleUserLocation(
+        latitude,
+        longitude
+      );
       cityLocation.cityName = cityName;
       cityLocation.cityState = cityState;
       loadMap(latitude, longitude);

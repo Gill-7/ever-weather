@@ -33,6 +33,9 @@ function renderWeatherData(data, cityLocation) {
     "full"
   );
 
+  const currentTime = document.querySelector(".time");
+  currentTime.textContent = formatTime(data.current.dt, data.timezone_offset);
+
   const highestTemp = document.querySelector(".high");
   highestTemp.textContent = `${Math.round(data.daily[0].temp.max)}°`;
 
@@ -44,9 +47,6 @@ function renderWeatherData(data, cityLocation) {
 
   const sunset = document.querySelector(".sunset-time");
   sunset.textContent = formatTime(data.current.sunset, data.timezone_offset);
-
-  const currentTime = document.querySelector(".time");
-  currentTime.textContent = formatTime(data.current.dt, data.timezone_offset);
 
   const currentIcon = document.querySelector(".icon");
   currentIcon.src = renderWeatherIcon(data.current.weather[0].icon);
