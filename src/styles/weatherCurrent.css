@@ -58,7 +58,7 @@
   flex-direction: row;
   column-gap: 20px;
   position: relative;
-  top: 0.2rem;
+  /* bottom: 0.2rem; */
 }
 
 .day-temp > div {
@@ -72,6 +72,7 @@
   font-size: 1.05rem;
   font-weight: 400;
 }
+
 .sun-timing {
   display: flex;
   flex-direction: row;
@@ -91,7 +92,6 @@
   position: relative;
   top: 0.7rem;
 }
-
 .sunrise div,
 .sunset div {
   position: relative;

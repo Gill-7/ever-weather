@@ -24,6 +24,8 @@
   background: var(--background-container);
   text-align: center;
   padding: 0.8rem 0.2rem;
+  min-width: 110px;
+  height: 155px;
 }
 
 .forecast-hourly-time,
@@ -43,7 +45,7 @@
 
 .forecast-hourly-desc {
   margin-top: 0.4rem;
-  min-width: 120px;
+  /* min-width: 120px; */
 }
 
 @media only screen and (max-width: 670px) {

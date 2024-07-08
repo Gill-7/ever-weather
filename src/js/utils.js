@@ -118,27 +118,26 @@ function formatTime(unix, offset, timeFormat = "full") {
 
 function formatDate(unix, offset, dateFormat = "weekDay") {
   const date = fromUnixTime(unix + offset).toUTCString();
-
   let dayOfWeek = date.slice(0, 3);
-  let dayOfMonth = date.slice(5, 7);
+  let dateOfMonth = date.slice(5, 7);
   const month = date.slice(8, 11);
   let suffix;
 
-  if (dayOfMonth < 10) {
-    dayOfMonth = dayOfMonth.slice(1);
+  if (dateOfMonth < 10) {
+    dateOfMonth = dateOfMonth.slice(1);
   }
 
-  if (dayOfMonth.slice(-1) === "1") {
+  if (dateOfMonth.slice(-1) === "1") {
     suffix = "st";
-  } else if (dayOfMonth.slice(-1) === "2") {
+  } else if (dateOfMonth.slice(-1) === "2") {
     suffix = "nd";
-  } else if (dayOfMonth.slice(-1) === "3") {
+  } else if (dateOfMonth.slice(-1) === "3") {
     suffix = "rd";
   } else {
     suffix = "th";
   }
 
-  if (dayOfMonth > 3 && dayOfMonth < 21) {
+  if (dateOfMonth > 3 && dateOfMonth < 21) {
     suffix = "th";
   }
 
@@ -148,10 +147,10 @@ function formatDate(unix, offset, dateFormat = "weekDay") {
   }
 
   if (dateFormat === "date") {
-    return `${dayOfMonth} ${month}`;
+    return `${dateOfMonth} ${month}`;
   }
 
-  const formatDate = `${dayOfWeek}, ${dayOfMonth}${suffix} ${month},`;
+  const formatDate = `${dayOfWeek}, ${dateOfMonth}${suffix} ${month},`;
   return formatDate;
 }
 

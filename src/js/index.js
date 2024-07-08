@@ -212,6 +212,7 @@ const getWeatherData = async (initialLoad = false) => {
   try {
     if (initialLoad) {
       const { coords } = await getPosition();
+      console.log("javascript after running");
       latitude = coords.latitude;
       longitude = coords.longitude;
       userCoordinates = { lat: latitude, lng: longitude };
@@ -255,7 +256,7 @@ const getWeatherData = async (initialLoad = false) => {
     document.querySelector(".error-msg").style.display = "block";
   }
 };
-
+console.log("javascript before running");
 getWeatherData(true);
 
 const form = document.querySelector(".form");

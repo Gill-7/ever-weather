@@ -20,24 +20,24 @@
   height: 72px;
   padding: 0 0.7rem;
 }
-/* .forecast-daily-day-container {
-  text-transform: uppercase;
-} */
+.forecast-daily-day-container {
+  width: 55px;
+}
 
 .forecast-daily-day {
   font-weight: 400;
-  font-size: 0.95rem;
-  text-transform: uppercase;
+  font-size: 1.05rem;
+  letter-spacing: 0.4px;
 }
 .forecast-daily-date {
   font-weight: 300;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   letter-spacing: 0.3px;
   color: var(--text-light-color);
 }
 
 .weather-daily-icon {
-  width: 62px;
+  width: 60px;
   position: relative;
 }
 
@@ -46,6 +46,7 @@
   flex-direction: row;
   column-gap: 0.5rem;
 }
+
 .temp-max-container,
 .temp-min-container {
   display: flex;
@@ -54,14 +55,14 @@
 
 .temp-max-container span,
 .temp-min-container span {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 300;
   color: var(--text-light-color);
 }
 
 .forecast-daily-temp-max,
 .forecast-daily-temp-min {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
 }
 
 @media only screen and (max-width: 670px) {
