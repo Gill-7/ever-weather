@@ -1,7 +1,7 @@
 :root,
 :root.dark {
   --background: #1d2024;
-  --background-container: #202730;
+  --background-container: #262e38;
   --borders: #f19657;
   --text-color: #f19657;
   --text-light-color: #f8c5a1;
@@ -10,7 +10,7 @@
 }
 :root.light {
   --background: #fff;
-  --background-container: #f9f9f9;
+  --background-container: #f1f0f0;
   /* --borders: #242425; */
   --borders: #e6e8e8;
   --text-color: #2e3535;
@@ -50,14 +50,14 @@ body {
 .container {
   max-width: 1190px;
   height: 100%;
-  width: 95%;
+  width: 90%;
   margin: 0rem auto;
   /* padding-top: calc(100vh - 96vh); */
   /* position: relative; */
   display: grid;
   grid-template-columns:
-    minmax(150px, 170px) minmax(150px, 170px) minmax(150px, 170px)
-    minmax(150px, 170px) minmax(150px, 170px) minmax(150px, 170px) minmax(150px, 170px);
+    minmax(120px, 170px) minmax(120px, 170px) minmax(120px, 170px)
+    minmax(120px, 170px) minmax(120px, 170px) minmax(120px, 170px) minmax(120px, 170px);
   grid-template-rows: 50px 210px 170px auto;
   grid-gap: 14px 14px;
   grid-template-areas:
@@ -67,67 +67,63 @@ body {
     "dy dy mp mp mp mp mp";
 }
 
-.lightTheme-button,
-.darkTheme-button {
-  background: var(--background);
-  outline: none;
-  border: none;
-  cursor: pointer;
+@media only screen and (max-width: 1179px) {
+  .container {
+    width: 95%;
+    grid-gap: 12px 12px;
+    grid-template-rows: 45px 200px 155px auto;
+  }
 }
 
-.fa-moon,
-.fa-sun {
-  font-size: 22px;
+@media only screen and (max-width: 979px) {
+  .container {
+    width: 90%;
+    margin: 2.5rem 0;
+    grid-template-columns: 2fr 2fr 2fr 2fr 1fr 1fr;
+    grid-template-rows: 40px 270px 150px 200px 200px 350px;
+    grid-gap: 12px 12px;
+    grid-template-areas:
+      "sh sh sh . . te"
+      "cu cu cu cu cu cu"
+      "fe hu wd pp uv uv"
+      "hy hy hy hy hy hy"
+      "dy dy dy dy dy dy"
+      "mp mp mp mp mp mp";
+  }
+}
+
+@media only screen and (max-width: 679px) {
+  .container {
+    width: 94%;
+    margin: 2rem 0;
+    grid-template-columns: 2fr 2fr 2fr 2fr 1fr 1fr;
+    grid-template-rows: 40px 270px 145px 200px 200px 300px;
+    grid-gap: 11px 11px;
+  }
+}
+/* 
+@media only screen and (max-width: 670px) {
+  .container {
+    width: 95%;
+  }
+}
+
+@media only screen and (max-width: 460px) {
+  .container {
+    width: 90%;
+  }
+} */
+
+@media only screen and (max-width: 360px) {
+  .container {
+    width: 90%;
+  }
 }
 
 /* MAP */
-
 .map {
   height: 100%;
   cursor: pointer;
-}
-
-.centered-location {
-  background: rgb(240, 240, 240);
-  outline: none;
-  border: none;
-  border-radius: 2px;
-  margin-right: 0.5rem;
-  margin-bottom: 0.6rem;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  width: 42px;
-  height: 42px;
-  position: relative;
-}
-
-.fa-location-crosshairs {
-  font-size: 22px;
-  color: rgb(93, 93, 93);
-  position: absolute;
-  right: 0;
-  left: 0;
-  bottom: 0.55rem;
-}
-
-.fa-location-crosshairs:hover {
-  color: #282828;
-}
-
-@media only screen and (max-width: 1120px) {
-  /* .container {
-    border: 1px solid red;
-    grid-template-columns:
-      minmax(170px, 210px) minmax(150px, 175px)
-      minmax(150px, 175p  x) minmax(150px, 175px);
-    grid-template-rows: 30px 180px 170px 170px 230px;
-    grid-template-areas:
-      "sh sh te ."
-      "cu dy dy hy"
-      "sg fe hu hy"
-      "wd pp . hy"
-      "ct ct ct ct";
-  } */
 }
 
 .theme,
@@ -179,6 +175,28 @@ body {
   grid-area: mp;
 }
 
+@media only screen and (max-width: 1179px) {
+  .theme,
+  .search,
+  .current,
+  .hourly,
+  .daily,
+  .feels-like,
+  .humidity,
+  .wind-speed,
+  .precipitation,
+  .uv,
+  .map {
+    padding: 0.75rem;
+  }
+}
+
+@media only screen and (max-width: 979px) {
+  .search {
+    border: 1px solid var(--borders);
+  }
+}
+
 @import url("./skeleton.css");
 
 @import url("./weatherDetails.css");
@@ -193,24 +211,7 @@ body {
 
 @import url("./map.css");
 
-@media only screen and (max-width: 670px) {
-  .container {
-    width: 95%;
-  }
-}
-
-@media only screen and (max-width: 460px) {
-  .container {
-    width: 90%;
-  }
-}
-
-@media only screen and (max-width: 360px) {
-  .container {
-    width: 90%;
-  }
-}
-
+/* 
 #loader {
   border: 5px solid #f3f3f3;
   border-radius: 50%;
@@ -235,4 +236,4 @@ body {
   right: 0;
   margin: auto;
   border: 1px solid red;
-}
+} */

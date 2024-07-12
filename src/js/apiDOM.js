@@ -86,7 +86,7 @@ function renderWeatherData(data, cityLocation) {
             src="assets/wind.svg"
             alt="feels like"
             class="img2Svg"
-            id="tempSvg"
+            id="windSvg"
           />
           <h4 class="feels-like-data h4">${Math.round(
             data.current.wind_speed

@@ -7,8 +7,8 @@
 
 .weather-detail-container h3 {
   font-weight: 300;
-  color: var(--daily-secondary-color);
-  font-size: 1.05rem;
+  color: var(--text-light-color);
+  font-size: 1rem;
 }
 
 .img2Svg {
@@ -19,7 +19,6 @@
 .h4 {
   font-size: 1.3rem;
   text-align: center;
-  height: 1.7rem;
 }
 
 #rainSvg,
@@ -28,7 +27,35 @@
   width: 65px;
 }
 
-@media only screen and (max-width: 670px) {
+@media only screen and (max-width: 1179px) {
+  .weather-detail-container h3 {
+    font-size: 1rem;
+  }
+
+  .img2Svg {
+    width: 70px;
+    height: 65px;
+  }
+
+  .h4 {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  #rainSvg,
+  #windSvg,
+  #uvSvg {
+    width: 55px;
+  }
+}
+
+@media only screen and (max-width: 979px) {
+  .weather-detail-container h3 {
+    font-size: 0.9rem;
+  }
+}
+
+/* @media only screen and (max-width: 679px) {
   .img2Svg {
     width: 30px;
     height: 40px;
@@ -42,9 +69,9 @@
     font-size: 1.22rem;
     font-weight: 500;
     margin-top: 1.2rem;
-  }
+  } */
 
-  /* .weather-details:last-of-type {
+/* .weather-details:last-of-type {
     position: relative;
   }
 
@@ -56,7 +83,6 @@
   .weather-details:last-of-type .weather-detail-data {
     margin-left: 1rem;
   } */
-}
 
 @media only screen and (max-width: 460px) {
   /* section {

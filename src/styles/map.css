@@ -1,3 +1,30 @@
 .map {
   width: 100%;
 }
+
+.centered-location {
+  background: rgb(240, 240, 240);
+  outline: none;
+  border: none;
+  border-radius: 2px;
+  margin-right: 0.5rem;
+  margin-bottom: 0.6rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  width: 42px;
+  height: 42px;
+  position: relative;
+}
+
+.fa-location-crosshairs {
+  font-size: 22px;
+  color: rgb(93, 93, 93);
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0.55rem;
+}
+
+.fa-location-crosshairs:hover {
+  color: #282828;
+}

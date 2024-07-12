@@ -11,10 +11,11 @@
   border-bottom: 0.5px solid var(--text-light-color);
   outline: none;
   font-size: 1rem;
-  width: 94%;
+  width: 92%;
+  margin-right: 0.1rem;
 }
 
-form input::placeholder {
+.form input::placeholder {
   color: rgb(164, 161, 161);
   font-size: 0.9rem;
 }
@@ -27,23 +28,66 @@ form input::placeholder {
   border: none;
 }
 
+.form #searchSvg {
+  width: 20px;
+  cursor: pointer;
+  padding: 0;
+}
+.imgSvg {
+  width: 40px;
+}
+
 .theme {
   text-align: center;
   color: var(--text-color);
 }
 
-.theme-button i {
-  font-size: 1.5rem;
-}
-
-.imgSvg {
-  width: 40px;
-}
-
-.form #searchSvg {
-  width: 20px;
+.lightTheme-button,
+.darkTheme-button {
+  background: var(--background);
+  outline: none;
+  border: none;
   cursor: pointer;
-  padding: 0;
+}
+
+.fa-moon,
+.fa-sun {
+  font-size: 22px;
+}
+
+@media only screen and (max-width: 1179px) {
+  .form input {
+    border-bottom: 0.3px solid var(--text-light-color);
+    font-size: 0.9rem;
+    padding-bottom: 0.1rem;
+  }
+  .form input::placeholder {
+    font-size: 0.9rem;
+  }
+  .form button {
+    padding-top: 6px;
+  }
+  .fa-moon,
+  .fa-sun {
+    font-size: 18px;
+  }
+}
+
+@media only screen and (max-width: 979px) {
+  .form input {
+    border: none;
+    font-weight: 300;
+  }
+
+  .form button {
+    padding-top: 1px;
+  }
+
+  .fa-moon,
+  .fa-sun {
+    position: relative;
+    top: -0.1rem;
+  }
 }
 
 /******* ERROR WITH LOCATION SEARCH ********/
@@ -107,7 +151,7 @@ form input::placeholder {
   cursor: pointer;
 }
 
-@media only screen and (max-width: 670px) {
+/* @media only screen and (max-width: 670px) {
   .form {
     margin-top: -0.05rem;
   }
@@ -159,4 +203,4 @@ form input::placeholder {
     height: 0.95rem;
     margin: 6px 0 0 0;
   }
-}
+} */
