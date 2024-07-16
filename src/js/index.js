@@ -119,12 +119,6 @@ const loadMap = async (latitude, longitude) => {
     title: "Your location",
   });
 
-  // if (theme === "dark") {
-  //   MAPID = mapNightID;
-  // } else {
-  //   MAPID = mapLightID;
-  // }
-
   const centerControlDiv = document.createElement("div");
   const centerControl = createCenterControl(
     map,

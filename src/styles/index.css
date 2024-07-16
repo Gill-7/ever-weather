@@ -3,8 +3,13 @@
   --background: #1d2024;
   --background-container: #262e38;
   --borders: #f19657;
-  --text-color: #f19657;
-  --text-light-color: #f8c5a1;
+  /* --borders: #b0b0b0; */
+  --text-color: #f18233;
+  --text-light-color: #f8bb8f;
+  --text-color-secondary: #f18233;
+  --text-light-color-secondary: #f8bb8f;
+  /* --text-color: #d9d9d9;
+  --text-light-color: #d6d6d6; */
   --icon-color: #f19657;
   --daily-secondary-color: #a5a5a5;
 }
@@ -13,6 +18,8 @@
   --background-container: #f1f0f0;
   /* --borders: #242425; */
   --borders: #e6e8e8;
+  --text-color-secondary: #f0f0f0;
+  --text-light-color-secondary: #e3e2e2;
   --text-color: #2e3535;
   --text-light-color: #676868;
   --icon-color: #777676;
@@ -29,10 +36,6 @@
 }
 
 body {
-  /* background-image: url(../svg/weather.jpg); */
-  /* background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover; */
   min-height: 100vh;
   height: 100%;
   overflow-y: scroll;
@@ -52,8 +55,6 @@ body {
   height: 100%;
   width: 90%;
   margin: 0rem auto;
-  /* padding-top: calc(100vh - 96vh); */
-  /* position: relative; */
   display: grid;
   grid-template-columns:
     minmax(120px, 170px) minmax(120px, 170px) minmax(120px, 170px)
@@ -92,31 +93,38 @@ body {
   }
 }
 
-@media only screen and (max-width: 679px) {
+@media only screen and (max-width: 669px) {
   .container {
     width: 94%;
     margin: 2rem 0;
-    grid-template-columns: 2fr 2fr 2fr 2fr 1fr 1fr;
-    grid-template-rows: 40px 270px 145px 200px 200px 300px;
-    grid-gap: 11px 11px;
-  }
-}
-/* 
-@media only screen and (max-width: 670px) {
-  .container {
-    width: 95%;
+    grid-template-columns:
+      minmax(60px, 2fr) minmax(60px, 2fr) minmax(60px, 2fr) minmax(60px, 2fr)
+      minmax(30px, 1fr)
+      minmax(30px, 1fr);
+    grid-template-rows: 40px 250px 140px 180px 180px 250px;
+    grid-gap: 10px 10px;
+    grid-template-areas:
+      "sh sh sh sh te te"
+      "cu cu cu cu cu cu"
+      "fe hu wd pp uv uv"
+      "hy hy hy hy hy hy"
+      "dy dy dy dy dy dy"
+      "mp mp mp mp mp mp";
   }
 }
 
-@media only screen and (max-width: 460px) {
+@media only screen and (max-width: 589px) {
   .container {
-    width: 90%;
-  }
-} */
-
-@media only screen and (max-width: 360px) {
-  .container {
-    width: 90%;
+    grid-template-areas:
+      "sh sh sh sh te te"
+      "cu cu cu cu cu cu"
+      "fe fe wd wd uv uv"
+      "hu hu pp pp uv uv"
+      "hy hy hy hy hy hy"
+      "dy dy dy dy dy dy"
+      "mp mp mp mp mp mp";
+    grid-gap: 8px 8px;
+    grid-template-rows: 40px 250px 75px 75px 180px 180px 230px;
   }
 }
 
@@ -127,7 +135,6 @@ body {
 }
 
 .theme,
-.search,
 .current,
 .hourly,
 .daily,
@@ -143,6 +150,8 @@ body {
 }
 .search {
   grid-area: sh;
+  border: 1px solid var(--borders);
+  border-radius: 7px;
 }
 .theme {
   grid-area: te;
@@ -177,7 +186,6 @@ body {
 
 @media only screen and (max-width: 1179px) {
   .theme,
-  .search,
   .current,
   .hourly,
   .daily,
@@ -192,8 +200,29 @@ body {
 }
 
 @media only screen and (max-width: 979px) {
-  .search {
-    border: 1px solid var(--borders);
+  .current {
+    padding: 0.95rem 0.9rem;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+      url("../../dist/background.jpg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+@media only screen and (max-width: 589px) {
+  .theme,
+  .hourly,
+  .daily,
+  .feels-like,
+  .humidity,
+  .wind-speed,
+  .precipitation,
+  .uv,
+  .map {
+    padding: 0.6rem;
   }
 }
 
@@ -210,30 +239,3 @@ body {
 @import url("./hourlyWeather.css");
 
 @import url("./map.css");
-
-/* 
-#loader {
-  border: 5px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 5px solid #0b0b0b;
-  width: 35px;
-  height: 35px;
-  background-color: none;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.center {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  border: 1px solid red;
-} */

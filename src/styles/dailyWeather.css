@@ -6,7 +6,7 @@
 }
 
 .daily h3 {
-  font-weight: 300;
+  font-weight: 400;
   color: var(--daily-secondary-color);
 }
 
@@ -34,7 +34,7 @@
   font-size: 1.05rem;
 }
 .forecast-daily-date {
-  font-weight: 300;
+  font-weight: 400;
   font-size: 0.85rem;
   color: var(--text-light-color);
 }
@@ -59,7 +59,7 @@
 .temp-max-container span,
 .temp-min-container span {
   font-size: 0.85rem;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--text-light-color);
 }
 
@@ -74,7 +74,6 @@
   }
 
   .daily h3 {
-    font-weight: 300;
     font-size: 1.05rem;
   }
 
@@ -126,7 +125,6 @@
   }
 
   .daily h3 {
-    font-weight: 300;
     font-size: 1.05rem;
     color: var(--daily-secondary-color);
   }
@@ -137,7 +135,6 @@
     display: flex;
     column-gap: 0.5rem;
   }
-
   .forecast-daily {
     display: flex;
     flex-direction: column;
@@ -151,13 +148,7 @@
     display: flex;
   }
 
-  .forecast-daily-date {
-    font-weight: 400;
-    font-size: 0.85rem;
-    color: var(--text-light-color);
-    margin-right: 0.2rem;
-  }
-
+  .forecast-daily-date,
   .forecast-daily-day {
     font-weight: 400;
     font-size: 0.85rem;
@@ -165,7 +156,7 @@
   }
 
   .forecast-daily-day::before {
-    content: "/ ";
+    content: "/";
   }
 
   .forecast-daily-day:first-child::before {
@@ -177,18 +168,14 @@
     position: relative;
   }
 
-  .forecast-daily-temp {
-    /* column-gap: 0.4rem; */
-  }
-
   .temp-max-container span,
   .temp-min-container span {
-    font-size: 0.85rem;
+    font-size: 0.8438rem;
   }
 
   .forecast-daily-temp-max,
   .forecast-daily-temp-min {
-    font-size: 0.95rem;
+    font-size: 0.9688rem;
     /* font-weight: 300; */
   }
 }
@@ -202,86 +189,66 @@
     padding: 0.8rem 0.2rem;
   }
 }
-/* 
-@media only screen and (max-width: 670px) {
-  .daily {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 1rem;
-    margin-top: 1.2rem;
+
+@media only screen and (max-width: 669px) {
+  .daily h3 {
+    font-size: 0.9375rem;
   }
+  .forecast-daily-container {
+    height: 130px;
+  }
+
   .forecast-daily {
-    max-width: 450px;
-    display: grid;
-    grid-template-columns:
-      1fr minmax(100px, 1fr) 1fr minmax(100px, 1fr)
-      1fr 1fr;
-    align-items: center;
-    justify-self: center;
-    grid-template-areas: ". left . center right .";
+    padding: 0.7rem;
+    height: 130px;
   }
 
+  .forecast-daily-date,
   .forecast-daily-day {
-    font-size: 0.95rem;
-    font-weight: 400;
-    letter-spacing: 0.3px;
-    justify-items: left;
-    grid-area: left;
-  }
-
-  .forecast-daily-temp {
-    display: flex;
-    align-items: center;
-    font-weight: 600;
-    grid-area: center;
-  }
-  .forecast-daily-temp-max {
-    font-size: 1.1rem;
-    margin: 0;
-    font-weight: 600;
-  }
-
-  .forecast-daily-temp-min {
-    font-size: 0.8rem;
-    margin-left: 10px;
-    font-weight: 400;
-    margin-top: 11px;
+    font-size: 0.8438rem;
   }
 
   .weather-daily-icon {
-    width: 34px;
-    grid-area: right;
-    margin-left: 1rem;
+    width: 45px;
+  }
+
+  .forecast-daily-temp {
+    margin-top: 0;
+  }
+
+  .temp-max-container span,
+  .temp-min-container span {
+    font-size: 0.8125rem;
+  }
+
+  .forecast-daily-temp-max,
+  .forecast-daily-temp-min {
+    font-size: 0.9375rem;
   }
 }
 
-@media only screen and (max-width: 460px) {
-  .daily {
-    gap: 0.4rem;
+@media only screen and (max-width: 589px) {
+  .forecast-daily-container {
+    column-gap: 0.35rem;
   }
 
+  .forecast-daily {
+    min-width: 90px;
+    padding: 0.7rem;
+  }
+
+  .forecast-daily-date,
   .forecast-daily-day {
-    font-size: 0.95rem;
-    letter-spacing: 0.1px;
+    font-size: 0.7813rem;
   }
 
-  .forecast-daily-temp {
-    font-weight: 500;
+  .temp-max-container span,
+  .temp-min-container span {
+    font-size: 0.7813rem;
   }
 
-  .forecast-daily-temp-max {
-    font-size: 1.1rem;
-    font-weight: 600;
-  }
-
+  .forecast-daily-temp-max,
   .forecast-daily-temp-min {
-    font-size: 0.8rem;
-    margin-left: 7px;
-    margin-top: 11px;
+    font-size: 0.9063rem;
   }
-
-  .weather-daily-icon {
-    width: 35px;
-    margin-left: 0.2rem;
-  }
-} */
+}

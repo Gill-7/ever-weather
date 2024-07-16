@@ -1,8 +1,15 @@
-.form {
+.search {
   display: flex;
   align-items: center;
-  justify-content: left;
+  width: 100%;
   position: relative;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0.7rem;
 }
 
 .form input {
@@ -17,24 +24,18 @@
 
 .form input::placeholder {
   color: rgb(164, 161, 161);
-  font-size: 0.9rem;
+  font-size: 0.8438rem;
 }
 
 .form button {
-  position: absolute;
-  right: 0px;
-  padding-top: 4px;
+  cursor: pointer;
+  right: 0.6rem;
   background: none;
   border: none;
 }
 
-.form #searchSvg {
-  width: 20px;
-  cursor: pointer;
-  padding: 0;
-}
-.imgSvg {
-  width: 40px;
+.form .fa-search {
+  font-size: 1.15rem;
 }
 
 .theme {
@@ -59,13 +60,10 @@
   .form input {
     border-bottom: 0.3px solid var(--text-light-color);
     font-size: 0.9rem;
-    padding-bottom: 0.1rem;
+    /* padding-bottom: 0.1rem; */
   }
   .form input::placeholder {
-    font-size: 0.9rem;
-  }
-  .form button {
-    padding-top: 6px;
+    font-size: 0.8438rem;
   }
   .fa-moon,
   .fa-sun {
@@ -79,8 +77,8 @@
     font-weight: 300;
   }
 
-  .form button {
-    padding-top: 1px;
+  .form .fa-search {
+    font-size: 1.1rem;
   }
 
   .fa-moon,
@@ -90,6 +88,28 @@
   }
 }
 
+@media only screen and (max-width: 589px) {
+  .form input {
+    font-size: 0.875rem;
+  }
+
+  .form input::placeholder {
+    font-size: 0.8125rem;
+  }
+
+  .form .fa-search {
+    font-size: 1.05rem;
+    position: relative;
+    top: 0.1rem;
+  }
+
+  .fa-moon,
+  .fa-sun {
+    position: relative;
+    top: 0rem;
+    font-size: 1rem;
+  }
+}
 /******* ERROR WITH LOCATION SEARCH ********/
 
 .error-msg {
