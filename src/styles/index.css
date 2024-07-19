@@ -3,20 +3,16 @@
   --background: #1d2024;
   --background-container: #262e38;
   --borders: #f19657;
-  /* --borders: #b0b0b0; */
   --text-color: #f18233;
   --text-light-color: #f8bb8f;
   --text-color-secondary: #f18233;
   --text-light-color-secondary: #f8bb8f;
-  /* --text-color: #d9d9d9;
-  --text-light-color: #d6d6d6; */
   --icon-color: #f19657;
   --daily-secondary-color: #a5a5a5;
 }
 :root.light {
   --background: #fff;
-  --background-container: #f1f0f0;
-  /* --borders: #242425; */
+  --background-container: #f4f4f4;
   --borders: #e6e8e8;
   --text-color-secondary: #f0f0f0;
   --text-light-color-secondary: #e3e2e2;
@@ -32,7 +28,6 @@
   box-sizing: border-box;
   font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  color: var(--text-color);
 }
 
 body {
@@ -44,6 +39,7 @@ body {
   align-items: center;
   justify-content: center;
   background-color: var(--background);
+  color: var(--text-color);
 }
 
 .hidden {
@@ -147,11 +143,13 @@ body {
   border: 1px solid var(--borders);
   border-radius: 7px;
   padding: 0.85rem;
+  /* box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px; */
 }
 .search {
   grid-area: sh;
   border: 1px solid var(--borders);
   border-radius: 7px;
+  /* box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px; */
 }
 .theme {
   grid-area: te;

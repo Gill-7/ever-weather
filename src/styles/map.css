@@ -1,30 +1,61 @@
 .map {
   width: 100%;
+  outline: none;
+  box-shadow: none;
+}
+
+.centered-location,
+.screen-size-btn {
+  background-color: var(--background);
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+  padding: 0.4rem;
+  outline: none;
+  border: none;
+  margin: 0.5rem;
 }
 
 .centered-location {
-  background: rgb(240, 240, 240);
-  outline: none;
-  border: none;
-  border-radius: 2px;
-  margin-right: 0.5rem;
-  margin-bottom: 0.6rem;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  width: 42px;
-  height: 42px;
-  position: relative;
+  padding: 0.45rem 0.5rem 0.4rem 0.5rem;
+  margin-bottom: 0.2rem;
+}
+
+.fa-location-crosshairs,
+.fa-expand,
+.fa-compress {
+  font-size: 20px;
+  border: 0;
+  color: var(--text-light-color);
 }
 
 .fa-location-crosshairs {
-  font-size: 22px;
-  color: rgb(93, 93, 93);
-  position: absolute;
-  right: 0;
-  left: 0;
-  bottom: 0.55rem;
+  font-size: 17px;
 }
 
-.fa-location-crosshairs:hover {
-  color: #282828;
+.fa-location-crosshairs:hover,
+.fa-expand:hover,
+.fa-compress:hover {
+  color: var(--text-color);
+}
+
+@media only screen and (max-width: 669px) {
+  .centered-location,
+  .screen-size-btn {
+    padding: 0.35rem 0.35rem 0.3rem 0.35rem;
+    margin: 0.4rem;
+  }
+
+  .centered-location {
+    padding: 0.35rem 0.35rem 0.3rem 0.35rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .fa-location-crosshairs,
+  .fa-expand,
+  .fa-compress {
+    font-size: 17px;
+  }
+
+  .fa-location-crosshairs {
+    font-size: 15px;
+  }
 }

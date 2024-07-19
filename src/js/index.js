@@ -9,19 +9,13 @@ import renderWeatherInfo from "./apiDOM.js";
 import { googleMap_api_key } from "../../config.js";
 import { Loader } from "@googlemaps/js-api-loader";
 
-//   // var image = document.images[0];
-//   // var downImg = new Image();
-//   // downImg.onload = function () {
-//   //   image.src = this.src;
-//   // };
-
-//   // downImg.src = "../svg/weather.jpg";
-
 // APPLICATION STATE VARIABLES
-let userCityName;
+let userLocation = {};
 let userCoordinates;
 let latitude;
 let longitude;
+let searchMarkerLatitude;
+let searchMarkerLongitude;
 let cityLocation = {};
 
 // MAP STATE VARIABLES
@@ -55,21 +49,42 @@ const loadMapLibrary = async () => {
 };
 
 const createCenterControl = (map, latitude, longitude) => {
-  const controlButton = document.createElement("button");
-  controlButton.className = "centered-location";
-  controlButton.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i>';
+  const centeredButton = document.createElement("button");
+  centeredButton.className = "centered-location";
+  centeredButton.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i>';
+  centeredButton.title = "Go to your location";
 
   let currentLocation = { lat: latitude, lng: longitude };
-  controlButton.addEventListener("click", () => {
+  centeredButton.addEventListener("click", () => {
     map.setCenter(currentLocation);
-    map.setZoom(11);
+    map.setZoom(12);
     marker.setMap(null);
+    if (marker) {
+      marker.setMap(null);
+    }
+    // marker = "";
 
-    if (cityLocation.cityName !== userCityName) {
-      weatherDataByCoords(latitude, longitude);
+    if (cityLocation.cityName !== userLocation.cityName) {
+      weatherDataByCoords(latitude, longitude, userLocation);
     }
   });
-  return controlButton;
+  return centeredButton;
+};
+
+const expandBtn = () => {
+  const expandScreen = document.createElement("button");
+  expandScreen.className = "screen-size-btn";
+  expandScreen.innerHTML = "<i class='fas fa-expand'></i>";
+  expandScreen.title = "Toggle fullscreen view";
+  return expandScreen;
+};
+
+const compressBtn = () => {
+  const compressScreen = document.createElement("button");
+  compressScreen.className = "screen-size-btn";
+  compressScreen.innerHTML = '<i class="fas fa-compress"></i>';
+  compressScreen.title = "Toggle fullscreen view";
+  return compressScreen;
 };
 
 const changeMapWithThemeHandler = () => {
@@ -86,28 +101,51 @@ const loadMap = async (latitude, longitude) => {
   const { Map, AdvancedMarkerElement, PinElement } = await loadMapLibrary();
   map = new Map(document.querySelector(".map"), {
     center: { lat: latitude, lng: longitude },
-    zoom: 11,
+    zoom: 12,
     minZoom: 2.3,
     gestureHandling: "greedy",
     disableDefaultUI: true,
     mapTypeControl: false,
-    fullscreenControl: true,
+    fullscreenControl: false,
     mapId: MAPID,
   });
 
-  // MARKER FOR FINDING LOCATION WEATHER
-  pinStyles = new PinElement({
-    background: "#FBBC04",
-    scale: 0.6,
-  });
+  // A MARKER FOR FULL SCREEN MAP
+  const elementToSendFullscreen = map.getDiv().firstChild;
+  let fullScreenControl = document.createElement("div");
+  fullScreenControl.appendChild(expandBtn());
+
+  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(fullScreenControl);
+  fullScreenControl.onclick = function () {
+    if (isFullscreen(elementToSendFullscreen)) {
+      exitFullscreen();
+    } else {
+      requestFullscreen(elementToSendFullscreen);
+    }
+  };
+
+  document.onwebkitfullscreenchange =
+    document.onmsfullscreenchange =
+    document.onmozfullscreenchange =
+    document.onfullscreenchange =
+      function () {
+        if (isFullscreen(elementToSendFullscreen)) {
+          fullScreenControl.innerHTML = "";
+          fullScreenControl.appendChild(compressBtn());
+        } else {
+          fullScreenControl.innerHTML = "";
+          fullScreenControl.appendChild(expandBtn());
+        }
+      };
 
   // A MARKER FOR USER LOCATION
   const icon = document.createElement("div");
   icon.innerHTML =
-    '<i class="fa-solid fa-house" style="color:#023e8a;fontSize:20px"></i>';
+    '<i class="fa-solid fa-house" style="color:#023e8a;font-size:10px"></i>';
 
   const homePinStyles = new PinElement({
     glyph: icon,
+    scale: 0.8,
     glyphColor: "#023e8a",
     background: "#48cae4",
     borderColor: "#023e8a",
@@ -131,10 +169,18 @@ const loadMap = async (latitude, longitude) => {
 
   map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(centerControlDiv);
 
+  // MARKER FOR FINDING LOCATION WEATHER
+  pinStyles = new PinElement({
+    background: "#FBBC04",
+    scale: 0.6,
+  });
+
   // GET COORDINATES ON MAP CLICK
   map.addListener("click", async (e) => {
     latitude = e.latLng.lat();
     longitude = e.latLng.lng();
+    searchMarkerLatitude = latitude;
+    searchMarkerLongitude = longitude;
     marker = new AdvancedMarkerElement({
       map,
       position: { lat: latitude, lng: longitude },
@@ -146,7 +192,7 @@ const loadMap = async (latitude, longitude) => {
     );
     cityLocation.cityName = cityName;
     cityLocation.cityState = cityState;
-    await weatherDataByCoords(latitude, longitude);
+    await weatherDataByCoords(latitude, longitude, cityLocation);
   });
 };
 
@@ -189,10 +235,10 @@ const handleLocationData = (data) => {
   return loc;
 };
 
-const weatherDataByCoords = async (latitude, longitude) => {
+const weatherDataByCoords = async (latitude, longitude, location) => {
   const weatherData = await fetch(getWeatherDataByCoords(latitude, longitude));
   const data = await weatherData.json();
-  renderWeatherInfo(data, cityLocation);
+  renderWeatherInfo(data, location);
 };
 
 const handleUserLocation = async (latitude, longitude) => {
@@ -206,7 +252,6 @@ const getWeatherData = async (initialLoad = false) => {
   try {
     if (initialLoad) {
       const { coords } = await getPosition();
-      console.log("javascript after running");
       latitude = coords.latitude;
       longitude = coords.longitude;
       userCoordinates = { lat: latitude, lng: longitude };
@@ -216,6 +261,8 @@ const getWeatherData = async (initialLoad = false) => {
       );
       cityLocation.cityName = cityName;
       cityLocation.cityState = cityState;
+      userLocation.cityName = cityName;
+      userLocation.cityState = cityState;
       loadMap(latitude, longitude);
     } else {
       let searchLocation = formData(); //location name
@@ -241,7 +288,7 @@ const getWeatherData = async (initialLoad = false) => {
     if (!cityLocation.cityName) {
       return;
     }
-    await weatherDataByCoords(latitude, longitude);
+    await weatherDataByCoords(latitude, longitude, cityLocation);
 
     document.querySelector(".error-msg").style.display = "none";
     input.value = "";
@@ -250,7 +297,7 @@ const getWeatherData = async (initialLoad = false) => {
     document.querySelector(".error-msg").style.display = "block";
   }
 };
-console.log("javascript before running");
+
 getWeatherData(true);
 
 const form = document.querySelector(".form");
@@ -285,7 +332,7 @@ const markerLoadTheme = async () => {
   const { AdvancedMarkerElement } = await loadMapLibrary();
   marker = new AdvancedMarkerElement({
     map,
-    position: { lat: latitude, lng: longitude },
+    position: { lat: searchMarkerLatitude, lng: searchMarkerLongitude },
     content: pinStyles.element,
   });
 };
@@ -296,7 +343,11 @@ lightThemeBtn.addEventListener("click", () => {
   setTheme(themeFromStorage);
 
   changeMapWithThemeHandler();
-  loadMap(latitude, longitude);
+  if (searchMarkerLatitude && searchMarkerLongitude) {
+    loadMap(searchMarkerLatitude, searchMarkerLongitude);
+  } else {
+    loadMap(latitude, longitude);
+  }
 
   markerLoadTheme();
 
@@ -310,7 +361,12 @@ darkThemeBtn.addEventListener("click", () => {
   setTheme(themeFromStorage);
 
   changeMapWithThemeHandler();
-  loadMap(latitude, longitude);
+
+  if (searchMarkerLatitude && searchMarkerLongitude) {
+    loadMap(searchMarkerLatitude, searchMarkerLongitude);
+  } else {
+    loadMap(latitude, longitude);
+  }
 
   markerLoadTheme();
 
@@ -326,7 +382,41 @@ form.addEventListener("submit", (e) => {
 // CLOSE ERROR MSG WHEN LOCATION IS INCORRECT
 
 const close = document.querySelector(".close");
-
 close.addEventListener("click", () => {
   document.querySelector(".error-msg").style.display = "none";
 });
+
+// BELOW FUNCTIONS ARE FOR CUSTOMIZE FULL SCREEN BUTTON ON MAP. FOR MORE INFO https://developers.google.com/maps/documentation/javascript/examples/control-replacement#maps_control_replacement-javascript
+
+function isFullscreen(element) {
+  return (
+    (document.fullscreenElement ||
+      document.webkitFullscreenElement ||
+      document.mozFullScreenElement ||
+      document.msFullscreenElement) == element
+  );
+}
+
+function requestFullscreen(element) {
+  if (element.requestFullscreen) {
+    element.requestFullscreen();
+  } else if (element.webkitRequestFullScreen) {
+    element.webkitRequestFullScreen();
+  } else if (element.mozRequestFullScreen) {
+    element.mozRequestFullScreen();
+  } else if (element.msRequestFullScreen) {
+    element.msRequestFullScreen();
+  }
+}
+
+function exitFullscreen() {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.webkitExitFullscreen) {
+    document.webkitExitFullscreen();
+  } else if (document.mozCancelFullScreen) {
+    document.mozCancelFullScreen();
+  } else if (document.msExitFullscreen) {
+    document.msExitFullscreen();
+  }
+}

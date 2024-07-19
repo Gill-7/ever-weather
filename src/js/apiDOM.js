@@ -5,8 +5,8 @@ import {
   renderWeatherIcon,
 } from "./utils.js";
 
-function renderWeatherData(data, cityLocation) {
-  const { cityName, cityState } = cityLocation;
+function renderWeatherData(data, location) {
+  const { cityName, cityState } = location;
 
   // render city name
   const currentCity = document.querySelector(".city");
