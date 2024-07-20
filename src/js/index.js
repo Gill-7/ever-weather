@@ -58,12 +58,11 @@ const createCenterControl = (map, latitude, longitude) => {
   centeredButton.addEventListener("click", () => {
     map.setCenter(currentLocation);
     map.setZoom(12);
-    marker.setMap(null);
     if (marker) {
       marker.setMap(null);
     }
-    // marker = "";
-
+    searchMarkerLatitude = "";
+    searchMarkerLongitude = "";
     if (cityLocation.cityName !== userLocation.cityName) {
       weatherDataByCoords(latitude, longitude, userLocation);
     }
@@ -109,6 +108,9 @@ const loadMap = async (latitude, longitude) => {
     fullscreenControl: false,
     mapId: MAPID,
   });
+
+  const selectMap = document.querySelector(".map");
+  selectMap.classList.remove("skeleton", "skeleton-map");
 
   // A MARKER FOR FULL SCREEN MAP
   const elementToSendFullscreen = map.getDiv().firstChild;
@@ -345,11 +347,12 @@ lightThemeBtn.addEventListener("click", () => {
   changeMapWithThemeHandler();
   if (searchMarkerLatitude && searchMarkerLongitude) {
     loadMap(searchMarkerLatitude, searchMarkerLongitude);
+    markerLoadTheme();
   } else {
     loadMap(latitude, longitude);
   }
 
-  markerLoadTheme();
+  // markerLoadTheme();
 
   darkThemeBtn.classList.remove("hidden");
   lightThemeBtn.classList.add("hidden");
@@ -364,11 +367,10 @@ darkThemeBtn.addEventListener("click", () => {
 
   if (searchMarkerLatitude && searchMarkerLongitude) {
     loadMap(searchMarkerLatitude, searchMarkerLongitude);
+    markerLoadTheme();
   } else {
     loadMap(latitude, longitude);
   }
-
-  markerLoadTheme();
 
   darkThemeBtn.classList.add("hidden");
   lightThemeBtn.classList.remove("hidden");

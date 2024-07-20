@@ -5,6 +5,15 @@
   animation: skeleton-loading 1s linear infinite alternate;
 }
 
+.skeleton-img-hourly,
+.skeleton-text-hourly,
+.skeleton-img-daily,
+.skeleton-text-daily {
+  opacity: 0.7;
+  animation: skeleton-loading2 1s linear infinite alternate;
+}
+
+/* SKELETON FOR CURRENT WEATHER */
 .skeleton-temp-img {
   width: 45px;
   height: 45px;
@@ -13,35 +22,219 @@
 }
 
 .skeleton-text {
-  width: 100%;
-  height: 0.4rem;
-  margin-bottom: 0.5rem;
+  width: 80%;
+  height: 0.35rem;
+  margin-bottom: 0.45rem;
   border-radius: 0.125rem;
 }
 
-/* SKELETON FOR WEATHER DETAILS */
-
-.skeleton-text-details {
+.sun-timing .skeleton-text {
   width: 40px;
-  height: 0.3rem;
+}
+
+.date .skeleton-text,
+.time .skeleton-text {
+  width: 80px;
+}
+
+.city .skeleton-text:last-child(1) {
+  margin-bottom: 0rem;
+}
+
+.skeleton-container {
+  width: 80px;
+  margin: 0 auto;
+  margin-top: 1rem;
+}
+
+.skeleton-container .skeleton-text {
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 0.45rem;
+}
+
+.icon-desc-container .skeleton-temp-img {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto;
+  margin-top: 1rem;
+}
+
+.icon-desc-container .skeleton-text {
+  margin-left: auto;
+  width: 100%;
+  margin-top: 1.7rem;
+}
+
+@media only screen and (max-width: 1179px) {
+  .skeleton-container {
+    margin-top: 0.5rem;
+  }
+  .skeleton-text {
+    margin-bottom: 0.4rem;
+  }
+  .skeleton-container .skeleton-text {
+    margin-bottom: 0.4rem;
+  }
+}
+
+@media only screen and (max-width: 979px) {
+  .city .skeleton-text {
+    width: 100%;
+  }
+  .city .skeleton-text:nth-child(1) {
+    margin-top: 1.2rem;
+  }
+  .state .skeleton-text {
+    margin-top: 1rem;
+    width: 90%;
+    margin-left: auto;
+    margin-right: 0.05rem;
+  }
+  .day-temp .skeleton-text {
+    width: 100%;
+  }
+  .sun-timing .skeleton-text {
+    width: 40px;
+  }
+  .temperature-container .skeleton-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .icon-desc-container .skeleton-temp-img {
+    grid-column: 3 / 4;
+    grid-row: 3 / 5;
+    margin-top: 0;
+  }
+  .icon-desc-container .skeleton-text {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    margin-top: 0;
+  }
+}
+
+@media only screen and (max-width: 721px) {
+  .sun-timing .skeleton-temp-img {
+    width: 35px;
+    height: 35px;
+    position: relative;
+    top: 0.6rem;
+    left: 0.1rem;
+  }
+
+  .sun-timing .skeleton-text:nth-child(1) {
+    margin-top: 0.5rem;
+  }
+  .sun-timing .skeleton-text {
+    position: relative;
+    top: 0.6rem;
+  }
+}
+@media only screen and (max-width: 589px) {
+  .city .skeleton-text:nth-child(1) {
+    margin-top: 1.2rem;
+  }
+
+  .city .skeleton-text {
+    width: 75%;
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+  .day-temp .skeleton-text {
+    width: 45%;
+  }
+
+  .skeleton-text {
+    height: 0.25rem;
+  }
+  .date .skeleton-text,
+  .time .skeleton-text {
+    width: 75px;
+  }
+  .sun-timing .skeleton-text:nth-child(1) {
+    margin-top: 1rem;
+  }
+  .sun-timing .skeleton-text {
+    top: 1rem;
+  }
+}
+
+@media only screen and (max-width: 489px) {
+  .state .skeleton-text {
+    margin-top: 1.5rem;
+  }
+}
+
+/* SKELETON FOR WEATHER DETAILS */
+.skeleton-text-details {
+  width: 45px;
+  height: 0.25rem;
   border-radius: 0.125rem;
   margin: 0 auto;
+  margin-top: 0.2rem;
+}
+
+.skeleton-text-details:nth-child(2) {
   margin-top: 0.5rem;
 }
 
 .skeleton-img-details {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   margin: 0 auto;
   border-radius: 50%;
-  margin-top: 0.3rem;
+  margin-top: 0.5rem;
+}
+
+@media only screen and (max-width: 979px) {
+  .skeleton-img-details {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media only screen and (max-width: 589px) {
+  .skeleton-img-details {
+    width: 45px;
+    height: 45px;
+    margin: 0;
+    margin-right: 0.3rem;
+  }
+
+  .weather-detail .skeleton-text-details:nth-child(3) {
+    position: absolute;
+    top: 1.4rem;
+    left: 100%;
+  }
+
+  .weather-detail .skeleton-text-details:nth-child(2) {
+    position: absolute;
+    top: 1.55rem;
+    left: 100%;
+  }
+
+  .uv .skeleton-img-details {
+    margin-right: auto;
+  }
+
+  .uv .skeleton-text-details:nth-child(2) {
+    margin-top: 0.4rem;
+  }
+
+  .uv .skeleton-text-details:nth-child(3),
+  .uv .skeleton-text-details:nth-child(2) {
+    position: static;
+  }
 }
 
 /* SKELETON FOR DAILY WEATHER */
-
 .skeleton-text-daily {
   width: 40px;
-  height: 0.3rem;
+  height: 0.25rem;
   border-radius: 0.125rem;
   margin-bottom: 0.2rem;
 }
@@ -56,77 +249,102 @@
   border-radius: 50%;
 }
 
-/* SKELETON FOR HOURLY WEATHER */
-
-.skeleton-text-hourly {
-  width: 40px;
-  height: 0.3rem;
-  border-radius: 0.125rem;
-  margin: 0 auto;
-  margin-top: 0.5rem;
+.smallScreenDisplay {
+  display: none;
 }
 
-.skeleton-hourly-1,
-.skeleton-hourly-2,
-.skeleton-hourly-3 {
-  margin-top: 0.3rem;
+@media only screen and (max-width: 979px) {
+  .smallScreenDisplay {
+    display: block;
+  }
+  .skeleton-text-daily:nth-child(3) {
+    margin-top: 0.4rem;
+  }
+  .skeleton-text-daily {
+    width: 35px;
+  }
+}
+
+@media only screen and (max-width: 679px) {
+  .skeleton-text-daily {
+    width: 30px;
+    height: 0.2rem;
+    margin-bottom: 0.2rem;
+  }
+}
+
+/* SKELETON FOR HOURLY WEATHER */
+.skeleton-img-hourly {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+  border-radius: 50%;
+  margin-top: 1rem;
+}
+
+.skeleton-text-hourly {
+  width: 45px;
+  height: 0.25rem;
+  border-radius: 0.125rem;
+  margin: 0 auto;
+  margin-top: 0.25rem;
 }
 
 .skeleton-hourly-1 {
-  margin-top: 1.2rem;
+  margin-top: 1rem;
 }
 
 .skeleton-hourly-3 {
-  margin-top: 0.7rem;
+  margin-top: 0.5rem;
 }
 
-.skeleton-img-hourly {
-  width: 45px;
-  height: 45px;
-  margin: 0 auto;
-  border-radius: 50%;
-  margin-top: 0.9rem;
-}
-
-/* .skeleton-day-temp {
-  width: 100%;
-  height: 0.6rem;
-  position: relative;
-  top: -1rem;
-} */
-
-/* .skeleton-text:last-child {
-    margin-bottom: 0;
-    width: 80%;
-  } */
-
-/* .skeleton {
-    min-height: 20px;
-    position: relative;
-    overflow: hidden;
+@media only screen and (max-width: 979px) {
+  .skeleton-img-hourly {
+    width: 45px;
+    height: 45px;
   }
-  
-  .skeleton::before {
-    content: "";
-    position: absolute;
-    display: block;
-    height: 100%;
-    width: 100%;
-    animation: skeleton-loading 1s linear infinite alternate;
-  } */
+  .skeleton-text-hourly {
+    width: 40px;
+  }
+}
+
+@media only screen and (max-width: 679px) {
+  .skeleton-img-hourly {
+    margin-top: 0.8rem;
+  }
+  .skeleton-text-hourly {
+    height: 0.2rem;
+    margin-top: 0.2rem;
+  }
+  .skeleton-hourly-1 {
+    margin-top: 0.8rem;
+  }
+  .skeleton-hourly-3 {
+    margin-top: 0.5rem;
+  }
+}
+
+/* SKELETON FOR MAP */
+.skeleton-map {
+  width: 100%;
+  height: 100%;
+}
+
 @keyframes skeleton-loading {
   0% {
-    background-color: hsl(198, 14%, 86%);
+    background-color: var(--skeleton-color);
   }
 
   100% {
-    background-color: hsl(200, 20%, 95%);
+    background-color: var(--skeleton-light-color);
   }
-  /* 0% {
-    background-color: hsl(202, 4%, 44%);
-  }
+}
 
+@keyframes skeleton-loading2 {
+  0% {
+    background-color: var(--skeleton-color-background);
+  }
   100% {
-    background-color: hsl(200, 20%, 95%);
-  } */
+    background-color: var(--skeleton-light-color-background);
+  }
 }

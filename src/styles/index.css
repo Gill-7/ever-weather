@@ -9,6 +9,10 @@
   --text-light-color-secondary: #f8bb8f;
   --icon-color: #f19657;
   --daily-secondary-color: #a5a5a5;
+  --skeleton-color: #29323c;
+  --skeleton-light-color: #455260;
+  --skeleton-color-background: #35414d;
+  --skeleton-light-color-background: #556475;
 }
 :root.light {
   --background: #fff;
@@ -20,6 +24,10 @@
   --text-light-color: #676868;
   --icon-color: #777676;
   --daily-secondary-color: #6d6c6c;
+  --skeleton-color: #d6d6d6;
+  --skeleton-light-color: #ededed;
+  --skeleton-color-background: #c7c7c7;
+  --skeleton-light-color-background: #e6e6e6;
 }
 
 * {
@@ -111,6 +119,8 @@ body {
 
 @media only screen and (max-width: 589px) {
   .container {
+    margin: 1.5rem 0;
+    width: 95%;
     grid-template-areas:
       "sh sh sh sh te te"
       "cu cu cu cu cu cu"
@@ -121,6 +131,13 @@ body {
       "mp mp mp mp mp mp";
     grid-gap: 8px 8px;
     grid-template-rows: 40px 250px 75px 75px 180px 180px 230px;
+  }
+}
+
+@media only screen and (max-width: 379px) {
+  .container {
+    width: 98%;
+    margin: 1rem 0;
   }
 }
 
@@ -143,13 +160,11 @@ body {
   border: 1px solid var(--borders);
   border-radius: 7px;
   padding: 0.85rem;
-  /* box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px; */
 }
 .search {
   grid-area: sh;
   border: 1px solid var(--borders);
   border-radius: 7px;
-  /* box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px; */
 }
 .theme {
   grid-area: te;
@@ -225,15 +240,9 @@ body {
 }
 
 @import url("./skeleton.css");
-
-@import url("./weatherDetails.css");
-
 @import url("./weatherCurrent.css");
-
+@import url("./weatherDetails.css");
 @import url("./searchLocation.css");
-
 @import url("./dailyWeather.css");
-
 @import url("./hourlyWeather.css");
-
 @import url("./map.css");

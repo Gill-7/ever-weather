@@ -191,6 +191,7 @@
   flex-direction: column;
   text-align: center;
   position: relative;
+  top: 0;
 }
 
 .current .icon {
@@ -282,8 +283,8 @@
   .sun-timing {
     display: flex;
     flex-direction: row;
-    justify-content: left;
-    grid-column: 4 / 5;
+    justify-content: center;
+    grid-column: 2 / 3;
     grid-row: 6 / 7;
   }
 
@@ -322,7 +323,7 @@
   .day-temp {
     flex-direction: row;
     position: static;
-    grid-column: 2 / 3;
+    grid-column: 4 / 5;
     grid-row: 6 / 7;
     align-items: end;
     justify-content: center;
@@ -392,6 +393,7 @@
     grid-column: 4 / 5;
     grid-row: 3 / 5;
     color: var(--text-color-secondary);
+    display: block;
   }
 
   .current .state {
@@ -431,7 +433,7 @@
   .sunset img {
     width: 45px;
     position: relative;
-    top: 0rem;
+    top: 0.4rem;
     right: 0.2rem;
   }
 
@@ -455,6 +457,8 @@
 
   .current .temperature-container {
     justify-content: left;
+    grid-column: 2 / 3;
+    grid-row: 6 / 7;
   }
 
   .current .description {
@@ -464,34 +468,49 @@
   }
 
   .sun-timing {
-    justify-content: right;
+    justify-content: left;
+    grid-column: 2 / 3;
+    grid-row: 3 / 5;
   }
 
   .sunrise h4,
   .sunset h4 {
-    font-size: 0.8124rem;
+    font-size: 0.8438;
+    position: relative;
+    top: -0.25rem;
+  }
+  .sunrise img,
+  .sunset img {
+    top: 0;
   }
 
+  .sunset div:nth-child(2),
+  .sunrise div:nth-child(2) {
+    position: relative;
+    top: -0.3rem;
+  }
   .sunrise-time,
   .sunset-time {
-    font-size: 0.875rem;
+    margin: 0;
+    font-size: 0.9063rem;
   }
 
   .day-temp {
-    grid-row: 5 / 7;
-    flex-direction: column;
+    grid-column: 4 / 5;
+    grid-row: 3 / 5;
+    flex-direction: row;
     row-gap: 0.15rem;
     justify-content: end;
-    align-items: start;
+    align-items: center;
     margin-left: 0.2rem;
   }
 
   .day-temp > div {
-    font-size: 0.8438rem;
+    font-size: 0.875rem;
   }
 
   .day-temp > div > span {
-    font-size: 0.9063rem;
+    font-size: 0.9375rem;
   }
 
   .current .temperature {
@@ -514,47 +533,54 @@
   }
 
   .current .city {
-    font-size: 2.2rem;
+    font-size: 2.3rem;
     text-align: right;
+    grid-column: 3 / 5;
+    grid-row: 6 / 7;
   }
 
   .current .state {
-    font-size: 0.9063rem;
-    top: 0.25rem;
+    font-size: 0.9688rem;
+    margin-top: 2.2rem;
     text-align: right;
+    grid-column: 3 / 5;
+    grid-row: 6 / 7;
   }
 }
 
 @media only screen and (max-width: 489px) {
   .current .icon {
-    width: 80%;
-    margin-bottom: 1rem;
+    width: 78%;
   }
 
   .current .description {
-    font-size: 0.8438rem;
+    font-size: 0.875rem;
   }
 
   .sunrise h4,
   .sunset h4 {
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
   }
 
   .sunrise-time,
   .sunset-time {
-    font-size: 0.7813rem;
+    font-size: 0.875rem;
+  }
+
+  .day-temp {
+    grid-column: 3/5;
   }
 
   .day-temp > div {
-    font-size: 0.7813rem;
-  }
-
-  .day-temp > div > span {
     font-size: 0.8438rem;
   }
 
+  .day-temp > div > span {
+    font-size: 0.9063rem;
+  }
+
   .current .temperature {
-    font-size: 2.8rem;
+    font-size: 3rem;
   }
 
   .current .degree {
@@ -570,15 +596,17 @@
 
   .current .date,
   .current .time {
-    font-size: 0.8438rem;
+    font-size: 0.875rem;
   }
 
   .current .city {
-    font-size: 1.7rem;
+    font-size: 1.85rem;
+    position: relative;
+    top: 0.2rem;
   }
 
   .current .state {
-    font-size: 0.8438rem;
-    top: -0.4rem;
+    font-size: 0.9063rem;
+    top: 0rem;
   }
 }
