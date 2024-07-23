@@ -4,7 +4,8 @@
   "description": "",
   "private": true,
   "scripts": {
-    "build": "webpack --config webpack.prod.js",
+    "build": "netlify build && webpack --config webpack.prod.js",
+    "dev": "netlify dev",
     "start": "webpack server --open --config webpack.dev.js"
   },
   "keywords": [],
