@@ -1,13 +1,15 @@
 import {
   formData,
-  getUserLocation,
-  getCityCoords,
-  getWeatherDataByCoords,
+  // getUserLocation,
+  // getCityCoords,
+  // getWeatherDataByCoords,
 } from "./apiFunction.js";
 import "../styles/index.css";
+// import fetch from "node-fetch";
 import renderWeatherInfo from "./apiDOM.js";
-import { googleMap_api_key } from "../../config.js";
-import { Loader } from "@googlemaps/js-api-loader";
+
+// import { googleMap_api_key } from "../../config.js";
+// import { Loader } from "@googlemaps/js-api-loader";
 
 // APPLICATION STATE VARIABLES
 let userLocation = {};
@@ -35,17 +37,177 @@ function getPosition() {
     }
   });
 }
+// Function to initialize the map
+// const initMap = () => {
+//   // Create a map centered at a specific latitude and longitude
+//   const map = new google.maps.Map(document.querySelector(".map"), {
+//     center: { lat: 49.9012403, lng: -119.379555 },
+//     zoom: 8,
+//   });
+
+//   // Add a marker to the map
+//   const marker = new google.maps.Marker({
+//     position: { lat: 49.9012403, lng: -119.379555 },
+//     map: map,
+//     title: "Hello World!",
+//   });
+
+//   console.log("Map initialized");
+// };
 
 const loadMapLibrary = async () => {
-  const loader = new Loader({
-    apiKey: googleMap_api_key,
-    version: "weekly",
+  // const loader = new Loader({
+  //   apiKey: googleMap_api_key,
+  //   version: "weekly",
+  // });
+  // // const loader = await fetch(urlLoader);
+  // let { Map } = await loader.importLibrary("maps");
+  // let { AdvancedMarkerElement, PinElement } = await loader.importLibrary(
+  //   "marker"
+  // );
+  // return { Map, AdvancedMarkerElement, PinElement };
+  const urlLoader = `/.netlify/functions/googleMap`;
+  try {
+    const response = await fetch(urlLoader);
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.error || "Failed to load Google Maps API data");
+    }
+    const scriptContent = result.script;
+
+    // Create a script element and append it to the document head
+    const scriptElement = document.createElement("script");
+    scriptElement.type = "text/javascript";
+    scriptElement.text = scriptContent;
+    document.head.appendChild(scriptElement);
+
+    console.log("Google Maps script loaded successfully");
+
+    // Wait for the script to be fully loaded before initializing the map
+    scriptElement.onload = () => {
+      console.log("Google Maps API loaded");
+      // Initialize the map after the script is loaded
+      initMap();
+    };
+  } catch (error) {
+    console.error("Error loading Google Maps API:", error.message);
+  }
+};
+
+const initMap = () => {
+  // Create a map centered at a specific latitude and longitude
+  // map = new google.maps.Map(document.querySelector(".map"), {
+  //   center: { lat: latitude, lng: longitude },
+  //   zoom: 8,
+  // });
+  map = new google.maps.Map(document.querySelector(".map"), {
+    center: { lat: latitude, lng: longitude },
+    zoom: 12,
+    minZoom: 2.3,
+    gestureHandling: "greedy",
+    disableDefaultUI: true,
+    mapTypeControl: false,
+    fullscreenControl: false,
+    mapId: MAPID,
   });
-  let { Map } = await loader.importLibrary("maps");
-  let { AdvancedMarkerElement, PinElement } = await loader.importLibrary(
-    "marker"
+
+  const selectMap = document.querySelector(".map");
+  selectMap.classList.remove("skeleton", "skeleton-map");
+
+  // A MARKER FOR FULL SCREEN MAP
+  const elementToSendFullscreen = map.getDiv().firstChild;
+  let fullScreenControl = document.createElement("div");
+  fullScreenControl.appendChild(expandBtn());
+
+  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(fullScreenControl);
+  fullScreenControl.onclick = function () {
+    if (isFullscreen(elementToSendFullscreen)) {
+      exitFullscreen();
+    } else {
+      requestFullscreen(elementToSendFullscreen);
+    }
+  };
+
+  document.onwebkitfullscreenchange =
+    document.onmsfullscreenchange =
+    document.onmozfullscreenchange =
+    document.onfullscreenchange =
+      function () {
+        if (isFullscreen(elementToSendFullscreen)) {
+          fullScreenControl.innerHTML = "";
+          fullScreenControl.appendChild(compressBtn());
+        } else {
+          fullScreenControl.innerHTML = "";
+          fullScreenControl.appendChild(expandBtn());
+        }
+      };
+
+  // // Add a marker to the map
+  // marker = new google.maps.Marker({
+  //   position: { lat: latitude, lng: longitude },
+  //   map: map,
+  //   title: "My Location",
+  // });
+
+  // A MARKER FOR USER LOCATION
+  const icon = document.createElement("div");
+  icon.innerHTML =
+    '<i class="fa-solid fa-house" style="color:#023e8a;font-size:10px"></i>';
+
+  const homePinStyles = new google.maps.marker.PinElement({
+    glyph: icon,
+    scale: 0.8,
+    glyphColor: "#023e8a",
+    background: "#48cae4",
+    borderColor: "#023e8a",
+  });
+  new google.maps.marker.AdvancedMarkerElement({
+    map,
+    position: { lat: userCoordinates.lat, lng: userCoordinates.lng },
+    content: homePinStyles.element,
+    title: "Your location",
+  });
+
+  const centerControlDiv = document.createElement("div");
+  const centerControl = createCenterControl(
+    map,
+    userCoordinates.lat, //latitude
+    userCoordinates.lng //longitude
+    // AdvancedMarkerElement,
+    // homePinStyles
   );
-  return { Map, AdvancedMarkerElement, PinElement };
+  centerControlDiv.appendChild(centerControl);
+
+  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(centerControlDiv);
+
+  // MARKER FOR FINDING LOCATION WEATHER
+  pinStyles = new google.maps.marker.PinElement({
+    background: "#FBBC04",
+    scale: 0.6,
+  });
+
+  // GET COORDINATES ON MAP CLICK
+  map.addListener("click", async (e) => {
+    latitude = e.latLng.lat();
+    longitude = e.latLng.lng();
+    searchMarkerLatitude = latitude;
+    searchMarkerLongitude = longitude;
+    marker = new google.maps.marker.AdvancedMarkerElement({
+      map,
+      position: { lat: latitude, lng: longitude },
+      content: pinStyles.element,
+    });
+    const { cityName, cityState } = await handleUserLocation(
+      latitude,
+      longitude
+    );
+    cityLocation.cityName = cityName;
+    cityLocation.cityState = cityState;
+    await weatherDataByCoords(latitude, longitude, cityLocation);
+  });
+
+  console.log("Map initialized");
 };
 
 const createCenterControl = (map, latitude, longitude) => {
@@ -97,105 +259,106 @@ const changeMapWithThemeHandler = () => {
 
 const loadMap = async (latitude, longitude) => {
   changeMapWithThemeHandler();
-  const { Map, AdvancedMarkerElement, PinElement } = await loadMapLibrary();
-  map = new Map(document.querySelector(".map"), {
-    center: { lat: latitude, lng: longitude },
-    zoom: 12,
-    minZoom: 2.3,
-    gestureHandling: "greedy",
-    disableDefaultUI: true,
-    mapTypeControl: false,
-    fullscreenControl: false,
-    mapId: MAPID,
-  });
+  // const { Map, AdvancedMarkerElement, PinElement } = await loadMapLibrary();
+  await loadMapLibrary();
+  // map = new google.maps.Map(document.querySelector(".map"), {
+  //   center: { lat: latitude, lng: longitude },
+  //   zoom: 12,
+  //   minZoom: 2.3,
+  //   gestureHandling: "greedy",
+  //   disableDefaultUI: true,
+  //   mapTypeControl: false,
+  //   fullscreenControl: false,
+  //   mapId: MAPID,
+  // });
 
-  const selectMap = document.querySelector(".map");
-  selectMap.classList.remove("skeleton", "skeleton-map");
+  // const selectMap = document.querySelector(".map");
+  // selectMap.classList.remove("skeleton", "skeleton-map");
 
-  // A MARKER FOR FULL SCREEN MAP
-  const elementToSendFullscreen = map.getDiv().firstChild;
-  let fullScreenControl = document.createElement("div");
-  fullScreenControl.appendChild(expandBtn());
+  // // A MARKER FOR FULL SCREEN MAP
+  // const elementToSendFullscreen = map.getDiv().firstChild;
+  // let fullScreenControl = document.createElement("div");
+  // fullScreenControl.appendChild(expandBtn());
 
-  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(fullScreenControl);
-  fullScreenControl.onclick = function () {
-    if (isFullscreen(elementToSendFullscreen)) {
-      exitFullscreen();
-    } else {
-      requestFullscreen(elementToSendFullscreen);
-    }
-  };
+  // map.controls[google.maps.ControlPosition.TOP_RIGHT].push(fullScreenControl);
+  // fullScreenControl.onclick = function () {
+  //   if (isFullscreen(elementToSendFullscreen)) {
+  //     exitFullscreen();
+  //   } else {
+  //     requestFullscreen(elementToSendFullscreen);
+  //   }
+  // };
 
-  document.onwebkitfullscreenchange =
-    document.onmsfullscreenchange =
-    document.onmozfullscreenchange =
-    document.onfullscreenchange =
-      function () {
-        if (isFullscreen(elementToSendFullscreen)) {
-          fullScreenControl.innerHTML = "";
-          fullScreenControl.appendChild(compressBtn());
-        } else {
-          fullScreenControl.innerHTML = "";
-          fullScreenControl.appendChild(expandBtn());
-        }
-      };
+  // document.onwebkitfullscreenchange =
+  //   document.onmsfullscreenchange =
+  //   document.onmozfullscreenchange =
+  //   document.onfullscreenchange =
+  //     function () {
+  //       if (isFullscreen(elementToSendFullscreen)) {
+  //         fullScreenControl.innerHTML = "";
+  //         fullScreenControl.appendChild(compressBtn());
+  //       } else {
+  //         fullScreenControl.innerHTML = "";
+  //         fullScreenControl.appendChild(expandBtn());
+  //       }
+  //     };
 
-  // A MARKER FOR USER LOCATION
-  const icon = document.createElement("div");
-  icon.innerHTML =
-    '<i class="fa-solid fa-house" style="color:#023e8a;font-size:10px"></i>';
+  // // A MARKER FOR USER LOCATION
+  // const icon = document.createElement("div");
+  // icon.innerHTML =
+  //   '<i class="fa-solid fa-house" style="color:#023e8a;font-size:10px"></i>';
 
-  const homePinStyles = new PinElement({
-    glyph: icon,
-    scale: 0.8,
-    glyphColor: "#023e8a",
-    background: "#48cae4",
-    borderColor: "#023e8a",
-  });
-  new AdvancedMarkerElement({
-    map,
-    position: { lat: userCoordinates.lat, lng: userCoordinates.lng },
-    content: homePinStyles.element,
-    title: "Your location",
-  });
+  // const homePinStyles = new google.maps.marker.PinElement({
+  //   glyph: icon,
+  //   scale: 0.8,
+  //   glyphColor: "#023e8a",
+  //   background: "#48cae4",
+  //   borderColor: "#023e8a",
+  // });
+  // new google.maps.marker.AdvancedMarkerElement({
+  //   map,
+  //   position: { lat: userCoordinates.lat, lng: userCoordinates.lng },
+  //   content: homePinStyles.element,
+  //   title: "Your location",
+  // });
 
-  const centerControlDiv = document.createElement("div");
-  const centerControl = createCenterControl(
-    map,
-    userCoordinates.lat, //latitude
-    userCoordinates.lng, //longitude
-    AdvancedMarkerElement,
-    homePinStyles
-  );
-  centerControlDiv.appendChild(centerControl);
+  // const centerControlDiv = document.createElement("div");
+  // const centerControl = createCenterControl(
+  //   map,
+  //   userCoordinates.lat, //latitude
+  //   userCoordinates.lng //longitude
+  //   // AdvancedMarkerElement,
+  //   // homePinStyles
+  // );
+  // centerControlDiv.appendChild(centerControl);
 
-  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(centerControlDiv);
+  // map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(centerControlDiv);
 
-  // MARKER FOR FINDING LOCATION WEATHER
-  pinStyles = new PinElement({
-    background: "#FBBC04",
-    scale: 0.6,
-  });
+  // // MARKER FOR FINDING LOCATION WEATHER
+  // pinStyles = new google.maps.marker.PinElement({
+  //   background: "#FBBC04",
+  //   scale: 0.6,
+  // });
 
-  // GET COORDINATES ON MAP CLICK
-  map.addListener("click", async (e) => {
-    latitude = e.latLng.lat();
-    longitude = e.latLng.lng();
-    searchMarkerLatitude = latitude;
-    searchMarkerLongitude = longitude;
-    marker = new AdvancedMarkerElement({
-      map,
-      position: { lat: latitude, lng: longitude },
-      content: pinStyles.element,
-    });
-    const { cityName, cityState } = await handleUserLocation(
-      latitude,
-      longitude
-    );
-    cityLocation.cityName = cityName;
-    cityLocation.cityState = cityState;
-    await weatherDataByCoords(latitude, longitude, cityLocation);
-  });
+  // // GET COORDINATES ON MAP CLICK
+  // map.addListener("click", async (e) => {
+  //   latitude = e.latLng.lat();
+  //   longitude = e.latLng.lng();
+  //   searchMarkerLatitude = latitude;
+  //   searchMarkerLongitude = longitude;
+  //   marker = new google.maps.marker.AdvancedMarkerElement({
+  //     map,
+  //     position: { lat: latitude, lng: longitude },
+  //     content: pinStyles.element,
+  //   });
+  //   const { cityName, cityState } = await handleUserLocation(
+  //     latitude,
+  //     longitude
+  //   );
+  //   cityLocation.cityName = cityName;
+  //   cityLocation.cityState = cityState;
+  //   await weatherDataByCoords(latitude, longitude, cityLocation);
+  // });
 };
 
 const getStateData = (address_components) => {
@@ -238,16 +401,33 @@ const handleLocationData = (data) => {
 };
 
 const weatherDataByCoords = async (latitude, longitude, location) => {
-  const weatherData = await fetch(getWeatherDataByCoords(latitude, longitude));
+  const urlWeatherData = `/.netlify/functions/getWeatherDataByCoords?lat=${latitude}&lon=${longitude}`;
+  const weatherData = await fetch(urlWeatherData);
+  // const weatherData = await fetch(getWeatherDataByCoords(latitude, longitude));
   const data = await weatherData.json();
   renderWeatherInfo(data, location);
 };
 
 const handleUserLocation = async (latitude, longitude) => {
-  const data = await fetch(getUserLocation(latitude, longitude));
-  let { results } = await data.json();
-  let { cityName, cityState } = handleLocationData(results);
-  return { cityName, cityState };
+  const url = `/.netlify/functions/getUserLocation?latitude=${latitude}&longitude=${longitude}`;
+
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Error response from server:", errorText);
+      throw new Error(errorText);
+    }
+
+    const data = await response.json();
+    console.log("Success:", data.results);
+    const results = data.results;
+    let { cityName, cityState } = handleLocationData(results);
+    return { cityName, cityState };
+  } catch (err) {
+    console.error("Error fetching location data:", err);
+  }
 };
 
 const getWeatherData = async (initialLoad = false) => {
@@ -257,6 +437,7 @@ const getWeatherData = async (initialLoad = false) => {
       latitude = coords.latitude;
       longitude = coords.longitude;
       userCoordinates = { lat: latitude, lng: longitude };
+      console.log(userCoordinates);
       const { cityName, cityState } = await handleUserLocation(
         latitude,
         longitude
@@ -268,8 +449,18 @@ const getWeatherData = async (initialLoad = false) => {
       loadMap(latitude, longitude);
     } else {
       let searchLocation = formData(); //location name
-      const cityCoords = await fetch(getCityCoords(searchLocation)); // lat lng
-      const cityLatLng = await cityCoords.json();
+
+      let urlCoords = `/.netlify/functions/getCityCoords?cityName=${searchLocation}`;
+
+      const response = await fetch(urlCoords);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Error response from server:", errorText);
+        throw new Error(errorText);
+      }
+      const cityLatLng = await response.json();
+      console.log(cityLatLng);
 
       const { address_components, geometry } = cityLatLng.results[0];
       latitude = geometry.location.lat;
@@ -280,8 +471,8 @@ const getWeatherData = async (initialLoad = false) => {
 
       loadMap(latitude, longitude);
 
-      const { AdvancedMarkerElement } = await loadMapLibrary();
-      marker = new AdvancedMarkerElement({
+      await loadMapLibrary();
+      marker = new google.maps.marker.AdvancedMarkerElement({
         map,
         position: { lat: latitude, lng: longitude },
         content: pinStyles.element,
@@ -295,7 +486,7 @@ const getWeatherData = async (initialLoad = false) => {
     document.querySelector(".error-msg").style.display = "none";
     input.value = "";
   } catch (err) {
-    console.log(err);
+    console.log(err.message);
     document.querySelector(".error-msg").style.display = "block";
   }
 };
@@ -331,8 +522,8 @@ const themeLocalStorage = themeLoad();
 setTheme(themeLocalStorage);
 
 const markerLoadTheme = async () => {
-  const { AdvancedMarkerElement } = await loadMapLibrary();
-  marker = new AdvancedMarkerElement({
+  // await loadMapLibrary();
+  marker = new google.maps.marker.AdvancedMarkerElement({
     map,
     position: { lat: searchMarkerLatitude, lng: searchMarkerLongitude },
     content: pinStyles.element,

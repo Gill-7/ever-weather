@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.16.6",
-    "date-fns": "^2.29.3"
+    "date-fns": "^2.29.3",
+    "node-fetch": "^2.7.0"
   }
 }
