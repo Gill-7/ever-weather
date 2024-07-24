@@ -1,6 +1,6 @@
 import {
   formData,
-  getUserLocation,
+  // getUserLocation,
   getCityCoords,
   getWeatherDataByCoords,
 } from "./apiFunction.js";
@@ -244,8 +244,19 @@ const weatherDataByCoords = async (latitude, longitude, location) => {
 };
 
 const handleUserLocation = async (latitude, longitude) => {
-  const data = await fetch(getUserLocation(latitude, longitude));
-  let { results } = await data.json();
+  // const data = await fetch(getUserLocation(latitude, longitude));
+  const url = `/.netlify/functions/getUserLocation?latitude=${latitude}&longitude={longitude}`;
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    const results = data.results;
+
+    let { cityName, cityState } = handleLocationData(results);
+    return { cityName, cityState };
+  } catch (err) {
+    console.log(err);
+  }
+  // let { results } = await data.json();
   let { cityName, cityState } = handleLocationData(results);
   return { cityName, cityState };
 };

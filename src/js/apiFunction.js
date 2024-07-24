@@ -13,10 +13,10 @@ function formData() {
   return "";
 }
 
-function getUserLocation(latitude, longitude) {
-  return `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${geoCode_api_key}`;
-  // return `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${api_key}`;
-}
+// function getUserLocation(latitude, longitude) {
+//   return `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${geoCode_api_key}`;
+//   // return `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${api_key}`;
+// }
 
 function getCityCoords(cityName) {
   return `https://maps.googleapis.com/maps/api/geocode/json?address=${cityName}&key=${geoCode_api_key}`;
