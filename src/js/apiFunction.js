@@ -1,6 +1,3 @@
-// const API_KEY = process.env.API_KEY;
-// const GEOCODE_API_KEY = process.env.GEOCODE_API_KEY;
-
 function formData() {
   const input = document.querySelector(".search-input");
   const cityName = input.value;
@@ -13,20 +10,5 @@ function formData() {
   }
   return "";
 }
-
-// function getUserLocation(latitude, longitude) {
-//   // const response = await fetch()
-//   // return `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${GEOCODE_API_KEY}`;
-//   // return `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${api_key}`;
-// }
-
-// function getCityCoords(cityName) {
-//   // return `https://maps.googleapis.com/maps/api/geocode/json?address=${cityName}&key=${GEOCODE_API_KEY}`;
-//   // return `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${api_key}`;
-// }
-
-// function getWeatherDataByCoords(lat, lon) {
-//   // return `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=minutely,alerts&appid=${API_KEY}`;
-// }
 
 export { formData };

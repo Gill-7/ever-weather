@@ -234,17 +234,19 @@ const handleLocationData = (data) => {
 };
 
 const weatherDataByCoords = async (latitude, longitude, location) => {
-  // const weatherData = await fetch(getWeatherDataByCoords(latitude, longitude));
-  const weatherData = await fetch("http://localhost:3000/get-weather-data", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      latitude,
-      longitude,
-    }),
-  });
+  const weatherData = await fetch(
+    "https://ever-weather-server.onrender.com/get-weather-data",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        latitude,
+        longitude,
+      }),
+    }
+  );
   const data = await weatherData.json();
   console.log(data);
   renderWeatherInfo(data, location);
@@ -252,9 +254,8 @@ const weatherDataByCoords = async (latitude, longitude, location) => {
 
 const handleUserLocation = async (latitude, longitude) => {
   try {
-    // const userLocation = await fetch(getUserLocation(latitude, longitude));
     const userLocationData = await fetch(
-      "http://localhost:3000/get-user-location",
+      "https://ever-weather-server.onrender.com/get-user-location",
       {
         method: "POST",
         headers: {
@@ -294,20 +295,21 @@ const getWeatherData = async (initialLoad = false) => {
       loadMap(latitude, longitude);
     } else {
       let searchLocation = formData(); //location name
-      // let coords = await fetch(getCityCoords(searchLocation));
-      const coords = await fetch("http://localhost:3000/get-city-coords", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          searchLocation,
-        }),
-      });
+      const coords = await fetch(
+        "https://ever-weather-server.onrender.com/get-city-coords",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            searchLocation,
+          }),
+        }
+      );
 
       const cityLatLng = await coords.json();
       console.log(cityLatLng);
-      // const cityLatLng = await response.json();
       const { address_components, geometry } = cityLatLng.results[0];
       latitude = geometry.location.lat;
       longitude = geometry.location.lng;
