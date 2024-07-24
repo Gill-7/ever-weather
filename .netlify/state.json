@@ -1,0 +1,20 @@
+{
+	"geolocation": {
+		"data": {
+			"city": "Kelowna",
+			"country": {
+				"code": "CA",
+				"name": "Canada"
+			},
+			"subdivision": {
+				"code": "BC",
+				"name": "British Columbia"
+			},
+			"timezone": "America/Vancouver",
+			"latitude": 50.0614,
+			"longitude": -119.2794
+		},
+		"timestamp": 1721710936985
+	},
+	"siteId": "2c956423-d00b-42c5-92d2-247638c66116"
+}

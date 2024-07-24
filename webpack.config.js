@@ -3,6 +3,17 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackInlineSVGPlugin = require("html-webpack-inline-svg-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
+const webpack = require("webpack");
+const dotenv = require("dotenv");
+
+dotenv.config();
+
+// const env = {
+//   API_KEY: JSON.stringify(process.env.API_KEY),
+//   GOOGLEMAP_API_KEY: JSON.stringify(process.env.GOOGLEMAP_API_KEY),
+//   GEOCODE_API_KEY: JSON.stringify(process.env.GEOCODE_API_KEY),
+// };
+
 module.exports = {
   mode: "development",
   entry: "./src/js/index.js",
@@ -24,6 +35,9 @@ module.exports = {
     new CopyPlugin({
       patterns: [{ from: "src/svg", to: "assets" }],
     }),
+    new webpack.DefinePlugin({
+      "process.env": JSON.stringify(process.env),
+    }),
   ],
   devtool: "source-map",
   module: {
@@ -35,6 +49,18 @@ module.exports = {
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[name].[ext]",
+              outputPath: "images/",
+            },
+          },
+        ],
       },
     ],
   },

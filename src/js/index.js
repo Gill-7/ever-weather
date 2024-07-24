@@ -1,12 +1,7 @@
-import {
-  formData,
-  // getUserLocation,
-  getCityCoords,
-  getWeatherDataByCoords,
-} from "./apiFunction.js";
+import { formData } from "./apiFunction.js";
 import "../styles/index.css";
 import renderWeatherInfo from "./apiDOM.js";
-import { googleMap_api_key } from "../../config.js";
+
 import { Loader } from "@googlemaps/js-api-loader";
 
 // APPLICATION STATE VARIABLES
@@ -38,9 +33,10 @@ function getPosition() {
 
 const loadMapLibrary = async () => {
   const loader = new Loader({
-    apiKey: googleMap_api_key,
+    apiKey: process.env.GOOGLEMAP_API_KEY,
     version: "weekly",
   });
+
   let { Map } = await loader.importLibrary("maps");
   let { AdvancedMarkerElement, PinElement } = await loader.importLibrary(
     "marker"
@@ -238,27 +234,46 @@ const handleLocationData = (data) => {
 };
 
 const weatherDataByCoords = async (latitude, longitude, location) => {
-  const weatherData = await fetch(getWeatherDataByCoords(latitude, longitude));
+  // const weatherData = await fetch(getWeatherDataByCoords(latitude, longitude));
+  const weatherData = await fetch("http://localhost:3000/get-weather-data", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      latitude,
+      longitude,
+    }),
+  });
   const data = await weatherData.json();
+  console.log(data);
   renderWeatherInfo(data, location);
 };
 
 const handleUserLocation = async (latitude, longitude) => {
-  // const data = await fetch(getUserLocation(latitude, longitude));
-  const url = `/.netlify/functions/getUserLocation?latitude=${latitude}&longitude={longitude}`;
   try {
-    const response = await fetch(url);
-    const data = await response.json();
+    // const userLocation = await fetch(getUserLocation(latitude, longitude));
+    const userLocationData = await fetch(
+      "http://localhost:3000/get-user-location",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          latitude,
+          longitude,
+        }),
+      }
+    );
+    const data = await userLocationData.json();
     const results = data.results;
 
     let { cityName, cityState } = handleLocationData(results);
     return { cityName, cityState };
   } catch (err) {
-    console.log(err);
+    console.error("Error fetching location data:", err);
   }
-  // let { results } = await data.json();
-  let { cityName, cityState } = handleLocationData(results);
-  return { cityName, cityState };
 };
 
 const getWeatherData = async (initialLoad = false) => {
@@ -279,9 +294,20 @@ const getWeatherData = async (initialLoad = false) => {
       loadMap(latitude, longitude);
     } else {
       let searchLocation = formData(); //location name
-      const cityCoords = await fetch(getCityCoords(searchLocation)); // lat lng
-      const cityLatLng = await cityCoords.json();
+      // let coords = await fetch(getCityCoords(searchLocation));
+      const coords = await fetch("http://localhost:3000/get-city-coords", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          searchLocation,
+        }),
+      });
 
+      const cityLatLng = await coords.json();
+      console.log(cityLatLng);
+      // const cityLatLng = await response.json();
       const { address_components, geometry } = cityLatLng.results[0];
       latitude = geometry.location.lat;
       longitude = geometry.location.lng;
@@ -362,8 +388,6 @@ lightThemeBtn.addEventListener("click", () => {
   } else {
     loadMap(latitude, longitude);
   }
-
-  // markerLoadTheme();
 
   darkThemeBtn.classList.remove("hidden");
   lightThemeBtn.classList.add("hidden");

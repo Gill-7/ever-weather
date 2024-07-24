@@ -216,7 +216,7 @@ body {
   .current {
     padding: 0.95rem 0.9rem;
     background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-      url("../../dist/background.jpg");
+      url("../images/background.jpg");
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
