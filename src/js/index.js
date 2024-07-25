@@ -52,11 +52,14 @@ const createCenterControl = (map, latitude, longitude) => {
 
   let currentLocation = { lat: latitude, lng: longitude };
   centeredButton.addEventListener("click", () => {
-    map.setCenter(currentLocation);
-    map.setZoom(12);
     if (marker) {
       marker.setMap(null);
+      marker = null;
     }
+    map.setCenter(currentLocation);
+    map.setZoom(12);
+    // latitude = userCoordinates.lat;
+    // longitude = userCoordinates.lng;
     searchMarkerLatitude = "";
     searchMarkerLongitude = "";
     if (cityLocation.cityName !== userLocation.cityName) {
@@ -177,8 +180,8 @@ const loadMap = async (latitude, longitude) => {
   map.addListener("click", async (e) => {
     latitude = e.latLng.lat();
     longitude = e.latLng.lng();
-    searchMarkerLatitude = latitude;
-    searchMarkerLongitude = longitude;
+    searchMarkerLatitude = "";
+    searchMarkerLongitude = "";
     marker = new AdvancedMarkerElement({
       map,
       position: { lat: latitude, lng: longitude },
@@ -268,7 +271,6 @@ const handleUserLocation = async (latitude, longitude) => {
     );
     const data = await userLocationData.json();
     const results = data.results;
-
     let { cityName, cityState } = handleLocationData(results);
     return { cityName, cityState };
   } catch (err) {
@@ -316,13 +318,7 @@ const getWeatherData = async (initialLoad = false) => {
       cityLocation.cityState = getStateData(address_components);
 
       loadMap(latitude, longitude);
-
-      const { AdvancedMarkerElement } = await loadMapLibrary();
-      marker = new AdvancedMarkerElement({
-        map,
-        position: { lat: latitude, lng: longitude },
-        content: pinStyles.element,
-      });
+      markerLoadTheme(latitude, longitude);
     }
     if (!cityLocation.cityName) {
       return;
@@ -367,11 +363,13 @@ const setTheme = (theme) => {
 const themeLocalStorage = themeLoad();
 setTheme(themeLocalStorage);
 
-const markerLoadTheme = async () => {
+const markerLoadTheme = async (lat, lng) => {
   const { AdvancedMarkerElement } = await loadMapLibrary();
+  searchMarkerLatitude = lat;
+  searchMarkerLongitude = lng;
   marker = new AdvancedMarkerElement({
     map,
-    position: { lat: searchMarkerLatitude, lng: searchMarkerLongitude },
+    position: { lat: lat, lng: lng },
     content: pinStyles.element,
   });
 };
@@ -384,9 +382,9 @@ lightThemeBtn.addEventListener("click", () => {
   changeMapWithThemeHandler();
   if (searchMarkerLatitude && searchMarkerLongitude) {
     loadMap(searchMarkerLatitude, searchMarkerLongitude);
-    markerLoadTheme();
+    markerLoadTheme(searchMarkerLatitude, searchMarkerLongitude);
   } else {
-    loadMap(latitude, longitude);
+    loadMap(userCoordinates.lat, userCoordinates.lng);
   }
 
   darkThemeBtn.classList.remove("hidden");
@@ -402,9 +400,9 @@ darkThemeBtn.addEventListener("click", () => {
 
   if (searchMarkerLatitude && searchMarkerLongitude) {
     loadMap(searchMarkerLatitude, searchMarkerLongitude);
-    markerLoadTheme();
+    markerLoadTheme(searchMarkerLatitude, searchMarkerLongitude);
   } else {
-    loadMap(latitude, longitude);
+    loadMap(userCoordinates.lat, userCoordinates.lng);
   }
 
   darkThemeBtn.classList.add("hidden");
