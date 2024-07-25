@@ -113,9 +113,15 @@
 @media only screen and (max-width: 440px) {
   .weather-detail-container h3 {
     font-size: 0.7188rem;
+    top: -0.6rem;
+  }
+  .img2Svg {
+    max-width: 45px;
+    margin-top: 0.2rem;
   }
 
   .h4 {
     font-size: 0.875rem;
+    top: 1.5rem;
   }
 }

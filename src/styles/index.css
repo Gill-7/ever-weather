@@ -134,10 +134,19 @@ body {
   }
 }
 
-@media only screen and (max-width: 379px) {
+@media only screen and (max-width: 440px) {
+  .container {
+    width: 96%;
+    margin: 1rem 0;
+  }
+}
+
+@media only screen and (max-width: 389px) {
   .container {
     width: 98%;
     margin: 1rem 0;
+    grid-template-rows: 40px 250px 70px 70px 180px 180px 230px;
+    grid-gap: 7px 7px;
   }
 }
 
