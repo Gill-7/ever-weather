@@ -60,12 +60,6 @@ function renderWeatherData(data, location) {
   )}</div>
             <span class="degree">°</span>`;
 
-  // const currentTemperature = document.querySelector(".temperature");
-  // currentTemperature.textContent = `${Math.round(data.current.temp)}`;
-
-  // const degree = document.querySelector(".degree");
-  // degree.textContent = "°";
-
   const iconDescContainer = document.querySelector(".icon-desc-container");
   iconDescContainer.innerHTML = `<div class="description">${capitalize(
     data.current.weather[0].description
@@ -73,13 +67,6 @@ function renderWeatherData(data, location) {
             <img inline src=${renderWeatherIcon(
               data.current.weather[0].icon
             )} class="icon" />`;
-  // const currentIcon = document.querySelector(".icon");
-  // currentIcon.src = renderWeatherIcon(data.current.weather[0].icon);
-
-  // const currentDescription = document.querySelector(".description");
-  // currentDescription.textContent = capitalize(
-  //   data.current.weather[0].description
-  // );
 
   // WEATHER DETAILS
   const feelsLike = document.querySelector(".feels-like .weather-detail");

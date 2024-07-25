@@ -248,7 +248,6 @@ const weatherDataByCoords = async (latitude, longitude, location) => {
     }
   );
   const data = await weatherData.json();
-  console.log(data);
   renderWeatherInfo(data, location);
 };
 
@@ -309,7 +308,6 @@ const getWeatherData = async (initialLoad = false) => {
       );
 
       const cityLatLng = await coords.json();
-      console.log(cityLatLng);
       const { address_components, geometry } = cityLatLng.results[0];
       latitude = geometry.location.lat;
       longitude = geometry.location.lng;

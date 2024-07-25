@@ -239,6 +239,16 @@ body {
   }
 }
 
+@media only screen and (max-width: 389px) {
+  .feels-like,
+  .humidity,
+  .wind-speed,
+  .precipitation,
+  .uv {
+    padding: 0.6rem 0.3rem;
+  }
+}
+
 @import url("./skeleton.css");
 @import url("./weatherCurrent.css");
 @import url("./weatherDetails.css");

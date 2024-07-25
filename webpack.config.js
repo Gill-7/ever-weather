@@ -8,12 +8,6 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-// const env = {
-//   API_KEY: JSON.stringify(process.env.API_KEY),
-//   GOOGLEMAP_API_KEY: JSON.stringify(process.env.GOOGLEMAP_API_KEY),
-//   GEOCODE_API_KEY: JSON.stringify(process.env.GEOCODE_API_KEY),
-// };
-
 module.exports = {
   mode: "development",
   entry: "./src/js/index.js",

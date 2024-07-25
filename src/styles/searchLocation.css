@@ -71,7 +71,6 @@
   .form input {
     border-bottom: 0.3px solid var(--text-light-color);
     font-size: 0.9rem;
-    /* padding-bottom: 0.1rem; */
   }
   .form input::placeholder {
     font-size: 0.8438rem;
@@ -139,41 +138,41 @@
 
 .err-container {
   position: absolute;
-  left: 44%;
-  top: 5rem;
-  background: rgb(242, 242, 242);
+  left: 45%;
+  top: 5.2rem;
+  background: #fff;
   border: 1px solid grey;
   border-radius: 10px;
-  width: 220px;
+  width: 240px;
   z-index: 2;
-  padding: 1.1rem 1.3rem;
+  padding: 0.8rem 1.3rem;
 }
 
 .err-container:before {
   position: absolute;
-  top: -2.2rem;
+  top: -2rem;
   left: 15px;
   width: 0;
   height: 0;
   border: 9px solid transparent;
-  border-bottom: 30px solid rgb(242, 242, 242);
+  border-bottom: 30px solid #fff;
   content: "";
 }
 
 .err-container p {
   color: #000;
-  font-size: 0.85rem;
-  width: 85%;
+  font-size: 0.8rem;
+  width: 93%;
 }
 
 .close {
-  color: #a1a1a3;
+  color: #5d5d5d;
   font-weight: bold;
   float: right;
-  font-size: 24px;
+  font-size: 21px;
   position: relative;
-  bottom: 0.7rem;
-  left: 0.4rem;
+  bottom: 0.8rem;
+  left: 0.8rem;
 }
 
 .close:hover,
@@ -181,4 +180,63 @@
   text-decoration: none;
   color: #000;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 1179px) {
+  .err-container {
+    top: 7.2rem;
+    left: 44%;
+  }
+}
+
+@media only screen and (max-width: 979px) {
+  .err-container {
+    position: absolute;
+    left: 3.1rem;
+    top: 5.8rem;
+  }
+}
+
+@media only screen and (max-width: 669px) {
+  .err-container {
+    position: absolute;
+    left: 1.4rem;
+    top: 5.2rem;
+    width: 220px;
+    padding: 0.55rem 0.85rem;
+  }
+  .err-container:before {
+    top: -1.5rem;
+    left: 15px;
+    border: 7px solid transparent;
+    border-bottom: 25px solid #fff;
+  }
+  .err-container p {
+    font-size: 0.75rem;
+  }
+  .close {
+    font-size: 18px;
+    bottom: 0.55rem;
+    left: 0.55rem;
+  }
+}
+
+@media only screen and (max-width: 589px) {
+  .err-container {
+    left: 1rem;
+    top: 4.5rem;
+    width: 210px;
+    padding: 0.5rem 0.8rem;
+  }
+  .err-container:before {
+    left: 10px;
+  }
+  .err-container p {
+    font-size: 0.7rem;
+  }
+  .close {
+    bottom: 0.5rem;
+    left: 0.4rem;
+    font-size: 16px;
+  }
 }
