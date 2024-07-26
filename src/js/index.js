@@ -30,7 +30,7 @@ function getPosition() {
     }
   });
 }
-
+// CREATE AN .env FILE AND POPULATE WITH GOOGLEMAP_API_KEY BEFORE CONTINUING
 const loadMapLibrary = async () => {
   const loader = new Loader({
     apiKey: process.env.GOOGLEMAP_API_KEY,
