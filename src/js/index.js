@@ -21,6 +21,8 @@ let MAPID;
 let marker;
 let pinStyles;
 
+let theme = localStorage.getItem("theme");
+
 function getPosition() {
   return new Promise((resolve) => {
     if (navigator.geolocation) {
@@ -87,6 +89,7 @@ const compressBtn = () => {
 
 const changeMapWithThemeHandler = () => {
   let theme = localStorage.getItem("theme");
+  console.log(theme);
   if (theme === "dark") {
     MAPID = mapNightID;
   } else {
@@ -340,7 +343,6 @@ let input = document.querySelector(".search-input");
 
 let lightThemeBtn = document.querySelector(".lightTheme-button");
 let darkThemeBtn = document.querySelector(".darkTheme-button");
-let theme = localStorage.getItem("theme");
 
 const themeLoad = () => {
   if (theme !== null) {
@@ -353,6 +355,7 @@ const themeLoad = () => {
     }
     return theme;
   }
+  localStorage.setItem("theme", "dark");
   return "dark";
 };
 
@@ -379,7 +382,6 @@ lightThemeBtn.addEventListener("click", () => {
   let themeFromStorage = localStorage.getItem("theme");
   setTheme(themeFromStorage);
 
-  changeMapWithThemeHandler();
   if (searchMarkerLatitude && searchMarkerLongitude) {
     loadMap(searchMarkerLatitude, searchMarkerLongitude);
     markerLoadTheme(searchMarkerLatitude, searchMarkerLongitude);
@@ -395,8 +397,6 @@ darkThemeBtn.addEventListener("click", () => {
   localStorage.setItem("theme", "dark");
   let themeFromStorage = localStorage.getItem("theme");
   setTheme(themeFromStorage);
-
-  changeMapWithThemeHandler();
 
   if (searchMarkerLatitude && searchMarkerLongitude) {
     loadMap(searchMarkerLatitude, searchMarkerLongitude);
