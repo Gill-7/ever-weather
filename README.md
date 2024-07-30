@@ -1,33 +1,18 @@
 # Ever Weather
-This app provides a robust and user-friendly platform for weather updates.
+The Weather App is a modern web application designed to provide users with real-time weather information and an interactive map experience.
 
 [Live app](https://everweather.netlify.app)
 
 ### Features
-- Utilizes the OpenWeatherMap API to fetch up-to-date weather information, including temperature, humidity, wind speed, and weather conditions for any given location.
-- Built with HTML and styled using responsive CSS, the app adapts beautifully across various devices, providing a consistent and engaging experience whether accessed on a desktop, tablet, or mobile phone.
-- The UI features dynamic elements such as animated weather icons.
-- JavaScript drives the app's core functionality, including data fetching, user input handling, and dynamic content updates. Javascript library
+- By leveraging the OpenWeather API, the app fetches and displays up-to-date weather information, including temperature, humidity, wind speed, and weather conditions, for any selected location.- Built with HTML, CSS, Javascript the app adapts beautifully across various devices, providing a consistent and engaging experience whether accessed on a desktop, tablet, or mobile phone.
+- Utilizing the Google Maps API, the app features an interactive map where users can zoom, pan, and click on any location to instantly view its current weather conditions.
+- Users can click on any point on the map to fetch and display the weather details for that specific location, providing a quick and easy way to explore weather conditions around the globe.
 - Webpack handles the bundling of JavaScript modules, CSS, and other assets, optimizing the app for performance and reducing load times.
-- The app employs CSS Grid and Flexbox for a flexible layout that adapts to different screen sizes and orientations.
-- The app also provides geolocation support, allowing users to quickly get weather updates for their current location.
-- "date-fns" library provides robust and lightweight utilities for formatting and manipulating date and time data.
 
 
-### Installing
-```
-git clone https://github.com/Gill-7/weather-application.git
-cd weather-application
-npm install
-```
-Enter your API key in ```config.js```
-```
-const api_key = 'YOUR API KEY';
-npm run build
-```
 
 ### Tools and Technologies
 - **Technologies** - Javascript, CSS, HTML
 - **Tools** - Webpack
-- **API** - OpenWeather
+- **API** - OpenWeather and Google Map
 - **Javascript Library** - date-fns
