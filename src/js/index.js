@@ -241,7 +241,7 @@ const handleLocationData = (data) => {
 
 const weatherDataByCoords = async (latitude, longitude, location) => {
   const weatherData = await fetch(
-    "https://ever-weather-server.onrender.com/get-weather-data",
+    "https://ever-weather-server.vercel.app/get-weather-data",
     {
       method: "POST",
       headers: {
@@ -260,7 +260,7 @@ const weatherDataByCoords = async (latitude, longitude, location) => {
 const handleUserLocation = async (latitude, longitude) => {
   try {
     const userLocationData = await fetch(
-      "https://ever-weather-server.onrender.com/get-user-location",
+      "https://ever-weather-server.vercel.app/get-user-location",
       {
         method: "POST",
         headers: {
@@ -300,7 +300,7 @@ const getWeatherData = async (initialLoad = false) => {
     } else {
       let searchLocation = formData(); //location name
       const coords = await fetch(
-        "https://ever-weather-server.onrender.com/get-city-coords",
+        "https://ever-weather-server.vercel.app/get-city-coords",
         {
           method: "POST",
           headers: {
