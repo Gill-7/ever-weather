@@ -89,7 +89,6 @@ const compressBtn = () => {
 
 const changeMapWithThemeHandler = () => {
   let theme = localStorage.getItem("theme");
-  console.log(theme);
   if (theme === "dark") {
     MAPID = mapNightID;
   } else {
