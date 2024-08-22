@@ -273,6 +273,7 @@ const handleUserLocation = async (latitude, longitude) => {
     );
     const data = await userLocationData.json();
     const results = data.results;
+    console.log(results);
     let { cityName, cityState } = handleLocationData(results);
     return { cityName, cityState };
   } catch (err) {
