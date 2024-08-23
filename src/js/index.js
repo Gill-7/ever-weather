@@ -340,10 +340,12 @@ window.addEventListener("DOMContentLoaded", () => {
   if (allowPosition === "true") {
     document.querySelector(".overlay").style.display = "none";
     document.querySelector(".shadow-overlay").style.display = "none";
+    document.body.classList.remove("no-scroll");
     getWeatherData(true);
   } else {
     document.querySelector(".overlay").style.display = "block";
     document.querySelector(".shadow-overlay").style.display = "block";
+    document.body.classList.add("no-scroll");
   }
 });
 
@@ -354,6 +356,7 @@ allowLocationBtn.addEventListener("click", () => {
   if (allowPosition === "true") {
     document.querySelector(".overlay").style.display = "none";
     document.querySelector(".shadow-overlay").style.display = "none";
+    document.body.classList.remove("no-scroll");
     getWeatherData(true);
   }
 });
