@@ -84,6 +84,7 @@
 .sunrise img,
 .sunset img {
   width: 60px;
+  height: 60px;
   position: relative;
   top: 0.7rem;
 }
@@ -141,6 +142,7 @@
   .sunrise img,
   .sunset img {
     width: 50px;
+    height: 50px;
     position: relative;
     top: 0.4rem;
   }
@@ -196,6 +198,7 @@
 
 .current .icon {
   width: 100px;
+  height: auto;
   position: absolute;
   right: 0;
   top: 1rem;
@@ -233,6 +236,7 @@
 
   .current .icon {
     width: 85px;
+    height: auto;
     margin-top: 0.3rem;
   }
 }
@@ -264,6 +268,7 @@
     grid-column: 3 / 4;
     grid-row: 3 / 5;
     width: 65%;
+    height: auto;
     margin: 0;
     padding: 0;
     position: static;
@@ -297,6 +302,7 @@
   .sunrise img,
   .sunset img {
     width: 45px;
+    height: 45px;
     position: relative;
     top: 0.6rem;
   }
@@ -432,6 +438,7 @@
   .sunrise img,
   .sunset img {
     width: 45px;
+    height: 45px;
     position: relative;
     top: 0.4rem;
     right: 0.2rem;
@@ -451,7 +458,8 @@
 
 @media only screen and (max-width: 589px) {
   .current .icon {
-    width: 80%;
+    width: 75%;
+    height: auto;
     margin-right: 1rem;
   }
 
@@ -550,7 +558,9 @@
 
 @media only screen and (max-width: 489px) {
   .current .icon {
-    width: 78%;
+    width: 75%;
+    height: auto;
+    margin-left: 2.5rem;
   }
 
   .current .description {
@@ -574,6 +584,7 @@
   .sunrise img,
   .sunrise img {
     width: 50px;
+    height: 50px;
   }
 
   .sunrise > div,

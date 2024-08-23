@@ -66,7 +66,7 @@ function renderWeatherData(data, location) {
   )}</div>
             <img inline src=${renderWeatherIcon(
               data.current.weather[0].icon
-            )} class="icon" />`;
+            )} class="icon" alt="current-icon" />`;
 
   // WEATHER DETAILS
   const feelsLike = document.querySelector(".feels-like .weather-detail");
@@ -320,48 +320,48 @@ function renderDailyForecast(data) {
   );
   firstDayWeatherIcon.innerHTML = `<img src=${renderWeatherIcon(
     data.daily[0].weather[0].icon
-  )} class="weather-daily-icon" />`;
+  )} alt="daily-icon-0" class="weather-daily-icon" />`;
 
   const secondDayWeatherIcon = document.querySelector(
     "#second-container .forecast-daily-img-container"
   );
   secondDayWeatherIcon.innerHTML = `<img src=${renderWeatherIcon(
     data.daily[1].weather[0].icon
-  )} class="weather-daily-icon" />`;
+  )} alt="daily-icon-1" class="weather-daily-icon" />`;
 
   const thirdDayWeatherIcon = document.querySelector(
     "#third-container .forecast-daily-img-container"
   );
   thirdDayWeatherIcon.innerHTML = `<img src=${renderWeatherIcon(
     data.daily[2].weather[0].icon
-  )} class="weather-daily-icon" />`;
+  )} alt="daily-icon-2" class="weather-daily-icon" />`;
 
   const fourthDayWeatherIcon = document.querySelector(
     "#fourth-container .forecast-daily-img-container"
   );
   fourthDayWeatherIcon.innerHTML = `<img src=${renderWeatherIcon(
     data.daily[3].weather[0].icon
-  )} class="weather-daily-icon" />`;
+  )} alt="daily-icon-3" class="weather-daily-icon" />`;
 
   const fifthDayWeatherIcon = document.querySelector(
     "#fifth-container .forecast-daily-img-container"
   );
   fifthDayWeatherIcon.innerHTML = `<img src=${renderWeatherIcon(
     data.daily[4].weather[0].icon
-  )} class="weather-daily-icon" />`;
+  )} alt="daily-icon-4" class="weather-daily-icon" />`;
   const sixthDayWeatherIcon = document.querySelector(
     "#sixth-container .forecast-daily-img-container"
   );
   sixthDayWeatherIcon.innerHTML = `<img src=${renderWeatherIcon(
     data.daily[5].weather[0].icon
-  )} class="weather-daily-icon" />`;
+  )} alt="daily-icon-5" class="weather-daily-icon" />`;
 
   const seventhDayWeatherIcon = document.querySelector(
     "#seventh-container .forecast-daily-img-container"
   );
   seventhDayWeatherIcon.innerHTML = `<img src=${renderWeatherIcon(
     data.daily[6].weather[0].icon
-  )} class="weather-daily-icon" />`;
+  )} alt="daily-icon-6" class="weather-daily-icon" />`;
 }
 
 function renderHourlyForecast(data) {
@@ -374,7 +374,7 @@ function renderHourlyForecast(data) {
   )}</div>
   <img src=${renderWeatherIcon(
     data.hourly[0].weather[0].icon
-  )} class="forecast-hourly-icon" />
+  )} alt="hourly-icon-0" class="forecast-hourly-icon" />
   <div class="forecast-hourly-temp">${Math.round(data.hourly[0].temp)}°</div>
   <div class="forecast-hourly-desc">${data.hourly[0].weather[0].main}</div>`;
 
@@ -386,7 +386,7 @@ function renderHourlyForecast(data) {
   )}</div>
   <img src=${renderWeatherIcon(
     data.hourly[1].weather[0].icon
-  )} class="forecast-hourly-icon" />
+  )} alt="hourly-icon-1" class="forecast-hourly-icon" />
   <div class="forecast-hourly-temp">${Math.round(data.hourly[1].temp)}°</div>
   <div class="forecast-hourly-desc">${data.hourly[1].weather[0].main}</div>`;
 
@@ -398,7 +398,7 @@ function renderHourlyForecast(data) {
   )}</div>
   <img src=${renderWeatherIcon(
     data.hourly[2].weather[0].icon
-  )} class="forecast-hourly-icon" />
+  )} alt="hourly-icon-2" class="forecast-hourly-icon" />
   <div class="forecast-hourly-temp">${Math.round(data.hourly[2].temp)}°</div>
   <div class="forecast-hourly-desc">${data.hourly[2].weather[0].main}</div>`;
 
@@ -410,7 +410,7 @@ function renderHourlyForecast(data) {
   )}</div>
   <img src=${renderWeatherIcon(
     data.hourly[3].weather[0].icon
-  )} class="forecast-hourly-icon" />
+  )} alt="hourly-icon-3" class="forecast-hourly-icon" />
   <div class="forecast-hourly-temp">${Math.round(data.hourly[3].temp)}°</div>
   <div class="forecast-hourly-desc">${data.hourly[3].weather[0].main}</div>`;
 
@@ -422,7 +422,7 @@ function renderHourlyForecast(data) {
   )}</div>
   <img src=${renderWeatherIcon(
     data.hourly[4].weather[0].icon
-  )} class="forecast-hourly-icon" />
+  )} alt="hourly-icon-4" class="forecast-hourly-icon" />
   <div class="forecast-hourly-temp">${Math.round(data.hourly[4].temp)}°</div>
   <div class="forecast-hourly-desc">${data.hourly[4].weather[0].main}</div>`;
 
@@ -434,7 +434,7 @@ function renderHourlyForecast(data) {
   )}</div>
   <img src=${renderWeatherIcon(
     data.hourly[5].weather[0].icon
-  )} class="forecast-hourly-icon" />
+  )} alt="hourly-icon-5" class="forecast-hourly-icon" />
   <div class="forecast-hourly-temp">${Math.round(data.hourly[5].temp)}°</div>
   <div class="forecast-hourly-desc">${data.hourly[5].weather[0].main}</div>`;
 
@@ -446,7 +446,7 @@ function renderHourlyForecast(data) {
   )}</div>
   <img src=${renderWeatherIcon(
     data.hourly[6].weather[0].icon
-  )} class="forecast-hourly-icon" />
+  )} alt="hourly-icon-6" class="forecast-hourly-icon" />
   <div class="forecast-hourly-temp">${Math.round(data.hourly[6].temp)}°</div>
   <div class="forecast-hourly-desc">${data.hourly[6].weather[0].main}</div>`;
 
@@ -458,7 +458,7 @@ function renderHourlyForecast(data) {
   )}</div>
   <img src=${renderWeatherIcon(
     data.hourly[7].weather[0].icon
-  )} class="forecast-hourly-icon" />
+  )} alt="hourly-icon-7" class="forecast-hourly-icon" />
   <div class="forecast-hourly-temp">${Math.round(data.hourly[7].temp)}°</div>
   <div class="forecast-hourly-desc">${data.hourly[7].weather[0].main}</div>`;
 
@@ -470,7 +470,7 @@ function renderHourlyForecast(data) {
   )}</div>
   <img src=${renderWeatherIcon(
     data.hourly[8].weather[0].icon
-  )} class="forecast-hourly-icon" />
+  )} alt="hourly-icon-8" class="forecast-hourly-icon" />
   <div class="forecast-hourly-temp">${Math.round(data.hourly[8].temp)}°</div>
   <div class="forecast-hourly-desc">${data.hourly[8].weather[0].main}</div>`;
 
@@ -482,7 +482,7 @@ function renderHourlyForecast(data) {
   )}</div>
   <img src=${renderWeatherIcon(
     data.hourly[9].weather[0].icon
-  )} class="forecast-hourly-icon" />
+  )} alt="hourly-icon-9" class="forecast-hourly-icon" />
   <div class="forecast-hourly-temp">${Math.round(data.hourly[9].temp)}°</div>
   <div class="forecast-hourly-desc">${data.hourly[9].weather[0].main}</div>`;
 
@@ -494,7 +494,7 @@ function renderHourlyForecast(data) {
   )}</div>
   <img src=${renderWeatherIcon(
     data.hourly[10].weather[0].icon
-  )} class="forecast-hourly-icon" />
+  )} alt="hourly-icon-10" class="forecast-hourly-icon" />
   <div class="forecast-hourly-temp">${Math.round(data.hourly[10].temp)}°</div>
   <div class="forecast-hourly-desc">${data.hourly[10].weather[0].main}</div>`;
 
@@ -506,7 +506,7 @@ function renderHourlyForecast(data) {
   )}</div>
   <img src=${renderWeatherIcon(
     data.hourly[11].weather[0].icon
-  )} class="forecast-hourly-icon" />
+  )} alt="hourly-icon-11" class="forecast-hourly-icon" />
   <div class="forecast-hourly-temp">${Math.round(data.hourly[11].temp)}°</div>
   <div class="forecast-hourly-desc">${data.hourly[11].weather[0].main}</div>`;
 
@@ -518,7 +518,7 @@ function renderHourlyForecast(data) {
   )}</div>
   <img src=${renderWeatherIcon(
     data.hourly[12].weather[0].icon
-  )} class="forecast-hourly-icon" />
+  )} alt="hourly-icon-12" class="forecast-hourly-icon" />
   <div class="forecast-hourly-temp">${Math.round(data.hourly[12].temp)}°</div>
   <div class="forecast-hourly-desc">${data.hourly[12].weather[0].main}</div>`;
 
@@ -530,7 +530,7 @@ function renderHourlyForecast(data) {
   )}</div>
   <img src=${renderWeatherIcon(
     data.hourly[13].weather[0].icon
-  )} class="forecast-hourly-icon" />
+  )} alt="hourly-icon-13" class="forecast-hourly-icon" />
   <div class="forecast-hourly-temp">${Math.round(data.hourly[13].temp)}°</div>
   <div class="forecast-hourly-desc">${data.hourly[13].weather[0].main}</div>`;
 
@@ -542,7 +542,7 @@ function renderHourlyForecast(data) {
   )}</div>
   <img src=${renderWeatherIcon(
     data.hourly[14].weather[0].icon
-  )} class="forecast-hourly-icon" />
+  )} alt="hourly-icon-14" class="forecast-hourly-icon" />
   <div class="forecast-hourly-temp">${Math.round(data.hourly[14].temp)}°</div>
   <div class="forecast-hourly-desc">${data.hourly[14].weather[0].main}</div>`;
 
@@ -554,7 +554,7 @@ function renderHourlyForecast(data) {
   )}</div>
   <img src=${renderWeatherIcon(
     data.hourly[15].weather[0].icon
-  )} class="forecast-hourly-icon" />
+  )} alt="hourly-icon-15" class="forecast-hourly-icon" />
   <div class="forecast-hourly-temp">${Math.round(data.hourly[15].temp)}°</div>
   <div class="forecast-hourly-desc">${data.hourly[15].weather[0].main}</div>`;
 
@@ -566,7 +566,7 @@ function renderHourlyForecast(data) {
   )}</div>
   <img src=${renderWeatherIcon(
     data.hourly[16].weather[0].icon
-  )} class="forecast-hourly-icon" />
+  )} alt="hourly-icon-16" class="forecast-hourly-icon" />
   <div class="forecast-hourly-temp">${Math.round(data.hourly[16].temp)}°</div>
   <div class="forecast-hourly-desc">${data.hourly[16].weather[0].main}</div>`;
 
@@ -578,7 +578,7 @@ function renderHourlyForecast(data) {
   )}</div>
   <img src=${renderWeatherIcon(
     data.hourly[17].weather[0].icon
-  )} class="forecast-hourly-icon" />
+  )} alt="hourly-icon-17" class="forecast-hourly-icon" />
   <div class="forecast-hourly-temp">${Math.round(data.hourly[17].temp)}°</div>
   <div class="forecast-hourly-desc">${data.hourly[17].weather[0].main}</div>`;
 
@@ -590,7 +590,7 @@ function renderHourlyForecast(data) {
   )}</div>
   <img src=${renderWeatherIcon(
     data.hourly[18].weather[0].icon
-  )} class="forecast-hourly-icon" />
+  )} alt="hourly-icon-18" class="forecast-hourly-icon" />
   <div class="forecast-hourly-temp">${Math.round(data.hourly[18].temp)}°</div>
   <div class="forecast-hourly-desc">${data.hourly[18].weather[0].main}</div>`;
 
@@ -602,7 +602,7 @@ function renderHourlyForecast(data) {
   )}</div>
   <img src=${renderWeatherIcon(
     data.hourly[19].weather[0].icon
-  )} class="forecast-hourly-icon" />
+  )} alt="hourly-icon-19" class="forecast-hourly-icon" />
   <div class="forecast-hourly-temp">${Math.round(data.hourly[19].temp)}°</div>
   <div class="forecast-hourly-desc">${data.hourly[19].weather[0].main}</div>`;
 
@@ -614,7 +614,7 @@ function renderHourlyForecast(data) {
   )}</div>
   <img src=${renderWeatherIcon(
     data.hourly[20].weather[0].icon
-  )} class="forecast-hourly-icon" />
+  )} alt="hourly-icon-20" class="forecast-hourly-icon" />
   <div class="forecast-hourly-temp">${Math.round(data.hourly[20].temp)}°</div>
   <div class="forecast-hourly-desc">${data.hourly[20].weather[0].main}</div>`;
 
@@ -626,7 +626,7 @@ function renderHourlyForecast(data) {
   )}</div>
   <img src=${renderWeatherIcon(
     data.hourly[21].weather[0].icon
-  )} class="forecast-hourly-icon" />
+  )} alt="hourly-icon-21" class="forecast-hourly-icon" />
   <div class="forecast-hourly-temp">${Math.round(data.hourly[21].temp)}°</div>
   <div class="forecast-hourly-desc">${data.hourly[21].weather[0].main}</div>`;
 
@@ -638,7 +638,7 @@ function renderHourlyForecast(data) {
   )}</div>
   <img src=${renderWeatherIcon(
     data.hourly[22].weather[0].icon
-  )} class="forecast-hourly-icon" />
+  )} alt="hourly-icon-22" class="forecast-hourly-icon" />
   <div class="forecast-hourly-temp">${Math.round(data.hourly[22].temp)}°</div>
   <div class="forecast-hourly-desc">${data.hourly[22].weather[0].main}</div>`;
 
@@ -650,7 +650,7 @@ function renderHourlyForecast(data) {
   )}</div>
   <img src=${renderWeatherIcon(
     data.hourly[23].weather[0].icon
-  )} class="forecast-hourly-icon" />
+  )} alt="hourly-icon-23" class="forecast-hourly-icon" />
   <div class="forecast-hourly-temp">${Math.round(data.hourly[23].temp)}°</div>
   <div class="forecast-hourly-desc">${data.hourly[23].weather[0].main}</div>`;
 }

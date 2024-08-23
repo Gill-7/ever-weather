@@ -50,6 +50,61 @@ body {
   color: var(--text-color);
 }
 
+.overlay {
+  width: 22rem;
+  z-index: 20;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: var;
+  transform: translate(-50%, -50%);
+  padding: 26px 28px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  background-color: var(--background);
+  font-size: 0.9rem;
+}
+
+#location-prompt {
+  height: 100%;
+  text-align: center;
+}
+
+#location-prompt p {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #d5d5d5;
+}
+
+#location-prompt button {
+  padding: 0.5rem 0.7rem;
+  background-color: #d5d5d5;
+  border-radius: 1px;
+  outline: none;
+}
+
+#location-prompt button:hover {
+  background-color: #c7c7c7;
+}
+
+.shadow-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  inset: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.9);
+}
+
+@media only screen and (max-width: 589px) {
+  .overlay {
+    width: 80%;
+    font-size: 0.85rem;
+  }
+}
+
 .hidden {
   display: none;
 }
@@ -204,6 +259,9 @@ body {
 .map {
   grid-area: mp;
 }
+.current {
+  height: 210px;
+}
 
 @media only screen and (max-width: 1179px) {
   .theme,
@@ -218,6 +276,9 @@ body {
   .map {
     padding: 0.75rem;
   }
+  .current {
+    height: 200px;
+  }
 }
 
 @media only screen and (max-width: 979px) {
@@ -230,6 +291,13 @@ body {
     -o-background-size: cover;
     background-size: cover;
     background-position: center;
+    height: 270px;
+  }
+}
+
+@media only screen and (max-width: 669px) {
+  .current {
+    height: 250px;
   }
 }
 

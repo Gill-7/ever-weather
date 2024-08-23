@@ -4,12 +4,35 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Ever Weather provides real-time weather information with an interactive map. Easily view weather updates for your location and explore global weather patterns with our dynamic map feature."
+    />
+    <link
+      rel="preconnect"
+      href="https://kit.fontawesome.com"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="https://kit.fontawesome.com/4d04ed9927.js"
+      as="script"
+      crossorigin="anonymous"
+    />
+
     <script
       src="https://kit.fontawesome.com/4d04ed9927.js"
       crossorigin="anonymous"
+      defer
     ></script>
 
-    <title>Weather</title>
+    <title>Ever Weather</title>
+    <style>
+      .fas {
+        font-family: Arial, sans-serif; /* Fallback font */
+      }
+    </style>
+    <title>Ever Weather</title>
   </head>
   <body>
     <div class="container">
@@ -21,7 +44,7 @@
             placeholder="Search Location..."
             required
           />
-          <button class="search-btn" type="submit">
+          <button class="search-btn" type="submit" aria-label="Search">
             <i class="fa fa-search"></i>
           </button>
         </form>
@@ -591,6 +614,18 @@
         </div>
       </div>
       <div class="map skeleton skeleton-map"></div>
+    </div>
+
+    <!-- OVERLAY -->
+    <div class="shadow-overlay"></div>
+    <div class="overlay">
+      <div id="location-prompt">
+        <p>
+          We'd like to use your location to show you accurate weather
+          information. Please allow access to continue.
+        </p>
+        <button id="allow-location">Allow Location Access</button>
+      </div>
     </div>
   </body>
 </html>

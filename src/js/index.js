@@ -331,12 +331,32 @@ const getWeatherData = async (initialLoad = false) => {
     document.querySelector(".error-msg").style.display = "none";
     input.value = "";
   } catch (err) {
-    console.log(err);
     document.querySelector(".error-msg").style.display = "block";
   }
 };
 
-getWeatherData(true);
+window.addEventListener("DOMContentLoaded", () => {
+  let allowPosition = localStorage.getItem("allowPosition");
+  if (allowPosition === "true") {
+    document.querySelector(".overlay").style.display = "none";
+    document.querySelector(".shadow-overlay").style.display = "none";
+    getWeatherData(true);
+  } else {
+    document.querySelector(".overlay").style.display = "block";
+    document.querySelector(".shadow-overlay").style.display = "block";
+  }
+});
+
+const allowLocationBtn = document.getElementById("allow-location");
+allowLocationBtn.addEventListener("click", () => {
+  localStorage.setItem("allowPosition", true);
+  let allowPosition = localStorage.getItem("allowPosition");
+  if (allowPosition === "true") {
+    document.querySelector(".overlay").style.display = "none";
+    document.querySelector(".shadow-overlay").style.display = "none";
+    getWeatherData(true);
+  }
+});
 
 const form = document.querySelector(".form");
 let input = document.querySelector(".search-input");
