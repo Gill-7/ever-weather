@@ -16,12 +16,12 @@
 }
 :root.light {
   --background: #fff;
-  --background-container: #f4f4f4;
+  --background-container: #d6d6d6;
   --borders: #e6e8e8;
   --text-color-secondary: #f0f0f0;
   --text-light-color-secondary: #e3e2e2;
   --text-color: #2e3535;
-  --text-light-color: #676868;
+  --text-light-color: #363636;
   --icon-color: #777676;
   --daily-secondary-color: #6d6c6c;
   --skeleton-color: #d6d6d6;
